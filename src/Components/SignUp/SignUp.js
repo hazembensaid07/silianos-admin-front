@@ -6,14 +6,13 @@ const SignUp = () => {
       <b className="screen-overlay" />
       <header className="main-header navbar">
         <div className="col-brand">
-          <a href="page-index-1.html" className="brand-wrap">
-            <img
-              src="images/logo.svg"
-              height={46}
-              className="logo"
-              alt="Ecommerce dashboard template"
-            />
-          </a>
+          <img
+            src="./lo.jpg"
+            height={150}
+            width={300}
+            className="logo"
+            alt="Ecommerce dashboard template"
+          />
         </div>
         <div className="col-nav">
           <button

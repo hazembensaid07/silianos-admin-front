@@ -10,8 +10,9 @@ const SideBar = () => {
       <div className="aside-top">
         <Link to={{ pathname: `/admin_dashboard` }} className="brand-wrap">
           <img
-            src="images/logo.svg"
-            height={46}
+            src="/lo.jpg"
+            height={150}
+            width={300}
             className="logo"
             alt="Ecommerce dashboard template"
           />

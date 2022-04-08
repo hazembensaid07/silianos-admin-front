@@ -166,8 +166,8 @@ body.offcanvas-active {
   display: inline-block;
 }
 .navbar-aside .aside-top .logo {
-  height: 46px;
-  width: auto;
+  height: 96px;
+  width: 250px;
   max-width: 200px;
 }
 
