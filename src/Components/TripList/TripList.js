@@ -86,8 +86,19 @@ const TripList = () => {
                         <b>Lace mini dress with faux leather</b>
                       </td>
                       <td>Dresses</td>
-
+                      <td>
+                        <span className="badge rounded-pill alert-success">
+                          Active
+                        </span>
+                      </td>
+                      <td>03.12.2020</td>
                       <td className="text-end">
+                        <Link
+                          className="btn btn-light"
+                          to={{ pathname: `/trip_details` }}
+                        >
+                          Detail
+                        </Link>
                         <div className="dropdown">
                           <a
                             href="#"
@@ -98,12 +109,6 @@ const TripList = () => {
                             <i className="material-icons md-more_horiz" />{" "}
                           </a>
                           <div className="dropdown-menu">
-                            <Link
-                              className="dropdown-item"
-                              to={{ pathname: `/trip_details` }}
-                            >
-                              View detail
-                            </Link>
                             <Link
                               className="dropdown-item"
                               to={{ pathname: `/update_trip` }}
@@ -123,8 +128,19 @@ const TripList = () => {
                         <b>Lace mini dress with faux leather</b>
                       </td>
                       <td>Dresses</td>
-
+                      <td>
+                        <span className="badge rounded-pill alert-success">
+                          Active
+                        </span>
+                      </td>
+                      <td>03.12.2020</td>
                       <td className="text-end">
+                        <Link
+                          className="btn btn-light"
+                          to={{ pathname: `/trip_details` }}
+                        >
+                          Detail
+                        </Link>
                         <div className="dropdown">
                           <a
                             href="#"
@@ -135,12 +151,6 @@ const TripList = () => {
                             <i className="material-icons md-more_horiz" />{" "}
                           </a>
                           <div className="dropdown-menu">
-                            <Link
-                              className="dropdown-item"
-                              to={{ pathname: `/trip_details` }}
-                            >
-                              View detail
-                            </Link>
                             <Link
                               className="dropdown-item"
                               to={{ pathname: `/update_trip` }}

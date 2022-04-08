@@ -1,5 +1,5 @@
 import React from "react";
-import SideBar from "./SideBar/SideBar";
+
 import { Link } from "react-router-dom";
 const Error = () => {
   return (
@@ -7,50 +7,6 @@ const Error = () => {
       <b className="screen-overlay" />
 
       <main className="main-wrap">
-        <header className="main-header navbar">
-          <div className="col-search"></div>
-          <div className="col-nav">
-            <button
-              className="btn btn-icon btn-mobile me-auto"
-              data-trigger="#offcanvas_aside"
-            >
-              {" "}
-              <i className="md-28 material-icons md-menu" />{" "}
-            </button>
-            <ul className="nav">
-              <li className="nav-item">
-                <a
-                  className="nav-link btn-icon"
-                  onclick="darkmode(this)"
-                  title="Dark mode"
-                  href="#"
-                >
-                  {" "}
-                  <i className="material-icons md-nights_stay" />{" "}
-                </a>
-              </li>
-
-              <li className="dropdown nav-item">
-                <a
-                  className="dropdown-toggle"
-                  data-bs-toggle="dropdown"
-                  href="#"
-                ></a>
-                <div className="dropdown-menu dropdown-menu-end">
-                  <a className="dropdown-item" href="#">
-                    My profile
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    Settings
-                  </a>
-                  <a className="dropdown-item text-danger" href="#">
-                    Exit
-                  </a>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </header>
         <section className="content-main">
           <div className="row" style={{ marginTop: "60px" }}>
             <div className="col-sm-12">

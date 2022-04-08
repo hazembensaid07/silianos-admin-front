@@ -103,6 +103,12 @@ const HotelList = () => {
                       </td>
                       <td>03.12.2020</td>
                       <td className="text-end">
+                        <Link
+                          className="btn btn-light"
+                          to={{ pathname: `/hotel_details` }}
+                        >
+                          Detail
+                        </Link>
                         <div className="dropdown">
                           <a
                             href="#"
@@ -113,12 +119,6 @@ const HotelList = () => {
                             <i className="material-icons md-more_horiz" />{" "}
                           </a>
                           <div className="dropdown-menu">
-                            <Link
-                              className="dropdown-item"
-                              to={{ pathname: `/hotel_details` }}
-                            >
-                              View detail
-                            </Link>
                             <Link
                               className="dropdown-item"
                               to={{ pathname: `/update_hotel` }}
@@ -145,6 +145,12 @@ const HotelList = () => {
                       </td>
                       <td>03.12.2020</td>
                       <td className="text-end">
+                        <Link
+                          className="btn btn-light"
+                          to={{ pathname: `/hotel_details` }}
+                        >
+                          Detail
+                        </Link>
                         <div className="dropdown">
                           <a
                             href="#"
@@ -155,12 +161,6 @@ const HotelList = () => {
                             <i className="material-icons md-more_horiz" />{" "}
                           </a>
                           <div className="dropdown-menu">
-                            <Link
-                              className="dropdown-item"
-                              to={{ pathname: `/hotel_details` }}
-                            >
-                              View detail
-                            </Link>
                             <Link
                               className="dropdown-item"
                               to={{ pathname: `/update_hotel` }}
