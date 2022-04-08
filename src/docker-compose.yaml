@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+
+  admin_dash:
+    container_name: admin_dashboardd
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '80:80'
