@@ -15,7 +15,7 @@ import TripList from "./Components/TripList/TripList";
 import UpdateHotel from "./Components/UpdateHotel/UpdateHotel";
 import UpdateTrip from "./Components/UpdateTrip/UpdateTrip";
 import VoucherList from "./Components/VoucherList/VoucherList";
-import { Route, Navigate, Routes, useLocation } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Error from "./Components/error";
 function App() {
   return (
