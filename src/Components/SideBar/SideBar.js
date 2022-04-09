@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { Link, useLocation } from "react-router-dom";
 const SideBar = () => {
   const location = useLocation();
@@ -27,45 +28,72 @@ const SideBar = () => {
       {/* aside-top.// */}
       <nav>
         <ul className="menu-aside">
-          <li className="menu-item active">
-            <Link
+          <li className="menu-item ">
+            <NavLink
               className="menu-link"
               to={{
                 pathname: `/admin_dashboard`,
               }}
+              style={({ isActive }) =>
+                isActive ? { color: "red" } : { color: "black" }
+              }
             >
               {" "}
               <i className="icon material-icons md-home" />
               <span className="text">Dashboard</span>
-            </Link>
+            </NavLink>
           </li>
           <li className="menu-item">
-            <Link className="menu-link" to={{ pathname: `/hotels` }}>
+            <NavLink
+              className="menu-link"
+              to={{ pathname: `/hotels` }}
+              style={({ isActive }) =>
+                isActive ? { color: "red" } : { color: "black" }
+              }
+            >
               {" "}
               <i className="icon material-icons md-shopping_bag" />
               <span className="text">Hotels</span>
-            </Link>
+            </NavLink>
           </li>
           <li className="menu-item ">
-            <Link className="menu-link" to={{ pathname: `/trips` }}>
+            <NavLink
+              className="menu-link"
+              to={{ pathname: `/trips` }}
+              style={({ isActive }) =>
+                isActive ? { color: "red" } : { color: "black" }
+              }
+            >
               {" "}
               <i className="icon material-icons md-shopping_cart" />
               <span className="text">Trips</span>
-            </Link>
+            </NavLink>
           </li>
           <li className="menu-item ">
-            <Link className="menu-link" to={{ pathname: `/voucher_list` }}>
+            <NavLink
+              className="menu-link"
+              to={{ pathname: `/voucher_list` }}
+              style={({ isActive }) =>
+                isActive ? { color: "red" } : { color: "black" }
+              }
+            >
               {" "}
               <i className="icon material-icons md-store" />
               <span className="text">Vouchers</span>
-            </Link>
+            </NavLink>
           </li>
           <li className="menu-item ">
-            <Link className="menu-link" to={{ pathname: `/admin_list` }}>
+            <NavLink
+              className="menu-link"
+              to={{ pathname: `/admin_list` }}
+              style={({ isActive }) =>
+                isActive ? { color: "red" } : { color: "black" }
+              }
+            >
               {" "}
               <i className="icon material-icons md-add_box" />
               <span className="text">Admin Requests </span>
-            </Link>
+            </NavLink>
           </li>
         </ul>
 
