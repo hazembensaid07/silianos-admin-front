@@ -1,45 +1,40 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, Redirect } from "react-router-dom";
+import { isAuth } from "../../helpers/helper";
+import Header from "../Header/Header";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
+import apiUri from "../apiUri";
+const ForgotPassword = ({ history }) => {
+  const [email, setEmail] = useState("");
+  const handleChange = (event) => {
+    setEmail(event.target.value);
+  };
+  const clickSubmit = (event) => {
+    event.preventDefault();
 
-const ForgotPassword = () => {
+    axios({
+      method: "PUT",
+      url: `${apiUri()}/user/forgot-password`,
+      data: { email },
+    })
+      .then((response) => {
+        console.log("FORGOT PASSWORD SUCCESS", response);
+        toast.success(response.data.message);
+      })
+      .catch((error) => {
+        console.log("FORGOT PASSWORD ERROR", error.response.data);
+        toast.error(error.response.data.error);
+      });
+  };
   return (
     <div>
+      <ToastContainer />
+      {isAuth() && <Redirect to="/admin_request" />}
       <b className="screen-overlay" />
-      <header className="main-header navbar">
-        <div className="col-brand">
-          <img
-            src="./lo.jpg"
-            height={150}
-            width={300}
-            className="logo"
-            alt="Ecommerce dashboard template"
-          />
-        </div>
-        <div className="col-nav">
-          <button
-            className="btn btn-icon btn-mobile me-auto"
-            data-trigger="#offcanvas_aside"
-          >
-            {" "}
-            <i className="md-28 material-icons md-menu" />{" "}
-          </button>
-          <ul className="nav">
-            <li className="nav-item">
-              <a
-                className="nav-link btn-icon"
-                onClick="darkmode(this)"
-                title="Dark mode"
-                href="#"
-              >
-                {" "}
-                <i className="material-icons md-nights_stay" />{" "}
-              </a>
-            </li>
-          </ul>
-        </div>
-      </header>
+      <Header />
       <section className="content-main">
-        {/* ============================ COMPONENT LOGIN   ================================= */}
         <div
           className="card shadow mx-auto"
           style={{ maxWidth: "380px", marginTop: "100px" }}
@@ -47,23 +42,25 @@ const ForgotPassword = () => {
           <div className="card-body">
             <h4 className="card-title mb-4">Reset Password</h4>
             <form>
-              {/* form-group// */}
               <div className="mb-3">
                 <input
                   className="form-control"
                   placeholder="email"
+                  onChange={handleChange}
+                  value={email}
                   type="email"
                 />
               </div>{" "}
-              {/* form-group// */}
-              {/* form-group form-check .// */}
               <div className="mb-4">
-                <button type="submit" className="btn btn-primary w-100">
+                <button
+                  type="submit"
+                  className="btn btn-primary w-100"
+                  onClick={clickSubmit}
+                >
                   {" "}
                   Reset Password
                 </button>
               </div>{" "}
-              {/* form-group// */}
             </form>
             <p className="text-center mb-4">
               <Link
@@ -74,13 +71,9 @@ const ForgotPassword = () => {
                 Log In
               </Link>
             </p>
-          </div>{" "}
-          {/* card-body.// */}
-        </div>{" "}
-        {/* card .// */}
-        {/* ============================ COMPONENT LOGIN  END.// ================================= */}
-      </section>{" "}
-      {/* content-main end// */}
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

@@ -7,5 +7,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    restart: always
     ports:
       - '1500:80'

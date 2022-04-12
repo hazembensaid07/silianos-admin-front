@@ -5,7 +5,7 @@ const SideBar = () => {
   const location = useLocation();
   //destructuring pathname from location
   const { pathname } = location;
-  const splitLocation = pathname.split("/");
+
   return (
     <aside className="navbar-aside" id="offcanvas_aside">
       <div className="aside-top">
@@ -28,28 +28,24 @@ const SideBar = () => {
       {/* aside-top.// */}
       <nav>
         <ul className="menu-aside">
-          <li className="menu-item ">
-            <NavLink
-              className="menu-link"
-              to={{
-                pathname: `/admin_dashboard`,
-              }}
-              style={({ isActive }) =>
-                isActive ? { color: "red" } : { color: "black" }
-              }
-            >
+          <NavLink
+            className="menu-link"
+            to={{
+              pathname: `/admin_dashboard`,
+            }}
+            activeStyle={{ color: "#ff0000" }}
+          >
+            <li className="menu-item ">
               {" "}
               <i className="icon material-icons md-home" />
               <span className="text">Dashboard</span>
-            </NavLink>
-          </li>
+            </li>
+          </NavLink>
           <li className="menu-item">
             <NavLink
               className="menu-link"
               to={{ pathname: `/hotels` }}
-              style={({ isActive }) =>
-                isActive ? { color: "red" } : { color: "black" }
-              }
+              activeStyle={{ color: "#ff0000" }}
             >
               {" "}
               <i className="icon material-icons md-shopping_bag" />
@@ -60,9 +56,7 @@ const SideBar = () => {
             <NavLink
               className="menu-link"
               to={{ pathname: `/trips` }}
-              style={({ isActive }) =>
-                isActive ? { color: "red" } : { color: "black" }
-              }
+              activeStyle={{ color: "#ff0000" }}
             >
               {" "}
               <i className="icon material-icons md-shopping_cart" />
@@ -73,28 +67,14 @@ const SideBar = () => {
             <NavLink
               className="menu-link"
               to={{ pathname: `/voucher_list` }}
-              style={({ isActive }) =>
-                isActive ? { color: "red" } : { color: "black" }
-              }
+              activeStyle={{ color: "#ff0000" }}
             >
               {" "}
               <i className="icon material-icons md-store" />
               <span className="text">Vouchers</span>
             </NavLink>
           </li>
-          <li className="menu-item ">
-            <NavLink
-              className="menu-link"
-              to={{ pathname: `/admin_list` }}
-              style={({ isActive }) =>
-                isActive ? { color: "red" } : { color: "black" }
-              }
-            >
-              {" "}
-              <i className="icon material-icons md-add_box" />
-              <span className="text">Admin Requests </span>
-            </NavLink>
-          </li>
+          <li className="menu-item "></li>
         </ul>
 
         <br />

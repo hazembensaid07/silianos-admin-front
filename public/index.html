@@ -9,16 +9,15 @@
       name="description"
       content="Web site created using create-react-app"
     />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.jpg" />
-    <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/lo.jpg" />
+    <link href="./lo.jpg" rel="shortcut icon" type="image/x-icon">
     
-    <link href="css/bootstrap.css?v=1.1" rel="stylesheet" type="text/css" />
+
     
     <link rel="stylesheet" href="fonts/material-icon/css/round.css" />
     
     <!-- custom style -->
-    <link href="css/ui.css?v=1.1" rel="stylesheet" type="text/css" />
-    <link href="css/responsive.css?v=1.1" rel="stylesheet" />
+   
 
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -49,47 +48,13 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <script>
-      if (localStorage.getItem("darkmode")) {
-        var body_el = document.body;
-        body_el.className += 'dark';
-      }
-    </script>
+ 
     
     <script src="js/jquery-3.5.0.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <!-- Custom JS -->
     <script src="js/script.js?v=1.0"></script>
-    <script>
-      var ctx = document.getElementById('myChart').getContext('2d');
-      var chart = new Chart(ctx, {
-        // The type of chart we want to create
-        type: 'line',
 
-        // The data for our dataset
-        data: {
-          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-          datasets: [
-            {
-              label: 'Sales',
-              backgroundColor: 'rgb(44, 120, 220)',
-              borderColor: 'rgb(44, 120, 220)',
-              data: [18, 17, 4, 3, 2, 20, 25, 31, 25, 22, 20, 9]
-            },
-            {
-              label: 'Visitors',
-              backgroundColor: 'rgb(180, 200, 230)',
-              borderColor: 'rgb(180, 200, 230)',
-              data: [40, 20, 17, 9, 23, 35, 39, 30, 34, 25, 27, 17]
-            }
-
-          ]
-        },
-
-        // Configuration options go here
-        options: {}
-      });
-    </script>
   </body>
 </html>

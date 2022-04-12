@@ -1,45 +1,59 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, Redirect } from "react-router-dom";
+import { isAuth } from "../../helpers/helper";
+import Header from "../Header/Header";
+import apiUri from "../apiUri";
+import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
+import "react-toastify/dist/ReactToastify.min.css";
 
-const RessetPassword = () => {
+const RessetPassword = ({ match }) => {
+  const [values, setValues] = useState({
+    password: "",
+    confirmPassword: "",
+    token: "",
+  });
+  const { password, confirmPassword, token } = values;
+  const handleChange = (name) => (event) => {
+    setValues({ ...values, [name]: event.target.value });
+  };
+  const clickSubmit = (event) => {
+    event.preventDefault();
+    if (password === confirmPassword) {
+      axios({
+        method: "PUT",
+        url: `${apiUri()}/user/reset-password`,
+        data: { newPassword: password, resetPasswordLink: token },
+      })
+        .then((response) => {
+          console.log("RESET PASSWORD SUCCESS", response);
+          toast.success(response.data.message);
+          setValues({
+            ...values,
+            password: "",
+            confirmPassword: "",
+            token: "",
+          });
+        })
+        .catch((error) => {
+          console.log("RESET PASSWORD ERROR", error.response.data);
+          toast.error(error.response.data.error);
+        });
+    } else {
+      toast.error("passwords don't match ");
+    }
+  };
+  useEffect(() => {
+    setValues({ ...values, token: match.params.token });
+  }, []);
   return (
     <div>
+      <ToastContainer />
+      {isAuth() && <Redirect to="/admin_request" />}
       <b className="screen-overlay" />
-      <header className="main-header navbar">
-        <div className="col-brand">
-          <img
-            src="./lo.jpg"
-            height={150}
-            width={300}
-            className="logo"
-            alt="Ecommerce dashboard template"
-          />
-        </div>
-        <div className="col-nav">
-          <button
-            className="btn btn-icon btn-mobile me-auto"
-            data-trigger="#offcanvas_aside"
-          >
-            {" "}
-            <i className="md-28 material-icons md-menu" />{" "}
-          </button>
-          <ul className="nav">
-            <li className="nav-item">
-              <a
-                className="nav-link btn-icon"
-                onClick="darkmode(this)"
-                title="Dark mode"
-                href="#"
-              >
-                {" "}
-                <i className="material-icons md-nights_stay" />{" "}
-              </a>
-            </li>
-          </ul>
-        </div>
-      </header>
+
+      <Header />
       <section className="content-main">
-        {/* ============================ COMPONENT LOGIN   ================================= */}
         <div
           className="card shadow mx-auto"
           style={{ maxWidth: "380px", marginTop: "100px" }}
@@ -47,30 +61,34 @@ const RessetPassword = () => {
           <div className="card-body">
             <h4 className="card-title mb-4">Reset Password</h4>
             <form>
-              {/* form-group// */}
               <div className="mb-3">
                 <input
                   className="form-control"
                   placeholder="Password"
+                  onChange={handleChange("password")}
+                  value={password}
                   type="password"
                 />
-              </div>{" "}
-              {/* form-group// */}
+              </div>
               <div className="mb-3">
                 <input
                   className="form-control"
                   placeholder=" Confirm Password"
+                  onChange={handleChange("confirmPassword")}
+                  value={confirmPassword}
                   type="password"
                 />
-              </div>{" "}
-              {/* form-group form-check .// */}
+              </div>
+
               <div className="mb-4">
-                <button type="submit" className="btn btn-primary w-100">
-                  {" "}
+                <button
+                  type="submit"
+                  className="btn btn-primary w-100"
+                  onClick={clickSubmit}
+                >
                   Reset Password
                 </button>
-              </div>{" "}
-              {/* form-group// */}
+              </div>
             </form>
             <p className="text-center mb-4">
               <Link
@@ -81,13 +99,9 @@ const RessetPassword = () => {
                 Log In
               </Link>
             </p>
-          </div>{" "}
-          {/* card-body.// */}
-        </div>{" "}
-        {/* card .// */}
-        {/* ============================ COMPONENT LOGIN  END.// ================================= */}
-      </section>{" "}
-      {/* content-main end// */}
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

@@ -1,45 +1,52 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, Redirect } from "react-router-dom";
+import axios from "axios";
+import { authenticate, isAuth } from "../../helpers/helper";
+import { ToastContainer, toast } from "react-toastify";
+import apiUri from "../apiUri";
+import "react-toastify/dist/ReactToastify.min.css";
+import Header from "../Header/Header";
+const Login = ({ history }) => {
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+  });
+  const handleChange = (name) => (event) => {
+    setValues({ ...values, [name]: event.target.value });
+  };
+  const clickSubmit = (event) => {
+    event.preventDefault();
+    axios({
+      method: "POST",
+      url: `${apiUri()}/user/signin`,
+      data: { email, password },
+    })
+      .then((response) => {
+        console.log("SIGNIN SUCCESS", response);
+        authenticate(response, () => {
+          setValues({
+            ...values,
+            name: "",
+            email: "",
+            password: "",
+          });
 
-const Login = () => {
+          isAuth() && history.push("/");
+        });
+      })
+      .catch((error) => {
+        console.log("SIGNIN ERROR", error.response.data);
+        toast.error(error.response.data.error);
+      });
+  };
+  const { email, password } = values;
   return (
     <div>
+      <ToastContainer />
+      {isAuth() && <Redirect to="/admin_request" />}
       <b className="screen-overlay" />
-      <header className="main-header navbar">
-        <div className="col-brand">
-          <img
-            src="./lo.jpg"
-            height={150}
-            width={300}
-            className="logo"
-            alt="Ecommerce dashboard template"
-          />
-        </div>
-        <div className="col-nav">
-          <button
-            className="btn btn-icon btn-mobile me-auto"
-            data-trigger="#offcanvas_aside"
-          >
-            {" "}
-            <i className="md-28 material-icons md-menu" />{" "}
-          </button>
-          <ul className="nav">
-            <li className="nav-item">
-              <a
-                className="nav-link btn-icon"
-                onClick="darkmode(this)"
-                title="Dark mode"
-                href="#"
-              >
-                {" "}
-                <i className="material-icons md-nights_stay" />{" "}
-              </a>
-            </li>
-          </ul>
-        </div>
-      </header>
+      <Header />
       <section className="content-main">
-        {/* ============================ COMPONENT LOGIN   ================================= */}
         <div
           className="card shadow mx-auto"
           style={{ maxWidth: "380px", marginTop: "100px" }}
@@ -49,20 +56,22 @@ const Login = () => {
             <form>
               <div className="mb-3">
                 <input
+                  onChange={handleChange("email")}
+                  value={email}
+                  type="email"
                   className="form-control"
                   placeholder="Username or email"
-                  type="text"
                 />
-              </div>{" "}
-              {/* form-group// */}
+              </div>
               <div className="mb-3">
                 <input
+                  onChange={handleChange("password")}
+                  value={password}
+                  type="password"
                   className="form-control"
                   placeholder="Password"
-                  type="password"
                 />
-              </div>{" "}
-              {/* form-group// */}
+              </div>
               <div className="mb-3">
                 <Link
                   to={{
@@ -80,18 +89,21 @@ const Login = () => {
                   />
                   <span className="form-check-label">Remember</span>
                 </label>
-              </div>{" "}
-              {/* form-group form-check .// */}
+              </div>
               <div className="mb-4">
-                <button type="submit" className="btn btn-primary w-100">
-                  {" "}
+                <button
+                  type="submit"
+                  className="btn btn-primary w-100"
+                  onClick={(e) => {
+                    clickSubmit(e);
+                  }}
+                >
                   Login
                 </button>
-              </div>{" "}
-              {/* form-group// */}
+              </div>
             </form>
             <p className="text-center mb-4">
-              Don't have account?{" "}
+              Don't have account?
               <Link
                 to={{
                   pathname: `/signup`,
@@ -100,13 +112,9 @@ const Login = () => {
                 Sign up
               </Link>
             </p>
-          </div>{" "}
-          {/* card-body.// */}
-        </div>{" "}
-        {/* card .// */}
-        {/* ============================ COMPONENT LOGIN  END.// ================================= */}
-      </section>{" "}
-      {/* content-main end// */}
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

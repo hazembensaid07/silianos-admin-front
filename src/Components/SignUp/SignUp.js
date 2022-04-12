@@ -1,44 +1,53 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, Redirect } from "react-router-dom";
+import axios from "axios";
+import apiUri from "../apiUri";
+import { ToastContainer, toast } from "react-toastify";
+import { isAuth } from "../../helpers/helper";
+import "react-toastify/dist/ReactToastify.min.css";
+import Header from "../Header/Header";
 const SignUp = () => {
+  const [values, setValues] = useState({
+    name: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+  const { name, email, password, lastName } = values;
+  const handleChange = (name) => (event) => {
+    setValues({ ...values, [name]: event.target.value });
+  };
+  const clickSubmit = (event) => {
+    event.preventDefault();
+    axios({
+      method: "POST",
+      url: `${apiUri()}/user/signup`,
+      data: { name, lastName, email, password },
+    })
+      .then((response) => {
+        console.log("SIGNUP SUCCESS", response);
+        setValues({
+          ...values,
+          name: "",
+          email: "",
+          password: "",
+          lastName: "",
+        });
+        toast.success(response.data.message);
+      })
+      .catch((error) => {
+        console.log("SIGNUP ERROR", error.response.data);
+        toast.error(error.response.data.error);
+      });
+  };
+
   return (
     <div>
+      <ToastContainer />
+      {isAuth() && <Redirect to="/admin_request" />}
       <b className="screen-overlay" />
-      <header className="main-header navbar">
-        <div className="col-brand">
-          <img
-            src="./lo.jpg"
-            height={150}
-            width={300}
-            className="logo"
-            alt="Ecommerce dashboard template"
-          />
-        </div>
-        <div className="col-nav">
-          <button
-            className="btn btn-icon btn-mobile me-auto"
-            data-trigger="#offcanvas_aside"
-          >
-            {" "}
-            <i className="md-28 material-icons md-menu" />{" "}
-          </button>
-          <ul className="nav">
-            <li className="nav-item">
-              <a
-                className="nav-link btn-icon"
-                onclick="darkmode(this)"
-                title="Dark mode"
-                href="#"
-              >
-                {" "}
-                <i className="material-icons md-nights_stay" />{" "}
-              </a>
-            </li>
-          </ul>
-        </div>
-      </header>
+      <Header />
       <section className="content-main">
-        {/* ============================ COMPONENT LOGIN   ================================= */}
         <div
           className="card shadow mx-auto"
           style={{ maxWidth: "380px", marginTop: "60px" }}
@@ -49,65 +58,72 @@ const SignUp = () => {
               <div className="mb-3">
                 <label className="form-label">First Name</label>
                 <input
+                  onChange={handleChange("name")}
+                  value={name}
+                  name="name"
                   className="form-control"
                   placeholder="Type text"
                   type="text"
+                  required
                 />
-              </div>{" "}
+              </div>
               <div className="mb-3">
                 <label className="form-label">Last Name</label>
                 <input
+                  required
+                  onChange={handleChange("lastName")}
+                  value={lastName}
                   className="form-control"
                   placeholder="Type text"
                   type="text"
                 />
-              </div>{" "}
+              </div>
               <div className="mb-3">
                 <label className="form-label">Email</label>
                 <input
+                  required
+                  onChange={handleChange("email")}
+                  value={email}
                   className="form-control"
                   placeholder="Type email"
                   type="text"
                 />
-              </div>{" "}
-              {/* form-group// */}
-              {/* form-group// */}
+              </div>
               <div className="mb-3">
                 <label className="form-label">Create password</label>
                 <input
+                  required
+                  onChange={handleChange("password")}
+                  value={password}
                   className="form-control"
                   placeholder="Password"
                   type="password"
                 />
-              </div>{" "}
-              {/* form-group// */}
-              {/* form-group  .// */}
+              </div>
               <div className="mb-4">
-                <button type="submit" className="btn btn-primary w-100">
-                  {" "}
+                <button
+                  type="submit"
+                  className="btn btn-primary w-100"
+                  onClick={clickSubmit}
+                >
                   Sign Up
                 </button>
-              </div>{" "}
-              {/* form-group// */}
+              </div>
             </form>
 
             <p className="text-center mb-2">
-              Already have an account?{" "}
+              Already have an account?
               <Link
                 to={{
                   pathname: `/`,
                 }}
               >
-                Sign in{" "}
+                Sign in
               </Link>
             </p>
-          </div>{" "}
-          {/* card-body.// */}
-        </div>{" "}
-        {/* card .// */}
-        {/* ============================ COMPONENT LOGIN  END.// ================================= */}
-      </section>{" "}
-      {/* content-main end// */}
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

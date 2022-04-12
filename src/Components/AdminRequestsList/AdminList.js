@@ -1,4 +1,6 @@
 import React from "react";
+
+import HeaderAuth from "../Header/HeaderAuth";
 import SideBar from "../SideBar/SideBar";
 
 const AdminList = () => {
@@ -7,62 +9,12 @@ const AdminList = () => {
       <b className="screen-overlay" />
       <SideBar />
       <main className="main-wrap">
-        <header className="main-header navbar">
-          <div className="col-search"></div>
-          <div className="col-nav">
-            <button
-              className="btn btn-icon btn-mobile me-auto"
-              data-trigger="#offcanvas_aside"
-            >
-              {" "}
-              <i className="md-28 material-icons md-menu" />{" "}
-            </button>
-            <ul className="nav">
-              <li className="nav-item">
-                <a
-                  className="nav-link btn-icon"
-                  onclick="darkmode(this)"
-                  title="Dark mode"
-                  href="#"
-                >
-                  {" "}
-                  <i className="material-icons md-nights_stay" />{" "}
-                </a>
-              </li>
-
-              <li className="dropdown nav-item">
-                <a
-                  className="dropdown-toggle"
-                  data-bs-toggle="dropdown"
-                  href="#"
-                >
-                  {" "}
-                </a>
-                <div className="dropdown-menu dropdown-menu-end">
-                  <a className="dropdown-item text-danger" href="#">
-                    Exit
-                  </a>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </header>
+        <HeaderAuth />
         <section className="content-main">
           <div className="content-header">
             <h2 className="content-title">Admin Requests List </h2>
           </div>
           <div className="card mb-4">
-            <header className="card-header">
-              <div className="row gx-3">
-                <div className="col-lg-4 col-md-6 me-auto">
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    className="form-control"
-                  />
-                </div>
-              </div>
-            </header>{" "}
             {/* card-header end// */}
             <div className="card-body">
               <div className="table-responsive">
@@ -83,9 +35,6 @@ const AdminList = () => {
                       <td>Dresses</td>
 
                       <td className="text-end">
-                        <a href="#" className="btn btn-light">
-                          Detail
-                        </a>
                         <div className="dropdown">
                           <a
                             href="#"
@@ -114,9 +63,6 @@ const AdminList = () => {
                       <td>Dresses</td>
 
                       <td className="text-end">
-                        <a href="#" className="btn btn-light">
-                          Detail
-                        </a>
                         <div className="dropdown">
                           <a
                             href="#"
