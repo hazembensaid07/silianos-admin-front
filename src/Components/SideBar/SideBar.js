@@ -1,10 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 const SideBar = () => {
-  const location = useLocation();
   //destructuring pathname from location
-  const { pathname } = location;
 
   return (
     <aside className="navbar-aside" id="offcanvas_aside">
@@ -74,7 +72,18 @@ const SideBar = () => {
               <span className="text">Vouchers</span>
             </NavLink>
           </li>
-          <li className="menu-item "></li>
+          <li className="menu-item ">
+            {" "}
+            <NavLink
+              className="menu-link"
+              to={{ pathname: `/admin_list` }}
+              activeStyle={{ color: "#ff0000" }}
+            >
+              {" "}
+              <i className="icon material-icons md-store" />
+              <span className="text">Admin Requests</span>
+            </NavLink>
+          </li>
         </ul>
 
         <br />

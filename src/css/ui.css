@@ -5,12 +5,14 @@ INCLUDE STYLES AND COMPONENTS
 ===================== */
 /* ================== HELPERS =================== */
 .table thead th {
-  color: #adb5bd;
-  font-weight: 400;
+  color: #29335d;
+  font-weight: bolder;
+
 }
 
 .table-lg td, .table-lg th {
   padding: 0.8rem 1rem;
+  font-weight: bolder;
 }
 
 .screen-overlay {
@@ -940,12 +942,16 @@ body.dark .card-header {
 body.dark .box {
   background: #1D1D42;
 }
-body.dark .table {
+.tab-element {
+  color :black;
+}
+body.dark .table   {
   --bs-table-hover-bg: black;
   --bs-table-hover-color:#fff;
   color: #fff;
   border-color: #29335d;
 }
+
 body.dark .form-control, body.dark .form-select {
   background-color: #141432;
   border-color: #29335d;

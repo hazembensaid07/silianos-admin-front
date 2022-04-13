@@ -20,11 +20,9 @@ const ForgotPassword = ({ history }) => {
       data: { email },
     })
       .then((response) => {
-        console.log("FORGOT PASSWORD SUCCESS", response);
         toast.success(response.data.message);
       })
       .catch((error) => {
-        console.log("FORGOT PASSWORD ERROR", error.response.data);
         toast.error(error.response.data.error);
       });
   };

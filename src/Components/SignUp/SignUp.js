@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import apiUri from "../apiUri";
@@ -25,7 +25,6 @@ const SignUp = () => {
       data: { name, lastName, email, password },
     })
       .then((response) => {
-        console.log("SIGNUP SUCCESS", response);
         setValues({
           ...values,
           name: "",
@@ -36,7 +35,6 @@ const SignUp = () => {
         toast.success(response.data.message);
       })
       .catch((error) => {
-        console.log("SIGNUP ERROR", error.response.data);
         toast.error(error.response.data.error);
       });
   };

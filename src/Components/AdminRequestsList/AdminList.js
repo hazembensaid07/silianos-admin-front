@@ -1,9 +1,17 @@
-import React from "react";
-
+import React, { useEffect } from "react";
 import HeaderAuth from "../Header/HeaderAuth";
 import SideBar from "../SideBar/SideBar";
-
+import { useDispatch, useSelector } from "react-redux";
+import { getRequests } from "../../JS/actions/request";
+import Admin from "./Admin";
 const AdminList = () => {
+  const requests = useSelector((state) => state.request.requests);
+  const loadRequests = useSelector((state) => state.request.loadRequests);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getRequests());
+  }, [dispatch]);
+
   return (
     <div>
       <b className="screen-overlay" />
@@ -21,102 +29,25 @@ const AdminList = () => {
                 <table className="table table-hover">
                   <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>Email</th>
+                      <th className="tab-element">Email</th>
 
-                      <th className="text-end"> Action </th>
+                      <th className="text-end "> Action </th>
                     </tr>
                   </thead>
+                  {loadRequests && requests.length === 0 && <b>loading</b>}
                   <tbody>
-                    <tr>
-                      <td>
-                        <b>Lace mini dress with faux leather</b>
-                      </td>
-                      <td>Dresses</td>
-
-                      <td className="text-end">
-                        <div className="dropdown">
-                          <a
-                            href="#"
-                            data-bs-toggle="dropdown"
-                            className="btn btn-light"
-                          >
-                            {" "}
-                            <i className="material-icons md-more_horiz" />{" "}
-                          </a>
-                          <div className="dropdown-menu">
-                            <a className="dropdown-item text-success" href="#">
-                              Accept
-                            </a>
-                            <a className="dropdown-item text-danger" href="#">
-                              Delete
-                            </a>
-                          </div>
-                        </div>{" "}
-                        {/* dropdown //end */}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <b>Lace mini dress with faux leather</b>
-                      </td>
-                      <td>Dresses</td>
-
-                      <td className="text-end">
-                        <div className="dropdown">
-                          <a
-                            href="#"
-                            data-bs-toggle="dropdown"
-                            className="btn btn-light"
-                          >
-                            {" "}
-                            <i className="material-icons md-more_horiz" />{" "}
-                          </a>
-                          <div className="dropdown-menu">
-                            <a className="dropdown-item text-success" href="#">
-                              Accept
-                            </a>
-                            <a className="dropdown-item text-danger" href="#">
-                              Delete
-                            </a>
-                          </div>
-                        </div>{" "}
-                        {/* dropdown //end */}
-                      </td>
-                    </tr>
+                    {requests.length !== 0 &&
+                      requests.map((el) => (
+                        <Admin key={el._id} admin={el._id} email={el.email} />
+                      ))}
                   </tbody>
                 </table>
+
+                {!loadRequests && requests.length === 0 && (
+                  <b>There is No Requests </b>
+                )}
               </div>{" "}
               {/* table-responsive end // */}
-              <nav className="float-end mt-3" aria-label="Page navigation">
-                <ul className="pagination">
-                  <li className="page-item disabled">
-                    <a className="page-link" href="#">
-                      Previous
-                    </a>
-                  </li>
-                  <li className="page-item active">
-                    <a className="page-link" href="#">
-                      1
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      2
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      3
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      Next
-                    </a>
-                  </li>
-                </ul>
-              </nav>
             </div>{" "}
             {/* card-body end// */}
           </div>{" "}

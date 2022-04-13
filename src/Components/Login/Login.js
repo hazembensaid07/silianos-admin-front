@@ -22,7 +22,6 @@ const Login = ({ history }) => {
       data: { email, password },
     })
       .then((response) => {
-        console.log("SIGNIN SUCCESS", response);
         authenticate(response, () => {
           setValues({
             ...values,
@@ -35,7 +34,6 @@ const Login = ({ history }) => {
         });
       })
       .catch((error) => {
-        console.log("SIGNIN ERROR", error.response.data);
         toast.error(error.response.data.error);
       });
   };
@@ -43,7 +41,12 @@ const Login = ({ history }) => {
   return (
     <div>
       <ToastContainer />
-      {isAuth() && <Redirect to="/admin_request" />}
+      {isAuth().role === "Cn4CgaPX.uD6@gB5" ? (
+        <Redirect to="/admin_dashboard" />
+      ) : (
+        isAuth() && <Redirect to="/admin_request" />
+      )}
+
       <b className="screen-overlay" />
       <Header />
       <section className="content-main">

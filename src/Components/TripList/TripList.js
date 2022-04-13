@@ -1,10 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import HeaderAuth from "../Header/HeaderAuth";
 import SideBar from "../SideBar/SideBar";
-
+import { useDispatch, useSelector } from "react-redux";
+import { getTrips } from "../../JS/actions/trip";
+import Trip from "./Trip";
 const TripList = ({ history }) => {
+  const [pageNumber, setPageNumber] = useState(0);
+  const numberOfpages = useSelector((state) => state.tripReducer.pages);
+  const pages = new Array(numberOfpages).fill(null).map((v, i) => i);
+  const [name, setName] = useState("");
+  const dispatch = useDispatch();
+  const trips = useSelector((state) => state.tripReducer.trips);
+  const loadTrips = useSelector((state) => state.tripReducer.loadTrips);
+  const gotoPrevious = () => {
+    setPageNumber(Math.max(0, pageNumber - 1));
+  };
+  const gotoNext = () => {
+    setPageNumber(Math.min(numberOfpages - 1, pageNumber + 1));
+  };
+  useEffect(() => {
+    dispatch(getTrips(name, pageNumber));
+  }, [name, dispatch, pageNumber]);
+
   return (
     <div>
       <b className="screen-overlay" />
@@ -13,7 +31,7 @@ const TripList = ({ history }) => {
         <HeaderAuth />
         <section className="content-main">
           <div className="content-header">
-            <h2 className="content-title">Trips List </h2>
+            <h2 className="content-title">Trip List </h2>
             <div>
               <Link to={{ pathname: `/add_trip` }} className="btn btn-primary">
                 <i className="material-icons md-plus" /> Add new
@@ -26,8 +44,9 @@ const TripList = ({ history }) => {
                 <div className="col-lg-4 col-md-6 me-auto">
                   <input
                     type="text"
-                    placeholder="Search..."
+                    placeholder="Search... By Destination "
                     className="form-control"
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </div>
               </div>
@@ -38,130 +57,88 @@ const TripList = ({ history }) => {
                 <table className="table table-hover">
                   <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>Region</th>
-
+                      <th>Destination</th>
+                      <th>price</th>
+                      <th>dates</th>
                       <th className="text-end"> Action </th>
                     </tr>
                   </thead>
+                  {loadTrips && trips.length === 0 && <b>loading</b>}
                   <tbody>
-                    <tr>
-                      <td>
-                        <b>Lace mini dress with faux leather</b>
-                      </td>
-                      <td>Dresses</td>
-                      <td>
-                        <span className="badge rounded-pill alert-success">
-                          Active
-                        </span>
-                      </td>
-                      <td>03.12.2020</td>
-                      <td className="text-end">
-                        <Link
-                          className="btn btn-light"
-                          to={{ pathname: `/trip_details` }}
-                        >
-                          Detail
-                        </Link>
-                        <div className="dropdown">
-                          <a
-                            href="#"
-                            data-bs-toggle="dropdown"
-                            className="btn btn-light"
-                          >
-                            {" "}
-                            <i className="material-icons md-more_horiz" />{" "}
-                          </a>
-                          <div className="dropdown-menu">
-                            <Link
-                              className="dropdown-item"
-                              to={{ pathname: `/update_trip` }}
-                            >
-                              Edit info
-                            </Link>
-                            <a className="dropdown-item text-danger" href="#">
-                              Delete
-                            </a>
-                          </div>
-                        </div>{" "}
-                        {/* dropdown //end */}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <b>Lace mini dress with faux leather</b>
-                      </td>
-                      <td>Dresses</td>
-                      <td>
-                        <span className="badge rounded-pill alert-success">
-                          Active
-                        </span>
-                      </td>
-                      <td>03.12.2020</td>
-                      <td className="text-end">
-                        <Link
-                          className="btn btn-light"
-                          to={{ pathname: `/trip_details` }}
-                        >
-                          Detail
-                        </Link>
-                        <div className="dropdown">
-                          <a
-                            href="#"
-                            data-bs-toggle="dropdown"
-                            className="btn btn-light"
-                          >
-                            {" "}
-                            <i className="material-icons md-more_horiz" />{" "}
-                          </a>
-                          <div className="dropdown-menu">
-                            <Link
-                              className="dropdown-item"
-                              to={{ pathname: `/update_trip` }}
-                            >
-                              Edit info
-                            </Link>
-                            <a className="dropdown-item text-danger" href="#">
-                              Delete
-                            </a>
-                          </div>
-                        </div>{" "}
-                        {/* dropdown //end */}
-                      </td>
-                    </tr>
+                    {trips.length !== 0 &&
+                      trips.map((el) => (
+                        <Trip
+                          key={el._id}
+                          trip={el}
+                          name={name}
+                          page={pageNumber}
+                        />
+                      ))}
                   </tbody>
                 </table>
+                {!loadTrips && trips.length === 0 && <b>There is No Trips </b>}
               </div>{" "}
               {/* table-responsive end // */}
-              <nav className="float-end mt-3" aria-label="Page navigation">
-                <ul className="pagination">
-                  <li className="page-item disabled">
-                    <a className="page-link" href="#">
-                      Previous
-                    </a>
-                  </li>
-                  <li className="page-item active">
-                    <a className="page-link" href="#">
-                      1
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      2
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      3
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      Next
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+              {numberOfpages > 1 && (
+                <nav className="float-end mt-3" aria-label="Page navigation">
+                  <ul className="pagination">
+                    {numberOfpages > 1 && (
+                      <li className="page-item ">
+                        <a
+                          className="page-link"
+                          onClick={() => {
+                            gotoPrevious();
+                          }}
+                        >
+                          Previous
+                        </a>
+                      </li>
+                    )}
+
+                    {trips.length !== 0 &&
+                      pages.map((pageIndex) =>
+                        pageNumber === pageIndex ? (
+                          <li className="page-item active">
+                            <a
+                              key={pageIndex}
+                              className="page-link"
+                              onClick={() => {
+                                setPageNumber(pageIndex);
+                              }}
+                            >
+                              {pageIndex + 1}
+                            </a>
+                          </li>
+                        ) : (
+                          <li className="page-item ">
+                            <a
+                              key={pageIndex}
+                              className="page-link"
+                              onClick={() => {
+                                setPageNumber(pageIndex);
+                              }}
+                            >
+                              {pageIndex + 1}
+                            </a>
+                          </li>
+                        )
+                      )}
+
+                    {numberOfpages > 1 && (
+                      <li className="page-item ">
+                        <a
+                          className="page-link"
+                          onClick={() => {
+                            gotoNext();
+                          }}
+                        >
+                          next
+                        </a>
+                      </li>
+                    )}
+                  </ul>
+                </nav>
+              )}
             </div>{" "}
             {/* card-body end// */}
           </div>{" "}

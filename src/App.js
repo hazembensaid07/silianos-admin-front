@@ -19,7 +19,6 @@ import { Switch, Route } from "react-router-dom";
 import Error from "./Components/error";
 import Activate from "./Components/ActivateAccount/Activate";
 import UserRoute from "./routes/UserRoute";
-import Test from "./Test";
 import AdminRoute from "./routes/AdminRoute";
 
 function App() {
@@ -44,7 +43,6 @@ function App() {
         <Route exact path="/admin_list/:id" component={AdminList} />
         <AdminRoute exact path="/voucher_list" component={VoucherList} />
         <Route exact path="/activate/:token" component={Activate} />
-        <AdminRoute exact path="/admin" component={Test} />
         <Route exact path="/*" component={Error} />
       </Switch>
     </div>

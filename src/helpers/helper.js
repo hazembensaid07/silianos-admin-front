@@ -1,6 +1,4 @@
 import cookie from "js-cookie";
-import apiUri from "../Components/apiUri";
-import axios from "axios";
 // set in cookie
 export const setCookie = (key, value) => {
   if (window !== "undefined") {

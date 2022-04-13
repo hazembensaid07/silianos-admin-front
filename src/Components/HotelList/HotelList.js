@@ -1,10 +1,29 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import HeaderAuth from "../Header/HeaderAuth";
+import { useDispatch, useSelector } from "react-redux";
+import { getHotels } from "../../JS/actions/hotel";
 import SideBar from "../SideBar/SideBar";
+import Hotel from "./Hotel";
 
 const HotelList = ({ history }) => {
+  const [pageNumber, setPageNumber] = useState(0);
+  const numberOfpages = useSelector((state) => state.hotelReducer.pages);
+  const pages = new Array(numberOfpages).fill(null).map((v, i) => i);
+  const [name, setName] = useState("");
+  const dispatch = useDispatch();
+  const hotels = useSelector((state) => state.hotelReducer.hotels);
+  const loadHotels = useSelector((state) => state.hotelReducer.loadHotels);
+  const gotoPrevious = () => {
+    setPageNumber(Math.max(0, pageNumber - 1));
+  };
+  const gotoNext = () => {
+    setPageNumber(Math.min(numberOfpages - 1, pageNumber + 1));
+  };
+  useEffect(() => {
+    dispatch(getHotels(name, pageNumber));
+  }, [name, dispatch, pageNumber]);
+
   return (
     <div>
       <b className="screen-overlay" />
@@ -28,6 +47,7 @@ const HotelList = ({ history }) => {
                     type="text"
                     placeholder="Search..."
                     className="form-control"
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </div>
                 <div className="col-lg-2 col-6 col-md-3">
@@ -35,7 +55,6 @@ const HotelList = ({ history }) => {
                     <option>Status</option>
                     <option>Active</option>
                     <option>Disabled</option>
-                    <option>Show all</option>
                   </select>
                 </div>
               </div>
@@ -53,124 +72,85 @@ const HotelList = ({ history }) => {
                       <th className="text-end"> Action </th>
                     </tr>
                   </thead>
+                  {loadHotels && hotels.length === 0 && <b>loading</b>}
                   <tbody>
-                    <tr>
-                      <td>
-                        <b>Lace mini dress with faux leather</b>
-                      </td>
-                      <td>Dresses</td>
-                      <td>
-                        <span className="badge rounded-pill alert-success">
-                          Active
-                        </span>
-                      </td>
-                      <td>03.12.2020</td>
-                      <td className="text-end">
-                        <Link
-                          className="btn btn-light"
-                          to={{ pathname: `/hotel_details` }}
-                        >
-                          Detail
-                        </Link>
-                        <div className="dropdown">
-                          <a
-                            href="#"
-                            data-bs-toggle="dropdown"
-                            className="btn btn-light"
-                          >
-                            {" "}
-                            <i className="material-icons md-more_horiz" />{" "}
-                          </a>
-                          <div className="dropdown-menu">
-                            <Link
-                              className="dropdown-item"
-                              to={{ pathname: `/update_hotel` }}
-                            >
-                              Edit info
-                            </Link>
-                            <a className="dropdown-item text-danger" href="#">
-                              Delete
-                            </a>
-                          </div>
-                        </div>{" "}
-                        {/* dropdown //end */}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <b>Lace mini dress with faux leather</b>
-                      </td>
-                      <td>Dresses</td>
-                      <td>
-                        <span className="badge rounded-pill alert-success">
-                          Active
-                        </span>
-                      </td>
-                      <td>03.12.2020</td>
-                      <td className="text-end">
-                        <Link
-                          className="btn btn-light"
-                          to={{ pathname: `/hotel_details` }}
-                        >
-                          Detail
-                        </Link>
-                        <div className="dropdown">
-                          <a
-                            href="#"
-                            data-bs-toggle="dropdown"
-                            className="btn btn-light"
-                          >
-                            {" "}
-                            <i className="material-icons md-more_horiz" />{" "}
-                          </a>
-                          <div className="dropdown-menu">
-                            <Link
-                              className="dropdown-item"
-                              to={{ pathname: `/update_hotel` }}
-                            >
-                              Edit info
-                            </Link>
-                            <a className="dropdown-item text-danger" href="#">
-                              Delete
-                            </a>
-                          </div>
-                        </div>{" "}
-                        {/* dropdown //end */}
-                      </td>
-                    </tr>
+                    {hotels.length !== 0 &&
+                      hotels.map((el) => (
+                        <Hotel
+                          key={el._id}
+                          hotel={el}
+                          name={name}
+                          hotels={hotels.length}
+                          page={pageNumber}
+                        />
+                      ))}
                   </tbody>
                 </table>
+                {!loadHotels && hotels.length === 0 && (
+                  <b>There is No Hotels </b>
+                )}
               </div>{" "}
               {/* table-responsive end // */}
-              <nav className="float-end mt-3" aria-label="Page navigation">
-                <ul className="pagination">
-                  <li className="page-item disabled">
-                    <a className="page-link" href="#">
-                      Previous
-                    </a>
-                  </li>
-                  <li className="page-item active">
-                    <a className="page-link" href="#">
-                      1
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      2
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      3
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      Next
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+              {numberOfpages > 1 && (
+                <nav className="float-end mt-3" aria-label="Page navigation">
+                  <ul className="pagination">
+                    {numberOfpages > 1 && (
+                      <li className="page-item ">
+                        <a
+                          className="page-link"
+                          onClick={() => {
+                            gotoPrevious();
+                          }}
+                        >
+                          Previous
+                        </a>
+                      </li>
+                    )}
+
+                    {hotels.length !== 0 &&
+                      pages.map((pageIndex) =>
+                        pageNumber === pageIndex ? (
+                          <li className="page-item active">
+                            <a
+                              key={pageIndex}
+                              className="page-link"
+                              onClick={() => {
+                                setPageNumber(pageIndex);
+                              }}
+                            >
+                              {pageIndex + 1}
+                            </a>
+                          </li>
+                        ) : (
+                          <li className="page-item ">
+                            <a
+                              key={pageIndex}
+                              className="page-link"
+                              onClick={() => {
+                                setPageNumber(pageIndex);
+                              }}
+                            >
+                              {pageIndex + 1}
+                            </a>
+                          </li>
+                        )
+                      )}
+
+                    {numberOfpages > 1 && (
+                      <li className="page-item ">
+                        <a
+                          className="page-link"
+                          onClick={() => {
+                            gotoNext();
+                          }}
+                        >
+                          next
+                        </a>
+                      </li>
+                    )}
+                  </ul>
+                </nav>
+              )}
             </div>{" "}
             {/* card-body end// */}
           </div>{" "}

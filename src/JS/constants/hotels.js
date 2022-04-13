@@ -1,0 +1,4 @@
+export const GET_HOTELS_FAIL = "GET_HOTELS_FAIL";
+export const GET_HOTELS__SUCCESS = "GET_HOTELS__SUCCESS";
+export const GET_HOTELS__LOAD = "GET_HOTELS__LOAD";
+export const GET_HOTEL = "GET_HOTEL";

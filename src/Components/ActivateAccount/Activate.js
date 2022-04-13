@@ -16,11 +16,9 @@ const Activate = ({ match }) => {
       data: { token },
     })
       .then((response) => {
-        console.log("ACCOUNT ACTIVATION", response);
         toast.success(response.data.message);
       })
       .catch((error) => {
-        console.log("ACCOUNT ACTIVATION ERROR", error.response.data.error);
         toast.error(error.response.data.error);
       });
   };
