@@ -32,11 +32,11 @@ function App() {
         <AdminRoute exact path="/admin_dashboard" component={AdminLand} />
         <UserRoute exact path="/admin_request" component={AdminRequest} />
         <AdminRoute exact path="/hotels" component={HotelList} />
-        <AdminRoute exact path="/add_hotel" component={AddHotel} />
+        <Route exact path="/add_hotel" component={AddHotel} />
         <AdminRoute exact path="/hotel_details" component={HotelDetails} />
         <AdminRoute exact path="/update_hotel" component={UpdateHotel} />
         <AdminRoute exact path="/trips" component={TripList} />
-        <AdminRoute exact path="/add_trip" component={AddTrip} />
+        <Route exact path="/add_trip" component={AddTrip} />
         <AdminRoute exact path="/trip_details" component={TripDetails} />
         <AdminRoute exact path="/update_trip" component={UpdateTrip} />
         <Route exact path="/admin_list" component={AdminList} />

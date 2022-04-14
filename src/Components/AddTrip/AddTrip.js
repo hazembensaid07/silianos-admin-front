@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import HeaderAuth from "../Header/HeaderAuth";
 import SideBar from "../SideBar/SideBar";
 
 const AddTrip = ({ history }) => {
+  const [trip, setTrip] = useState({
+    destination: "",
+    description: "",
+    programme: "",
+    price: "",
+    dates: "",
+    best_org: "",
+    meta_description: "",
+    meta_keywords: [],
+    meta_title: "",
+  });
+
+  const handleChangeArray = (e) => {
+    e.preventDefault();
+    setTrip({ ...trip, [e.target.name]: e.target.value.split(",") });
+  };
+  const handleChange = (e) => {
+    e.preventDefault();
+    setTrip({ ...trip, [e.target.name]: e.target.value });
+  };
   return (
     <div>
       <b className="screen-overlay" />
@@ -17,78 +37,111 @@ const AddTrip = ({ history }) => {
             <div className="card-body">
               <form>
                 <div className="mb-4">
-                  <label htmlFor="product_name" className="form-label">
-                    Product title
+                  <label htmlFor="name" className="form-label">
+                    destination
                   </label>
                   <input
                     type="text"
                     placeholder="Type here"
                     className="form-control"
-                    id="product_name"
+                    id="destination"
+                    value={trip.destination}
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="form-label">Full description</label>
-                  <textarea
+                  <label htmlFor="description" className="form-label">
+                    description
+                  </label>
+                  <input
+                    type="text"
                     placeholder="Type here"
                     className="form-control"
-                    rows={4}
-                    defaultValue={""}
+                    id="description"
+                    value={trip.description}
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="form-label">Images</label>
-                  <input className="form-control" type="file" />
+                  <label htmlFor="ville" className="form-label">
+                    programme
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Type here"
+                    className="form-control"
+                    id="programme"
+                    value={trip.programme}
+                  />
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="product_name" className="form-label">
-                    Tags
+                  <label htmlFor="localisation" className="form-label">
+                    price
                   </label>
-                  <input type="text" className="form-control" />
+                  <input
+                    type="text"
+                    placeholder="Type here"
+                    className="form-control"
+                    id="price"
+                    value={trip.price}
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="localisation" className="form-label">
+                    dates
+                  </label>
+                  <input
+                    type="date"
+                    placeholder="Type here"
+                    className="form-control"
+                    id="dates"
+                    value={trip.dates}
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="localisation" className="form-label">
+                    meta_keywords
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Type here"
+                    className="form-control"
+                    id="meta_keywords"
+                    value={trip.meta_keywords}
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="localisation" className="form-label">
+                    meta_description
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Type here"
+                    className="form-control"
+                    id="meta_description"
+                    value={trip.meta_description}
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="localisation" className="form-label">
+                    meta_title
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Type here"
+                    className="form-control"
+                    id="meta_title"
+                    value={trip.meta_title}
+                  />
                 </div>
                 <div className="row gx-2">
                   <div className="col-sm-6 mb-3">
-                    <label className="form-label">Category</label>
-                    <select className="form-select">
-                      <option> Automobiles </option>
-                      <option> Home items </option>
-                      <option> Electronics </option>
-                      <option> Smartphones </option>
-                      <option> Sport items </option>
-                      <option> Baby and Tous </option>
+                    <label className="form-label">best_org</label>
+                    <select className="form-select" value={trip.best_org}>
+                      <option> true </option>
+                      <option> false </option>
                     </select>
                   </div>
-                  <div className="col-sm-6 mb-3">
-                    <label className="form-label">Sub-category</label>
-                    <select className="form-select">
-                      <option> Nissan </option>
-                      <option> Honda </option>
-                      <option> Mercedes </option>
-                      <option> Chevrolet </option>
-                    </select>
-                  </div>
-                </div>{" "}
-                {/* row.// */}
-                <div className="mb-4">
-                  <label className="form-label">Price</label>
-                  <div className="row gx-2">
-                    <div className="col-4">
-                      <input
-                        placeholder="Type"
-                        type="text"
-                        className="form-control"
-                      />
-                    </div>
-                    <div className="col-2">
-                      <select className="form-select">
-                        <option> USD </option>
-                        <option> EUR </option>
-                        <option> RUBL </option>
-                      </select>
-                    </div>
-                  </div>{" "}
-                  {/* row.// */}
                 </div>
+
                 <button className="btn btn-primary">Submit item</button>
               </form>
             </div>
