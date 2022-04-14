@@ -54,6 +54,7 @@ const TripList = ({ history }) => {
             {/* card-header end// */}
             <div className="card-body">
               <div className="table-responsive">
+                {loadTrips && trips.length === 0 && <b>loading</b>}
                 <table className="table table-hover">
                   <thead>
                     <tr>
@@ -63,7 +64,7 @@ const TripList = ({ history }) => {
                       <th className="text-end"> Action </th>
                     </tr>
                   </thead>
-                  {loadTrips && trips.length === 0 && <b>loading</b>}
+
                   <tbody>
                     {trips.length !== 0 &&
                       trips.map((el) => (

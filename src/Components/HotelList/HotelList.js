@@ -62,9 +62,6 @@ const HotelList = ({ history }) => {
               <Link to={{ pathname: `/add_hotel` }} className="btn btn-primary">
                 <i className="material-icons md-plus" /> Add new
               </Link>
-              <button className="btn btn-primary" onClick={clickDisabled}>
-                all
-              </button>
             </div>
           </div>
           <div className="card mb-4">
@@ -78,19 +75,36 @@ const HotelList = ({ history }) => {
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
+
                 <div className="col-lg-2 col-6 col-md-3">
-                  <select className="form-select">
-                    <option>Status</option>
-                    <option
-                      onClick={(e) => {
-                        clickActive(e);
-                      }}
+                  <div>
+                    <button
+                      to={{ pathname: `/add_hotel` }}
+                      className="btn btn-success"
+                      style={{ color: "white" }}
+                      onClick={clickActive}
                     >
-                      Active
-                    </option>
-                    <option onClick={clickDisabled}>Disabled</option>
-                    <option onClick={clickAll}>Show All</option>
-                  </select>
+                      <i className="material-icons md-plus" /> Active
+                    </button>
+                  </div>
+                </div>
+                <div className="col-lg-2 col-6 col-md-3">
+                  <div>
+                    <button onClick={clickDisabled} className="btn btn-danger">
+                      <i className="material-icons md-plus" /> Disabled
+                    </button>
+                  </div>
+                </div>
+                <div className="col-lg-2 col-6 col-md-3">
+                  <div>
+                    <button
+                      to={{ pathname: `/add_hotel` }}
+                      className="btn btn-primary"
+                      onClick={clickAll}
+                    >
+                      <i className="material-icons md-plus" /> Show All
+                    </button>
+                  </div>
                 </div>
               </div>
             </header>{" "}
