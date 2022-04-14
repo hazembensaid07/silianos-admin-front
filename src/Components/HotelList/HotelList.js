@@ -2,12 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import HeaderAuth from "../Header/HeaderAuth";
 import { useDispatch, useSelector } from "react-redux";
-import { getHotels } from "../../JS/actions/hotel";
+import {
+  getHotels,
+  getActivesHotels,
+  getDisabledHotels,
+} from "../../JS/actions/hotel";
 import SideBar from "../SideBar/SideBar";
 import Hotel from "./Hotel";
 
 const HotelList = ({ history }) => {
   const [pageNumber, setPageNumber] = useState(0);
+  const [show, setShow] = useState(0);
   const numberOfpages = useSelector((state) => state.hotelReducer.pages);
   const pages = new Array(numberOfpages).fill(null).map((v, i) => i);
   const [name, setName] = useState("");
@@ -20,9 +25,29 @@ const HotelList = ({ history }) => {
   const gotoNext = () => {
     setPageNumber(Math.min(numberOfpages - 1, pageNumber + 1));
   };
+  const clickActive = (event) => {
+    setShow(1);
+    setPageNumber(0);
+  };
+  const clickDisabled = (event) => {
+    setShow(2);
+    setPageNumber(0);
+  };
+  const clickAll = (event) => {
+    setShow(0);
+    setPageNumber(0);
+  };
   useEffect(() => {
-    dispatch(getHotels(name, pageNumber));
-  }, [name, dispatch, pageNumber]);
+    if (show === 0) {
+      dispatch(getHotels(name, pageNumber));
+    }
+    if (show === 1) {
+      dispatch(getActivesHotels(name, pageNumber));
+    }
+    if (show === 2) {
+      dispatch(getDisabledHotels(name, pageNumber));
+    }
+  }, [name, dispatch, show, pageNumber]);
 
   return (
     <div>
@@ -37,6 +62,9 @@ const HotelList = ({ history }) => {
               <Link to={{ pathname: `/add_hotel` }} className="btn btn-primary">
                 <i className="material-icons md-plus" /> Add new
               </Link>
+              <button className="btn btn-primary" onClick={clickDisabled}>
+                all
+              </button>
             </div>
           </div>
           <div className="card mb-4">
@@ -53,8 +81,15 @@ const HotelList = ({ history }) => {
                 <div className="col-lg-2 col-6 col-md-3">
                   <select className="form-select">
                     <option>Status</option>
-                    <option>Active</option>
-                    <option>Disabled</option>
+                    <option
+                      onClick={(e) => {
+                        clickActive(e);
+                      }}
+                    >
+                      Active
+                    </option>
+                    <option onClick={clickDisabled}>Disabled</option>
+                    <option onClick={clickAll}>Show All</option>
                   </select>
                 </div>
               </div>
@@ -62,6 +97,7 @@ const HotelList = ({ history }) => {
             {/* card-header end// */}
             <div className="card-body">
               <div className="table-responsive">
+                {loadHotels && hotels.length === 0 && <p></p>}
                 <table className="table table-hover">
                   <thead>
                     <tr>
@@ -72,7 +108,7 @@ const HotelList = ({ history }) => {
                       <th className="text-end"> Action </th>
                     </tr>
                   </thead>
-                  {loadHotels && hotels.length === 0 && <b>loading</b>}
+
                   <tbody>
                     {hotels.length !== 0 &&
                       hotels.map((el) => (

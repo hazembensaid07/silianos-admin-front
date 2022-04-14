@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteHotel } from "../../JS/actions/hotel";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-const Hotel = ({ hotel, name, page, hotels, history }) => {
+const Hotel = ({ hotel, name, page }) => {
   const dispatch = useDispatch();
   const error = useSelector((state) => state.hotelReducer.error);
   const clickDelete = (event) => {
@@ -31,7 +31,13 @@ const Hotel = ({ hotel, name, page, hotels, history }) => {
       )}
       <td>{hotel.etoiles}</td>
       <td className="text-end">
-        <Link className="btn btn-light" to={{ pathname: `/hotel_details` }}>
+        <Link
+          className="btn btn-light"
+          to={{
+            pathname: `/hotel_details`,
+            state: { id: hotel._id, pictures: hotel.pictures },
+          }}
+        >
           Detail
         </Link>
         <div className="dropdown">
