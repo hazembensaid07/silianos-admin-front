@@ -62,6 +62,8 @@ export const isAuth = () => {
         return false;
       }
     }
+  } else {
+    return false;
   }
 };
 

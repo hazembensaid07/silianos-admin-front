@@ -71,11 +71,11 @@
 
 /* Rules for using icons as white on a dark background. */
 .md-light {
-  color: white;
+  color: #29335d;
 }
 
 .md-light.md-inactive {
-  color: rgba(255, 255, 255, 0.3);
+  color: #29335d;
 }
 
 /* Icons. */
@@ -201,6 +201,7 @@
 }
 .md-airplanemode_active:after {
   content: '\e03e';
+    color : #29335d;
 }
 .md-airplanemode_inactive:after {
   content: '\e03f';
@@ -1584,6 +1585,7 @@
 }
 .md-home:after {
   content: '\e306';
+  color : #29335d;
 }
 .md-home_work:after {
   content: '\e308';
@@ -1596,6 +1598,7 @@
 }
 .md-hotel:after {
   content: '\e30d';
+  color : #29335d;
 }
 .md-hourglass_empty:after {
   content: '\e30f';
@@ -2037,6 +2040,7 @@
 }
 .md-monetization_on:after {
   content: '\e405';
+  color : #29335d;
 }
 .md-money:after {
   content: '\e407';
@@ -2301,6 +2305,7 @@
 }
 .md-person:after {
   content: '\e49e';
+    color : #29335d;
 }
 .md-person_add:after {
   content: '\e4a0';
@@ -2310,6 +2315,7 @@
 }
 .md-person_outline:after {
   content: '\e4a4';
+    color : #29335d;
 }
 .md-person_pin:after {
   content: '\e4a6';
@@ -3351,6 +3357,7 @@
 }
 .md-trip_origin:after {
   content: '\e6c0';
+  color : #29335d;
 }
 .md-tune:after {
   content: '\e6c1';

@@ -11,17 +11,11 @@ const SideBar = () => {
           <img
             src="/lo.jpg"
             height={150}
-            width={300}
+            width={350}
             className="logo"
             alt="Ecommerce dashboard template"
           />
         </Link>
-        <div>
-          <button className="btn btn-icon btn-aside-minimize">
-            {" "}
-            <i className="text-muted material-icons md-menu_open" />{" "}
-          </button>
-        </div>
       </div>{" "}
       {/* aside-top.// */}
       <nav>
@@ -46,7 +40,7 @@ const SideBar = () => {
               activeStyle={{ color: "#ff0000" }}
             >
               {" "}
-              <i className="icon material-icons md-shopping_bag" />
+              <i className="icon material-icons md-hotel " />
               <span className="text">Hotels</span>
             </NavLink>
           </li>
@@ -57,7 +51,7 @@ const SideBar = () => {
               activeStyle={{ color: "#ff0000" }}
             >
               {" "}
-              <i className="icon material-icons md-shopping_cart" />
+              <i className="icon material-icons md-airplanemode_active " />
               <span className="text">Trips</span>
             </NavLink>
           </li>
@@ -68,7 +62,7 @@ const SideBar = () => {
               activeStyle={{ color: "#ff0000" }}
             >
               {" "}
-              <i className="icon material-icons md-store" />
+              <i className="icon material-icons md-monetization_on" />
               <span className="text">Vouchers</span>
             </NavLink>
           </li>
@@ -80,7 +74,7 @@ const SideBar = () => {
               activeStyle={{ color: "#ff0000" }}
             >
               {" "}
-              <i className="icon material-icons md-store" />
+              <i className="icon material-icons md-person" />
               <span className="text">Admin Requests</span>
             </NavLink>
           </li>

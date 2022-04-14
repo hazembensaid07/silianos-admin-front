@@ -38,15 +38,14 @@ const Login = ({ history }) => {
       });
   };
   const { email, password } = values;
+
   return (
     <div>
       <ToastContainer />
       {isAuth().role === "Cn4CgaPX.uD6@gB5" ? (
         <Redirect to="/admin_dashboard" />
-      ) : (
-        isAuth() && <Redirect to="/admin_request" />
-      )}
-
+      ) : null}
+      {isAuth() ? <Redirect to="/admin_request" /> : null}
       <b className="screen-overlay" />
       <Header />
       <section className="content-main">
