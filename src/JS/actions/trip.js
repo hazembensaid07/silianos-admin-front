@@ -14,17 +14,21 @@ export const addTrip = (trip, file) => async (dispatch) => {
     console.log(i);
     data.append("image", i);
   }
+  const token = getCookie("token");
   const options = {
-    headers: trip,
+    headers: {
+      authorization: token,
+      ...trip,
+      "Access-Control-Allow-Origin": "*",
+    },
   };
   console.log(options);
   try {
     const result = await axios.post(
-      `https://sylanos.herokuapp.com/api/org/add`,
+      `https://127.0.0.1/api/org/add`,
       options,
       data
     );
-    console.log(result);
     dispatch(getTrips("", 0));
   } catch (error) {
     console.log(error);

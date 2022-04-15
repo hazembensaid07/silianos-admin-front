@@ -7,8 +7,6 @@ import { getCookie } from "../../helpers/helper";
 
 const AddTrip = ({ history }) => {
   const dispatch = useDispatch();
-  const token = getCookie("token");
-  console.log(token);
 
   const [trip, setTrip] = useState({
     destination: "",
@@ -20,7 +18,6 @@ const AddTrip = ({ history }) => {
     meta_description: "",
     meta_keywords: "",
     meta_title: "",
-    Authorization: `Bearer ${token}`,
   });
 
   const [file, setFile] = useState({
@@ -41,9 +38,10 @@ const AddTrip = ({ history }) => {
   };
 
   const handleTrip = () => {
-    console.log(trip);
-    console.log(file);
     console.log("test");
+
+    console.log(trip);
+
     dispatch(addTrip(trip, file));
   };
   return (
@@ -186,7 +184,11 @@ const AddTrip = ({ history }) => {
                   />
                 </div>
 
-                <button className="btn btn-primary" onClick={handleTrip}>
+                <button
+                  className="btn btn-primary"
+                  type="button"
+                  onClick={handleTrip}
+                >
                   Submit item
                 </button>
               </form>
