@@ -9,26 +9,29 @@ import { getCookie } from "../../helpers/helper";
 import apiUri from "../../Components/apiUri";
 
 export const addTrip = (trip, file) => async (dispatch) => {
+  console.log(file);
+  const obj = { "Content-Type": "multipart/form-data" };
   const data = new FormData();
-  for (const i of file.selectedeFile) {
-    console.log(i);
-    data.append("image", i);
+  for (const key of Object.keys(file)) {
+    console.log(file[key]);
+    data.append("image", file[key]);
   }
   const token = getCookie("token");
   const options = {
     headers: {
       authorization: token,
       ...trip,
-      "Access-Control-Allow-Origin": "*",
     },
   };
   console.log(options);
   try {
-    const result = await axios.post(
-      `https://127.0.0.1/api/org/add`,
-      options,
-      data
-    );
+    const result = await axios.post(`http://localhost:5000/api/org/add`, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        destination: "sousse",
+      },
+      data,
+    });
     dispatch(getTrips("", 0));
   } catch (error) {
     console.log(error);

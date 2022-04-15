@@ -3,7 +3,6 @@ import HeaderAuth from "../Header/HeaderAuth";
 import SideBar from "../SideBar/SideBar";
 import { addTrip } from "../../JS/actions/trip";
 import { useDispatch } from "react-redux";
-import { getCookie } from "../../helpers/helper";
 
 const AddTrip = ({ history }) => {
   const dispatch = useDispatch();
@@ -20,13 +19,11 @@ const AddTrip = ({ history }) => {
     meta_title: "",
   });
 
-  const [file, setFile] = useState({
-    selectedeFile: null,
-  });
+  const [file, setFile] = useState({});
 
   const handleChangeFile = (e) => {
     e.preventDefault();
-    setFile({ ...file, selectedeFile: e.target.files });
+    setFile(e.target.files);
   };
   const handleChangeArray = (e) => {
     e.preventDefault();
@@ -179,7 +176,7 @@ const AddTrip = ({ history }) => {
                   <input
                     className="form-control"
                     type="file"
-                    multiple="multiple"
+                    multiple
                     onChange={handleChangeFile}
                   />
                 </div>
