@@ -7,6 +7,33 @@ import {
 import axios from "axios";
 import { getCookie } from "../../helpers/helper";
 import apiUri from "../../Components/apiUri";
+
+export const addTrip = (trip, file) => async (dispatch) => {
+  const data = new FormData();
+  for (const i of file.selectedeFile) {
+    console.log(i);
+    data.append("image", i);
+  }
+  const options = {
+    headers: trip,
+  };
+  console.log(options);
+  try {
+    const result = await axios.post(
+      `https://sylanos.herokuapp.com/api/org/add`,
+      options,
+      data
+    );
+    console.log(result);
+    dispatch(getTrips("", 0));
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: GET_TRIPS_FAIL,
+      payload: error,
+    });
+  }
+};
 export const getTrips = (name, pageNumber) => async (dispatch) => {
   dispatch({ type: GET_TRIPS_LOAD });
   try {
@@ -15,7 +42,7 @@ export const getTrips = (name, pageNumber) => async (dispatch) => {
       headers: { authorization: token },
     };
     const result = await axios.get(
-      `${apiUri()}/org/all/orgs?search=${name}&page=${pageNumber}`,
+      `https://sylanos.herokuapp.com/api/org/all/orgs?search=${name}&page=${pageNumber}`,
       options
     );
 

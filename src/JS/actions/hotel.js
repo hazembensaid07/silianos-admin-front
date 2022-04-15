@@ -7,6 +7,21 @@ import {
 import axios from "axios";
 import { getCookie } from "../../helpers/helper";
 import apiUri from "../../Components/apiUri";
+export const addHotel = (hotel) => async (dispatch) => {
+  const token = getCookie("token");
+  const bearer = { Authorization: `Bearer ${token}` };
+  const headers = { ...bearer, hotel };
+  const options = {
+    headers: headers,
+  };
+  try {
+    const result = await axios.post(`${apiUri()}/hotel/add`, options);
+    dispatch(getHotels("", 0));
+  } catch (error) {
+    dispatch({ type: GET_HOTELS_FAIL, payload: error });
+  }
+};
+
 export const getHotels = (name, pageNumber) => async (dispatch) => {
   dispatch({ type: GET_HOTELS__LOAD });
   try {

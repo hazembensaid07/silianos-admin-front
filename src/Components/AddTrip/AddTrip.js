@@ -1,27 +1,50 @@
 import React, { useState } from "react";
 import HeaderAuth from "../Header/HeaderAuth";
 import SideBar from "../SideBar/SideBar";
+import { addTrip } from "../../JS/actions/trip";
+import { useDispatch } from "react-redux";
+import { getCookie } from "../../helpers/helper";
 
 const AddTrip = ({ history }) => {
+  const dispatch = useDispatch();
+  const token = getCookie("token");
+  console.log(token);
+
   const [trip, setTrip] = useState({
     destination: "",
     description: "",
     programme: "",
     price: "",
     dates: "",
-    best_org: "",
+    best_org: true,
     meta_description: "",
-    meta_keywords: [],
+    meta_keywords: "",
     meta_title: "",
+    Authorization: `Bearer ${token}`,
   });
 
+  const [file, setFile] = useState({
+    selectedeFile: null,
+  });
+
+  const handleChangeFile = (e) => {
+    e.preventDefault();
+    setFile({ ...file, selectedeFile: e.target.files });
+  };
   const handleChangeArray = (e) => {
     e.preventDefault();
-    setTrip({ ...trip, [e.target.name]: e.target.value.split(",") });
+    setTrip({ ...trip, [e.target.id]: e.target.value.split(",") });
   };
   const handleChange = (e) => {
     e.preventDefault();
-    setTrip({ ...trip, [e.target.name]: e.target.value });
+    setTrip({ ...trip, [e.target.id]: e.target.value });
+  };
+
+  const handleTrip = () => {
+    console.log(trip);
+    console.log(file);
+    console.log("test");
+    dispatch(addTrip(trip, file));
   };
   return (
     <div>
@@ -46,6 +69,7 @@ const AddTrip = ({ history }) => {
                     className="form-control"
                     id="destination"
                     value={trip.destination}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mb-4">
@@ -58,6 +82,7 @@ const AddTrip = ({ history }) => {
                     className="form-control"
                     id="description"
                     value={trip.description}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mb-4">
@@ -70,6 +95,7 @@ const AddTrip = ({ history }) => {
                     className="form-control"
                     id="programme"
                     value={trip.programme}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mb-4">
@@ -82,6 +108,7 @@ const AddTrip = ({ history }) => {
                     className="form-control"
                     id="price"
                     value={trip.price}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mb-4">
@@ -94,6 +121,7 @@ const AddTrip = ({ history }) => {
                     className="form-control"
                     id="dates"
                     value={trip.dates}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mb-4">
@@ -106,6 +134,7 @@ const AddTrip = ({ history }) => {
                     className="form-control"
                     id="meta_keywords"
                     value={trip.meta_keywords}
+                    onChange={handleChangeArray}
                   />
                 </div>
                 <div className="mb-4">
@@ -118,6 +147,7 @@ const AddTrip = ({ history }) => {
                     className="form-control"
                     id="meta_description"
                     value={trip.meta_description}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mb-4">
@@ -130,19 +160,35 @@ const AddTrip = ({ history }) => {
                     className="form-control"
                     id="meta_title"
                     value={trip.meta_title}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="row gx-2">
                   <div className="col-sm-6 mb-3">
                     <label className="form-label">best_org</label>
-                    <select className="form-select" value={trip.best_org}>
+                    <select
+                      className="form-select"
+                      value={trip.best_org}
+                      onChange={handleChange}
+                    >
                       <option> true </option>
                       <option> false </option>
                     </select>
                   </div>
                 </div>
+                <div className="mb-4">
+                  <label className="form-label">Images</label>
+                  <input
+                    className="form-control"
+                    type="file"
+                    multiple="multiple"
+                    onChange={handleChangeFile}
+                  />
+                </div>
 
-                <button className="btn btn-primary">Submit item</button>
+                <button className="btn btn-primary" onClick={handleTrip}>
+                  Submit item
+                </button>
               </form>
             </div>
           </div>{" "}
