@@ -7,18 +7,33 @@ import {
 import axios from "axios";
 import { getCookie } from "../../helpers/helper";
 import apiUri from "../../Components/apiUri";
-export const addHotel = (hotel) => async (dispatch) => {
+
+export const addHotel = (hotel, file) => async (dispatch) => {
+  const data = new FormData();
+  for (const key of Object.keys(file)) {
+    data.append("image", file[key]);
+  }
+  console.log(hotel);
   const token = getCookie("token");
-  const bearer = { Authorization: `Bearer ${token}` };
-  const headers = { ...bearer, hotel };
-  const options = {
-    headers: headers,
-  };
   try {
-    const result = await axios.post(`${apiUri()}/hotel/add`, options);
+    axios.defaults.headers.post["Content-Type"] =
+      "application/x-www-form-urlencoded";
+    axios({
+      method: "post",
+      url: "https://sylanos.herokuapp.com/api/hotel/add",
+      data: data,
+      headers: {
+        authorization: token,
+        ...hotel,
+      },
+    });
+
     dispatch(getHotels("", 0));
   } catch (error) {
-    dispatch({ type: GET_HOTELS_FAIL, payload: error });
+    dispatch({
+      type: GET_HOTELS_FAIL,
+      payload: error,
+    });
   }
 };
 

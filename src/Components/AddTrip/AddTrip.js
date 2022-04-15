@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeaderAuth from "../Header/HeaderAuth";
 import SideBar from "../SideBar/SideBar";
 import { addTrip } from "../../JS/actions/trip";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-const AddTrip = ({ history }) => {
+const AddTrip = ({ location }) => {
   const dispatch = useDispatch();
+  const edit = useSelector((state) => state.editReducer.edit);
+  const tripp = useSelector((state) => state.tripReducer.trip);
+  console.log(tripp);
 
   const [trip, setTrip] = useState({
     destination: "",
@@ -13,13 +16,13 @@ const AddTrip = ({ history }) => {
     programme: "",
     price: "",
     dates: "",
-    best_org: true,
+    best_org: false,
     meta_description: "",
     meta_keywords: "",
     meta_title: "",
   });
 
-  const [file, setFile] = useState({});
+  const [file, setFile] = useState([]);
 
   const handleChangeFile = (e) => {
     e.preventDefault();
@@ -35,12 +38,23 @@ const AddTrip = ({ history }) => {
   };
 
   const handleTrip = () => {
-    console.log("test");
-
-    console.log(trip);
-
     dispatch(addTrip(trip, file));
   };
+  useEffect(() => {
+    edit
+      ? setTrip(tripp)
+      : setTrip({
+          destination: "",
+          description: "",
+          programme: "",
+          price: "",
+          dates: "",
+          best_org: false,
+          meta_description: "",
+          meta_keywords: "",
+          meta_title: "",
+        });
+  }, [edit, tripp]);
   return (
     <div>
       <b className="screen-overlay" />
@@ -165,9 +179,10 @@ const AddTrip = ({ history }) => {
                       className="form-select"
                       value={trip.best_org}
                       onChange={handleChange}
+                      id="best_org"
                     >
-                      <option> true </option>
-                      <option> false </option>
+                      <option value={true}> true </option>
+                      <option value={false}> false </option>
                     </select>
                   </div>
                 </div>
@@ -180,13 +195,21 @@ const AddTrip = ({ history }) => {
                     onChange={handleChangeFile}
                   />
                 </div>
+                {edit &&
+                  tripp.pictures.map((img) => (
+                    <img src={img} width="100" height="100" />
+                  ))}
+                <br />
+                <br />
+
+                <br />
 
                 <button
                   className="btn btn-primary"
                   type="button"
                   onClick={handleTrip}
                 >
-                  Submit item
+                  {edit ? "save changes" : "Add trip"}{" "}
                 </button>
               </form>
             </div>

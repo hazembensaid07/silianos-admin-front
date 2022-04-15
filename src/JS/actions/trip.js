@@ -9,32 +9,26 @@ import { getCookie } from "../../helpers/helper";
 import apiUri from "../../Components/apiUri";
 
 export const addTrip = (trip, file) => async (dispatch) => {
-  console.log(file);
-  const obj = { "Content-Type": "multipart/form-data" };
   const data = new FormData();
   for (const key of Object.keys(file)) {
-    console.log(file[key]);
     data.append("image", file[key]);
   }
   const token = getCookie("token");
-  const options = {
-    headers: {
-      authorization: token,
-      ...trip,
-    },
-  };
-  console.log(options);
   try {
-    const result = await axios.post(`http://localhost:5000/api/org/add`, {
+    axios.defaults.headers.post["Content-Type"] =
+      "application/x-www-form-urlencoded";
+    axios({
+      method: "post",
+      url: "https://sylanos.herokuapp.com/api/org/add",
+      data: data,
       headers: {
-        "Content-Type": "multipart/form-data",
-        destination: "sousse",
+        authorization: token,
+        ...trip,
       },
-      data,
     });
+
     dispatch(getTrips("", 0));
   } catch (error) {
-    console.log(error);
     dispatch({
       type: GET_TRIPS_FAIL,
       payload: error,

@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteHotel } from "../../JS/actions/hotel";
+import { deleteHotel, getHotel } from "../../JS/actions/hotel";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import { toggleTrue } from "../../JS/actions/Edit";
+
 const Hotel = ({ hotel, name, page, hotels, history }) => {
   const dispatch = useDispatch();
   const error = useSelector((state) => state.hotelReducer.error);
@@ -40,7 +42,17 @@ const Hotel = ({ hotel, name, page, hotels, history }) => {
             <i className="material-icons md-more_horiz" />{" "}
           </a>
           <div className="dropdown-menu">
-            <Link className="dropdown-item" to={{ pathname: `/update_hotel` }}>
+            <Link
+              className="dropdown-item"
+              to={{
+                pathname: `/add_hotel`,
+                state: { hotel: hotel },
+              }}
+              onClick={() => {
+                dispatch(toggleTrue());
+                dispatch(getHotel(hotel._id));
+              }}
+            >
               Edit info
             </Link>
             <button className="dropdown-item text-danger" onClick={clickDelete}>

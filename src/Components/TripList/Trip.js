@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteTrip } from "../../JS/actions/trip";
 import { ToastContainer, toast } from "react-toastify";
+
+import { toggleTrue } from "../../JS/actions/Edit";
+import { getTrip } from "../../JS/actions/trip";
+
 import "react-toastify/dist/ReactToastify.min.css";
 const Trip = ({ trip, name, page }) => {
   const dispatch = useDispatch();
@@ -31,7 +35,17 @@ const Trip = ({ trip, name, page }) => {
             <i className="material-icons md-more_horiz" />{" "}
           </a>
           <div className="dropdown-menu">
-            <Link className="dropdown-item" to={{ pathname: `/update_trip` }}>
+            <Link
+              className="dropdown-item"
+              to={{
+                pathname: `/add_trip`,
+                state: { trip: trip },
+              }}
+              onClick={() => {
+                dispatch(toggleTrue());
+                dispatch(getTrip(trip._id));
+              }}
+            >
               Edit info
             </Link>
             <button className="dropdown-item text-danger" onClick={clickDelete}>

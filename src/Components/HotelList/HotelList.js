@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getHotels } from "../../JS/actions/hotel";
 import SideBar from "../SideBar/SideBar";
 import Hotel from "./Hotel";
+import { toggleFlase } from "../../JS/actions/Edit";
 
 const HotelList = ({ history }) => {
   const [pageNumber, setPageNumber] = useState(0);
@@ -34,7 +35,13 @@ const HotelList = ({ history }) => {
           <div className="content-header">
             <h2 className="content-title">Hotels List </h2>
             <div>
-              <Link to={{ pathname: `/add_hotel` }} className="btn btn-primary">
+              <Link
+                to={{ pathname: `/add_hotel` }}
+                className="btn btn-primary"
+                onClick={() => {
+                  dispatch(toggleFlase());
+                }}
+              >
                 <i className="material-icons md-plus" /> Add new
               </Link>
             </div>
