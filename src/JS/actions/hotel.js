@@ -36,6 +36,25 @@ export const addHotel = (hotel, file) => async (dispatch) => {
     });
   }
 };
+export const deletePhoto = (id, body) => async (dispatch) => {
+  try {
+    const token = getCookie("token");
+    const options = {
+      headers: { authorization: token },
+    };
+    const result = await axios.post(
+      `${apiUri()}/hotel/remove/photo`,
+      body,
+      options
+    );
+    dispatch(getHotel(id));
+  } catch (error) {
+    dispatch({
+      type: GET_HOTELS_FAIL,
+      payload: error.response.data.error,
+    });
+  }
+};
 
 export const getHotels = (name, pageNumber) => async (dispatch) => {
   dispatch({ type: GET_HOTELS__LOAD });

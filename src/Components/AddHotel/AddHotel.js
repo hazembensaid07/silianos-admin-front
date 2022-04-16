@@ -2,12 +2,17 @@ import React, { useEffect, useState } from "react";
 import HeaderAuth from "../Header/HeaderAuth";
 import SideBar from "../SideBar/SideBar";
 import { useSelector, useDispatch } from "react-redux";
-import { addHotel } from "../../JS/actions/hotel";
+import { addHotel, deletePhoto } from "../../JS/actions/hotel";
 
 const AddHotel = ({ history }) => {
+  let counter = 0;
+  let info = [];
+
   const dispatch = useDispatch();
   const edit = useSelector((state) => state.editReducer.edit);
   const hotell = useSelector((state) => state.hotelReducer.hotel);
+
+  const [deletei, setDeletei] = useState(1);
 
   const [hotel, setHotel] = useState({
     name: "",
@@ -55,8 +60,15 @@ const AddHotel = ({ history }) => {
     e.preventDefault();
     setHotel({ ...hotel, [e.target.id]: e.target.value });
   };
+  const handleChange2 = (e) => {
+    e.preventDefault();
+    setDeletei(e.target.value);
+  };
   const handleHotel = () => {
     dispatch(addHotel(hotel, file));
+  };
+  const handleDelete = (id, body) => {
+    dispatch(deletePhoto(id, body));
   };
   const onChange = (e) => {
     const isChecked = e.target.checked;
@@ -528,12 +540,63 @@ const AddHotel = ({ history }) => {
                   <label htmlFor="language3"> dp</label>
                   <br />
                 </div>
+                {edit &&
+                  hotell.pictures &&
+                  hotell.pictures.map((img) => {
+                    const body = {};
+                    body.id = hotell._id;
+                    body.pictureUrl = img;
+                    body.imageID = hotell.cloudinary_ids[counter];
+                    info[counter] = body;
+                    counter++;
+                    return (
+                      <div>
+                        <img src={img} width="100" height="100" />
+
+                        <h1>image {counter}</h1>
+                      </div>
+                    );
+                  })}
+
+                <br />
+                {edit && hotell.pictures[0] && (
+                  <div className="row gx-2">
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label">Image to delete</label>
+                      <select
+                        className="form-select"
+                        value={deletei}
+                        onChange={handleChange2}
+                        id="delete"
+                      >
+                        {info.map((value, index) => {
+                          return <option value={index + 1}>{index + 1}</option>;
+                        })}
+                      </select>
+                    </div>
+                  </div>
+                )}
+                {edit && hotell.pictures[0] && (
+                  <button
+                    className="btn btn-primary"
+                    type="button"
+                    onClick={(e) => {
+                      dispatch(
+                        deletePhoto(hotell._id, info[parseInt(deletei) - 1])
+                      );
+                    }}
+                  >
+                    Deleted Selected image
+                  </button>
+                )}
+                <br />
+                <br />
                 <button
                   className="btn btn-primary"
                   type="button"
                   onClick={handleHotel}
                 >
-                  {edit ? "save changes" : "Add"}
+                  {edit ? "save changes" : "Add hotel"}
                 </button>
               </form>
             </div>

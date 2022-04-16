@@ -58,6 +58,22 @@ export const getTrips = (name, pageNumber) => async (dispatch) => {
     });
   }
 };
+export const deletePhoto = (id, body) => async (dispatch) => {
+  try {
+    const token = getCookie("token");
+    const options = {
+      headers: { authorization: token },
+    };
+    const result = await axios.post(`${apiUri()}/org/image`, body, options);
+    dispatch(getTrip(id));
+  } catch (error) {
+    dispatch({
+      type: GET_TRIPS_FAIL,
+      payload: error.response.data.error,
+    });
+  }
+};
+
 export const getTrip = (id) => async (dispatch) => {
   dispatch({ type: GET_TRIPS_LOAD });
   try {
