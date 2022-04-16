@@ -35,6 +35,58 @@ export const addTrip = (trip, file) => async (dispatch) => {
     });
   }
 };
+export const updateTrip = (trip, file, id) => async (dispatch) => {
+  const {
+    destination,
+    description,
+    programme,
+    price,
+    dates,
+    best_org,
+    meta_description,
+    meta_keywords,
+    meta_title,
+  } = trip;
+  let tripp = {};
+  tripp = {
+    destination,
+    description,
+    programme,
+    price,
+    dates,
+    best_org,
+    meta_description,
+    meta_keywords,
+    meta_title,
+  };
+  tripp.id = id;
+  console.log(tripp);
+  const data = new FormData();
+  for (const key of Object.keys(file)) {
+    data.append("image", file[key]);
+  }
+  const token = getCookie("token");
+  try {
+    axios.defaults.headers.post["Content-Type"] =
+      "application/x-www-form-urlencoded";
+    axios({
+      method: "post",
+      url: "https://sylanos.herokuapp.com/api/org/update",
+      data: data,
+      headers: {
+        authorization: token,
+        ...tripp,
+      },
+    });
+
+    dispatch(getTrip(id));
+  } catch (error) {
+    dispatch({
+      type: GET_TRIPS_FAIL,
+      payload: error,
+    });
+  }
+};
 export const getTrips = (name, pageNumber) => async (dispatch) => {
   dispatch({ type: GET_TRIPS_LOAD });
   try {

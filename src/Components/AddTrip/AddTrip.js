@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import HeaderAuth from "../Header/HeaderAuth";
 import SideBar from "../SideBar/SideBar";
-import { addTrip, deletePhoto } from "../../JS/actions/trip";
+import { addTrip, deletePhoto, updateTrip } from "../../JS/actions/trip";
 import { useDispatch, useSelector } from "react-redux";
 
 const AddTrip = ({ location }) => {
@@ -11,7 +11,6 @@ const AddTrip = ({ location }) => {
   const [deletei, setDeletei] = useState(1);
   const edit = useSelector((state) => state.editReducer.edit);
   const tripp = useSelector((state) => state.tripReducer.trip);
-  console.log(tripp);
 
   const [trip, setTrip] = useState({
     destination: "",
@@ -45,7 +44,11 @@ const AddTrip = ({ location }) => {
   };
 
   const handleTrip = () => {
-    dispatch(addTrip(trip, file));
+    if (!edit) {
+      dispatch(addTrip(trip, file));
+    } else {
+      dispatch(updateTrip(trip, file, tripp._id));
+    }
   };
   useEffect(() => {
     edit
@@ -203,7 +206,7 @@ const AddTrip = ({ location }) => {
                   />
                 </div>
                 {edit &&
-                  tripp.pictures[0] &&
+                  tripp.pictures &&
                   tripp.pictures.map((img) => {
                     const body = {};
                     body.id = tripp._id;
@@ -221,7 +224,7 @@ const AddTrip = ({ location }) => {
                   })}
 
                 <br />
-                {edit && tripp.pictures[0] && (
+                {edit && tripp.pictures && (
                   <div className="row gx-2">
                     <div className="col-sm-6 mb-3">
                       <label className="form-label">Image to delete</label>
@@ -238,7 +241,7 @@ const AddTrip = ({ location }) => {
                     </div>
                   </div>
                 )}
-                {edit && tripp.pictures[0] && (
+                {edit && tripp.pictures && (
                   <button
                     className="btn btn-primary"
                     type="button"

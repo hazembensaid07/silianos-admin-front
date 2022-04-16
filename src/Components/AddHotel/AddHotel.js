@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import HeaderAuth from "../Header/HeaderAuth";
 import SideBar from "../SideBar/SideBar";
 import { useSelector, useDispatch } from "react-redux";
-import { addHotel, deletePhoto } from "../../JS/actions/hotel";
+import { addHotel, deletePhoto, updateHotel } from "../../JS/actions/hotel";
 
 const AddHotel = ({ history }) => {
   let counter = 0;
@@ -64,7 +64,10 @@ const AddHotel = ({ history }) => {
     setDeletei(e.target.value);
   };
   const handleHotel = () => {
-    dispatch(addHotel(hotel, file));
+    if (!edit) {
+      dispatch(addHotel(hotel, file));
+    }
+    dispatch(updateHotel(hotel, file, hotell._id));
   };
   const handleDelete = (id, body) => {
     dispatch(deletePhoto(id, body));
@@ -558,7 +561,7 @@ const AddHotel = ({ history }) => {
                   })}
 
                 <br />
-                {edit && hotell.pictures[0] && (
+                {edit && hotell.pictures && (
                   <div className="row gx-2">
                     <div className="col-sm-6 mb-3">
                       <label className="form-label">Image to delete</label>
@@ -575,7 +578,7 @@ const AddHotel = ({ history }) => {
                     </div>
                   </div>
                 )}
-                {edit && hotell.pictures[0] && (
+                {edit && hotell.pictures && (
                   <button
                     className="btn btn-primary"
                     type="button"

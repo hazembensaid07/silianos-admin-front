@@ -36,6 +36,100 @@ export const addHotel = (hotel, file) => async (dispatch) => {
     });
   }
 };
+export const updateHotel = (hotel, file, id) => async (dispatch) => {
+  const data = new FormData();
+  const {
+    name,
+    description,
+    ville,
+    etoiles,
+    logement,
+    localisation,
+    best_hotel,
+    meta_description,
+    meta_keywords,
+    meta_title,
+    price_lpd_adulte,
+    price_dp_adulte,
+    price_pc_adulte,
+    price_all_in_soft_adulte,
+    price_all_in_adulte,
+    reduction_enfant_2ans,
+    reduction_enfant_12ans,
+    reduction_enfant_adulte,
+    reduction_3_lit,
+    reduction_4_lit,
+    sup_single,
+    sup_suite,
+    sup_vue_sur_mer,
+    discount,
+    family_only,
+    total_chambre,
+    autres,
+    max_chambre,
+
+    reduction_enfant_single,
+  } = hotel;
+  let hotell = {};
+  hotell = {
+    name,
+    description,
+    ville,
+    etoiles,
+    logement,
+    localisation,
+    best_hotel,
+    meta_description,
+    meta_keywords,
+    meta_title,
+    price_lpd_adulte,
+    price_dp_adulte,
+    price_pc_adulte,
+    price_all_in_soft_adulte,
+    price_all_in_adulte,
+    reduction_enfant_2ans,
+    reduction_enfant_12ans,
+    reduction_enfant_adulte,
+    reduction_3_lit,
+    reduction_4_lit,
+    sup_single,
+    sup_suite,
+    sup_vue_sur_mer,
+    discount,
+    family_only,
+    total_chambre,
+    autres,
+    max_chambre,
+
+    reduction_enfant_single,
+  };
+  hotell.id = id;
+  for (const key of Object.keys(file)) {
+    data.append("image", file[key]);
+  }
+  console.log(hotell);
+  const token = getCookie("token");
+  try {
+    axios.defaults.headers.post["Content-Type"] =
+      "application/x-www-form-urlencoded";
+    axios({
+      method: "post",
+      url: "https://sylanos.herokuapp.com/api/hotel/update",
+      data: data,
+      headers: {
+        authorization: token,
+        ...hotell,
+      },
+    });
+
+    dispatch(getHotel(id));
+  } catch (error) {
+    dispatch({
+      type: GET_HOTELS_FAIL,
+      payload: error,
+    });
+  }
+};
 export const deletePhoto = (id, body) => async (dispatch) => {
   try {
     const token = getCookie("token");
