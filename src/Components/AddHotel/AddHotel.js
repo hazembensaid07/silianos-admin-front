@@ -7,12 +7,11 @@ import { addHotel, deletePhoto } from "../../JS/actions/hotel";
 const AddHotel = ({ history }) => {
   let counter = 0;
   let info = [];
+  const [deletei, setDeletei] = useState(1);
 
   const dispatch = useDispatch();
   const edit = useSelector((state) => state.editReducer.edit);
   const hotell = useSelector((state) => state.hotelReducer.hotel);
-
-  const [deletei, setDeletei] = useState(1);
 
   const [hotel, setHotel] = useState({
     name: "",

@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import HeaderAuth from "../Header/HeaderAuth";
 import SideBar from "../SideBar/SideBar";
-import { addTrip } from "../../JS/actions/trip";
+import { addTrip, deletePhoto } from "../../JS/actions/trip";
 import { useDispatch, useSelector } from "react-redux";
 
 const AddTrip = ({ location }) => {
   const dispatch = useDispatch();
+  let counter = 0;
+  let info = [];
+  const [deletei, setDeletei] = useState(1);
   const edit = useSelector((state) => state.editReducer.edit);
   const tripp = useSelector((state) => state.tripReducer.trip);
   console.log(tripp);
@@ -35,6 +38,10 @@ const AddTrip = ({ location }) => {
   const handleChange = (e) => {
     e.preventDefault();
     setTrip({ ...trip, [e.target.id]: e.target.value });
+  };
+  const handleChange2 = (e) => {
+    e.preventDefault();
+    setDeletei(e.target.value);
   };
 
   const handleTrip = () => {
@@ -196,12 +203,55 @@ const AddTrip = ({ location }) => {
                   />
                 </div>
                 {edit &&
-                  tripp.pictures.map((img) => (
-                    <img src={img} width="100" height="100" />
-                  ))}
-                <br />
-                <br />
+                  tripp.pictures[0] &&
+                  tripp.pictures.map((img) => {
+                    const body = {};
+                    body.id = tripp._id;
+                    body.pictureUrl = img;
+                    body.imageID = tripp.cloudinary_ids[counter];
+                    info[counter] = body;
+                    counter++;
+                    return (
+                      <div>
+                        <img src={img} width="100" height="100" />
 
+                        <h1>image {counter}</h1>
+                      </div>
+                    );
+                  })}
+
+                <br />
+                {edit && tripp.pictures[0] && (
+                  <div className="row gx-2">
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label">Image to delete</label>
+                      <select
+                        className="form-select"
+                        value={deletei}
+                        onChange={handleChange2}
+                        id="delete"
+                      >
+                        {info.map((value, index) => {
+                          return <option value={index + 1}>{index + 1}</option>;
+                        })}
+                      </select>
+                    </div>
+                  </div>
+                )}
+                {edit && tripp.pictures[0] && (
+                  <button
+                    className="btn btn-primary"
+                    type="button"
+                    onClick={(e) => {
+                      dispatch(
+                        deletePhoto(tripp._id, info[parseInt(deletei) - 1])
+                      );
+                    }}
+                  >
+                    Deleted Selected image
+                  </button>
+                )}
+                <br />
                 <br />
 
                 <button
