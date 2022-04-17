@@ -3,6 +3,7 @@ import HeaderAuth from "../Header/HeaderAuth";
 import SideBar from "../SideBar/SideBar";
 import { addTrip, deletePhoto, updateTrip } from "../../JS/actions/trip";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const AddTrip = ({ location }) => {
   const dispatch = useDispatch();
@@ -262,7 +263,23 @@ const AddTrip = ({ location }) => {
                   type="button"
                   onClick={handleTrip}
                 >
-                  {edit ? "save changes" : "Add trip"}{" "}
+                  {edit ? (
+                    <Link
+                      to={{
+                        pathname: `/trips`,
+                      }}
+                    >
+                      Save Changes
+                    </Link>
+                  ) : (
+                    <Link
+                      to={{
+                        pathname: `/trips`,
+                      }}
+                    >
+                      Add Hotels
+                    </Link>
+                  )}{" "}
                 </button>
               </form>
             </div>

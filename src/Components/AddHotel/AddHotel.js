@@ -75,6 +75,10 @@ const AddHotel = ({ history }) => {
   const onChange = (e) => {
     const isChecked = e.target.checked;
     if (isChecked) {
+      if (hotel.logement.indexOf(e.target.value)) {
+        let obj = hotel.logement.slice();
+        obj.splice(hotel.logement.indexOf(e.target.value), 1);
+      }
       let obj = hotel.logement.slice();
       obj.push(e.target.value);
       setHotel({ ...hotel, logement: obj });
