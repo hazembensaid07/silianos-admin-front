@@ -2,8 +2,18 @@ import React, { useEffect, useState } from "react";
 import HeaderAuth from "../Header/HeaderAuth";
 import SideBar from "../SideBar/SideBar";
 import { useSelector, useDispatch } from "react-redux";
-import { addHotel, deletePhoto, updateHotel } from "../../JS/actions/hotel";
+import axios from "axios";
+import { getCookie } from "../../helpers/helper";
 
+import {
+  addHotel,
+  deletePhoto,
+  getHotel,
+  updateHotel,
+} from "../../JS/actions/hotel";
+import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 const AddHotel = ({ history }) => {
   let counter = 0;
   let info = [];
@@ -89,6 +99,157 @@ const AddHotel = ({ history }) => {
       setHotel({ ...hotel, logement: obj });
     }
   };
+
+  const update = async (e) => {
+    e.preventDefault();
+    const {
+      name,
+      description,
+      ville,
+      etoiles,
+      logement,
+      localisation,
+      best_hotel,
+      meta_description,
+      meta_keywords,
+      meta_title,
+      price_lpd_adulte,
+      price_dp_adulte,
+      price_pc_adulte,
+      price_all_in_soft_adulte,
+      price_all_in_adulte,
+      reduction_enfant_2ans,
+      reduction_enfant_12ans,
+      reduction_enfant_adulte,
+      reduction_3_lit,
+      reduction_4_lit,
+      sup_single,
+      sup_suite,
+      sup_vue_sur_mer,
+      discount,
+      family_only,
+      total_chambre,
+      autres,
+      max_chambre,
+
+      reduction_enfant_single,
+    } = hotel;
+    const token = getCookie("token");
+
+    const data = new FormData();
+    for (const key of Object.keys(file)) {
+      data.append("image", file[key]);
+    }
+
+    if (!edit) {
+      axios.defaults.headers.post["Content-Type"] =
+        "application/x-www-form-urlencoded";
+      axios({
+        method: "post",
+        url: "https://sylanos.herokuapp.com/api/org/add",
+        data: data,
+        headers: {
+          authorization: token,
+          ...hotel,
+        },
+      })
+        .then((response) => {
+          toast.success("new Trip added");
+          setHotel({
+            name: "",
+            description: "",
+            ville: "",
+            etoiles: "",
+            logement: [],
+            localisation: "",
+            best_hotel: false,
+            meta_description: "",
+            meta_keywords: [],
+            meta_title: "",
+            price_lpd_adulte: "",
+            price_dp_adulte: "",
+            price_pc_adulte: "",
+            price_all_in_soft_adulte: "",
+            price_all_in_adulte: "",
+            reduction_enfant_2ans: "",
+            reduction_enfant_12ans: "",
+            reduction_enfant_adulte: "",
+            reduction_3_lit: "",
+            reduction_4_lit: "",
+            sup_single: "",
+            sup_suite: "",
+            sup_vue_sur_mer: "",
+            discount: "",
+            family_only: "",
+            total_chambre: "",
+            autres: "",
+            max_chambre: "",
+            reduction_enfant_single: "",
+          });
+          setFile([]);
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error("something went wrong verify your input");
+        });
+    } else {
+      let hotelll = {};
+      hotelll = {
+        name,
+        description,
+        ville,
+        etoiles,
+        logement,
+        localisation,
+        best_hotel,
+        meta_description,
+        meta_keywords,
+        meta_title,
+        price_lpd_adulte,
+        price_dp_adulte,
+        price_pc_adulte,
+        price_all_in_soft_adulte,
+        price_all_in_adulte,
+        reduction_enfant_2ans,
+        reduction_enfant_12ans,
+        reduction_enfant_adulte,
+        reduction_3_lit,
+        reduction_4_lit,
+        sup_single,
+        sup_suite,
+        sup_vue_sur_mer,
+        discount,
+        family_only,
+        total_chambre,
+        autres,
+        max_chambre,
+
+        reduction_enfant_single,
+      };
+      hotelll.id = hotell._id;
+
+      axios.defaults.headers.post["Content-Type"] =
+        "application/x-www-form-urlencoded";
+      axios({
+        method: "post",
+        url: "https://sylanos.herokuapp.com/api/hotel/update",
+        data: data,
+        headers: {
+          authorization: token,
+          ...hotelll,
+        },
+      })
+        .then((response) => {
+          toast.success("updated");
+          dispatch(getHotel(hotell._id));
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error("something went wrong verify your input");
+        });
+    }
+  };
+
   useEffect(() => {
     edit
       ? setHotel(hotell)
@@ -126,6 +287,8 @@ const AddHotel = ({ history }) => {
   }, [edit, hotell]);
   return (
     <div>
+      <ToastContainer />
+
       <b className="screen-overlay" />
       <SideBar />
       <main className="main-wrap">
@@ -600,9 +763,9 @@ const AddHotel = ({ history }) => {
                 <button
                   className="btn btn-primary"
                   type="button"
-                  onClick={handleHotel}
+                  onClick={update}
                 >
-                  {edit ? "save changes" : "Add hotel"}
+                  {edit ? "Save Changes" : "Add Hotel"}{" "}
                 </button>
               </form>
             </div>

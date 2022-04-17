@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import HeaderAuth from "../Header/HeaderAuth";
 import SideBar from "../SideBar/SideBar";
-import { addTrip, deletePhoto, updateTrip } from "../../JS/actions/trip";
+import { deletePhoto, getTrip } from "../../JS/actions/trip";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { getCookie } from "../../helpers/helper";
+import axios from "axios";
 
-const AddTrip = ({ location }) => {
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
+
+const AddTrip = () => {
   const dispatch = useDispatch();
   let counter = 0;
   let info = [];
@@ -44,13 +48,94 @@ const AddTrip = ({ location }) => {
     setDeletei(e.target.value);
   };
 
-  const handleTrip = () => {
+  const update = async (e) => {
+    e.preventDefault();
+    const {
+      destination,
+      description,
+      programme,
+      price,
+      dates,
+      best_org,
+      meta_description,
+      meta_keywords,
+      meta_title,
+    } = trip;
+    const token = getCookie("token");
+
+    const data = new FormData();
+    for (const key of Object.keys(file)) {
+      data.append("image", file[key]);
+    }
+
     if (!edit) {
-      dispatch(addTrip(trip, file));
+      axios.defaults.headers.post["Content-Type"] =
+        "application/x-www-form-urlencoded";
+      axios({
+        method: "post",
+        url: "https://sylanos.herokuapp.com/api/org/add",
+        data: data,
+        headers: {
+          authorization: token,
+          ...trip,
+        },
+      })
+        .then((response) => {
+          toast.success("new Trip added");
+          setTrip({
+            destination: "",
+            description: "",
+            programme: "",
+            price: "",
+            dates: "",
+            best_org: false,
+            meta_description: "",
+            meta_keywords: "",
+            meta_title: "",
+          });
+          setFile([]);
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error("something went wrong verify your input");
+        });
     } else {
-      dispatch(updateTrip(trip, file, tripp._id));
+      let trippp = {};
+      trippp = {
+        destination,
+        description,
+        programme,
+        price,
+        dates,
+        best_org,
+        meta_description,
+        meta_keywords,
+        meta_title,
+      };
+      trippp.id = tripp._id;
+
+      axios.defaults.headers.post["Content-Type"] =
+        "application/x-www-form-urlencoded";
+      axios({
+        method: "post",
+        url: "https://sylanos.herokuapp.com/api/org/update",
+        data: data,
+        headers: {
+          authorization: token,
+          ...trippp,
+        },
+      })
+        .then((response) => {
+          toast.success("updated");
+          dispatch(getTrip(tripp._id));
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error("something went wrong verify your input");
+        });
     }
   };
+
   useEffect(() => {
     edit
       ? setTrip(tripp)
@@ -68,6 +153,8 @@ const AddTrip = ({ location }) => {
   }, [edit, tripp]);
   return (
     <div>
+      <ToastContainer />
+
       <b className="screen-overlay" />
       <SideBar />
       <main className="main-wrap">
@@ -261,25 +348,9 @@ const AddTrip = ({ location }) => {
                 <button
                   className="btn btn-primary"
                   type="button"
-                  onClick={handleTrip}
+                  onClick={update}
                 >
-                  {edit ? (
-                    <Link
-                      to={{
-                        pathname: `/trips`,
-                      }}
-                    >
-                      Save Changes
-                    </Link>
-                  ) : (
-                    <Link
-                      to={{
-                        pathname: `/trips`,
-                      }}
-                    >
-                      Add Hotels
-                    </Link>
-                  )}{" "}
+                  {edit ? "Save Changes" : "Add Trips"}{" "}
                 </button>
               </form>
             </div>
@@ -291,5 +362,4 @@ const AddTrip = ({ location }) => {
     </div>
   );
 };
-
 export default AddTrip;

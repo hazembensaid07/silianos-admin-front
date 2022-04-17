@@ -7,6 +7,8 @@ import {
 import axios from "axios";
 import { getCookie } from "../../helpers/helper";
 import apiUri from "../../Components/apiUri";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 export const addHotel = (hotel, file) => async (dispatch) => {
   const data = new FormData();

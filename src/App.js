@@ -25,19 +25,19 @@ function App() {
   return (
     <div className="App">
       <Switch>
-        <Route exact path="/login" component={Login} />
+        <Route exact path="/" component={Login} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/forgotpassword" component={ForgotPassword} />
         <Route exact path="/resetpassword/:token" component={RessetPassword} />
         <AdminRoute exact path="/admin_dashboard" component={AdminLand} />
         <UserRoute exact path="/admin_request" component={AdminRequest} />
-        <Route exact path="/hotels" component={HotelList} />
-        <Route exact path="/add_hotel" component={AddHotel} />
+        <AdminRoute exact path="/hotels" component={HotelList} />
+        <AdminRoute exact path="/add_hotel" component={AddHotel} />
         <AdminRoute exact path="/hotel_details" component={HotelDetails} />
         <AdminRoute exact path="/update_hotel" component={UpdateHotel} />
-        <Route exact path="/trips" component={TripList} />
-        <Route exact path="/add_trip" component={AddTrip} />
-        <Route exact path="/trip_details" component={TripDetails} />
+        <AdminRoute exact path="/trips" component={TripList} />
+        <AdminRoute exact path="/add_trip" component={AddTrip} />
+        <AdminRoute exact path="/trip_details" component={TripDetails} />
         <AdminRoute exact path="/update_trip" component={UpdateTrip} />
         <Route exact path="/admin_list" component={AdminList} />
         <Route exact path="/admin_list/:id" component={AdminList} />
