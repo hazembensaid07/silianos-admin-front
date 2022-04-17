@@ -25,12 +25,13 @@ export const tripReducer = (state = initialstate, { type, payload }) => {
         loadTrips: false,
       };
     case GET_TRIPS_FAIL:
-      return { ...state, loadTrips: false, errorr: payload };
+      return { ...state, loadTrips: false, error: payload };
     case GET_TRIP:
       return {
         ...state,
         trip: payload,
         loadTrips: false,
+        error: null,
       };
     default:
       return state;

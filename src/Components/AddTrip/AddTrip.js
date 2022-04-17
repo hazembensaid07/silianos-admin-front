@@ -1,10 +1,160 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import HeaderAuth from "../Header/HeaderAuth";
 import SideBar from "../SideBar/SideBar";
+import { deletePhoto, getTrip } from "../../JS/actions/trip";
+import { useDispatch, useSelector } from "react-redux";
+import { getCookie } from "../../helpers/helper";
+import axios from "axios";
 
-const AddTrip = ({ history }) => {
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
+
+const AddTrip = () => {
+  const dispatch = useDispatch();
+  let counter = 0;
+  let info = [];
+  const [deletei, setDeletei] = useState(1);
+  const edit = useSelector((state) => state.editReducer.edit);
+  const tripp = useSelector((state) => state.tripReducer.trip);
+
+  const [trip, setTrip] = useState({
+    destination: "",
+    description: "",
+    programme: "",
+    price: "",
+    dates: "",
+    best_org: false,
+    meta_description: "",
+    meta_keywords: "",
+    meta_title: "",
+  });
+
+  const [file, setFile] = useState([]);
+
+  const handleChangeFile = (e) => {
+    e.preventDefault();
+    setFile(e.target.files);
+  };
+  const handleChangeArray = (e) => {
+    e.preventDefault();
+    setTrip({ ...trip, [e.target.id]: e.target.value.split(",") });
+  };
+  const handleChange = (e) => {
+    e.preventDefault();
+    setTrip({ ...trip, [e.target.id]: e.target.value });
+  };
+  const handleChange2 = (e) => {
+    e.preventDefault();
+    setDeletei(e.target.value);
+  };
+
+  const update = async (e) => {
+    e.preventDefault();
+    const {
+      destination,
+      description,
+      programme,
+      price,
+      dates,
+      best_org,
+      meta_description,
+      meta_keywords,
+      meta_title,
+    } = trip;
+    const token = getCookie("token");
+
+    const data = new FormData();
+    for (const key of Object.keys(file)) {
+      data.append("image", file[key]);
+    }
+
+    if (!edit) {
+      axios.defaults.headers.post["Content-Type"] =
+        "application/x-www-form-urlencoded";
+      axios({
+        method: "post",
+        url: "https://sylanos.herokuapp.com/api/org/add",
+        data: data,
+        headers: {
+          authorization: token,
+          ...trip,
+        },
+      })
+        .then((response) => {
+          toast.success("new Trip added");
+          setTrip({
+            destination: "",
+            description: "",
+            programme: "",
+            price: "",
+            dates: "",
+            best_org: false,
+            meta_description: "",
+            meta_keywords: "",
+            meta_title: "",
+          });
+          setFile([]);
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error("something went wrong verify your input");
+        });
+    } else {
+      let trippp = {};
+      trippp = {
+        destination,
+        description,
+        programme,
+        price,
+        dates,
+        best_org,
+        meta_description,
+        meta_keywords,
+        meta_title,
+      };
+      trippp.id = tripp._id;
+
+      axios.defaults.headers.post["Content-Type"] =
+        "application/x-www-form-urlencoded";
+      axios({
+        method: "post",
+        url: "https://sylanos.herokuapp.com/api/org/update",
+        data: data,
+        headers: {
+          authorization: token,
+          ...trippp,
+        },
+      })
+        .then((response) => {
+          toast.success("updated");
+          dispatch(getTrip(tripp._id));
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error("something went wrong verify your input");
+        });
+    }
+  };
+
+  useEffect(() => {
+    edit
+      ? setTrip(tripp)
+      : setTrip({
+          destination: "",
+          description: "",
+          programme: "",
+          price: "",
+          dates: "",
+          best_org: false,
+          meta_description: "",
+          meta_keywords: "",
+          meta_title: "",
+        });
+  }, [edit, tripp]);
   return (
     <div>
+      <ToastContainer />
+
       <b className="screen-overlay" />
       <SideBar />
       <main className="main-wrap">
@@ -17,79 +167,191 @@ const AddTrip = ({ history }) => {
             <div className="card-body">
               <form>
                 <div className="mb-4">
-                  <label htmlFor="product_name" className="form-label">
-                    Product title
+                  <label htmlFor="name" className="form-label">
+                    destination
                   </label>
                   <input
                     type="text"
                     placeholder="Type here"
                     className="form-control"
-                    id="product_name"
+                    id="destination"
+                    value={trip.destination}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="form-label">Full description</label>
-                  <textarea
+                  <label htmlFor="description" className="form-label">
+                    description
+                  </label>
+                  <input
+                    type="text"
                     placeholder="Type here"
                     className="form-control"
-                    rows={4}
-                    defaultValue={""}
+                    id="description"
+                    value={trip.description}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="form-label">Images</label>
-                  <input className="form-control" type="file" />
+                  <label htmlFor="ville" className="form-label">
+                    programme
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Type here"
+                    className="form-control"
+                    id="programme"
+                    value={trip.programme}
+                    onChange={handleChange}
+                  />
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="product_name" className="form-label">
-                    Tags
+                  <label htmlFor="localisation" className="form-label">
+                    price
                   </label>
-                  <input type="text" className="form-control" />
+                  <input
+                    type="text"
+                    placeholder="Type here"
+                    className="form-control"
+                    id="price"
+                    value={trip.price}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="localisation" className="form-label">
+                    dates
+                  </label>
+                  <input
+                    type="date"
+                    placeholder="Type here"
+                    className="form-control"
+                    id="dates"
+                    value={trip.dates}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="localisation" className="form-label">
+                    meta_keywords
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Type here"
+                    className="form-control"
+                    id="meta_keywords"
+                    value={trip.meta_keywords}
+                    onChange={handleChangeArray}
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="localisation" className="form-label">
+                    meta_description
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Type here"
+                    className="form-control"
+                    id="meta_description"
+                    value={trip.meta_description}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="localisation" className="form-label">
+                    meta_title
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Type here"
+                    className="form-control"
+                    id="meta_title"
+                    value={trip.meta_title}
+                    onChange={handleChange}
+                  />
                 </div>
                 <div className="row gx-2">
                   <div className="col-sm-6 mb-3">
-                    <label className="form-label">Category</label>
-                    <select className="form-select">
-                      <option> Automobiles </option>
-                      <option> Home items </option>
-                      <option> Electronics </option>
-                      <option> Smartphones </option>
-                      <option> Sport items </option>
-                      <option> Baby and Tous </option>
+                    <label className="form-label">best_org</label>
+                    <select
+                      className="form-select"
+                      value={trip.best_org}
+                      onChange={handleChange}
+                      id="best_org"
+                    >
+                      <option value={true}> true </option>
+                      <option value={false}> false </option>
                     </select>
                   </div>
-                  <div className="col-sm-6 mb-3">
-                    <label className="form-label">Sub-category</label>
-                    <select className="form-select">
-                      <option> Nissan </option>
-                      <option> Honda </option>
-                      <option> Mercedes </option>
-                      <option> Chevrolet </option>
-                    </select>
-                  </div>
-                </div>{" "}
-                {/* row.// */}
+                </div>
                 <div className="mb-4">
-                  <label className="form-label">Price</label>
+                  <label className="form-label">Images</label>
+                  <input
+                    className="form-control"
+                    type="file"
+                    multiple
+                    onChange={handleChangeFile}
+                  />
+                </div>
+                {edit &&
+                  tripp.pictures &&
+                  tripp.pictures.map((img) => {
+                    const body = {};
+                    body.id = tripp._id;
+                    body.pictureUrl = img;
+                    body.imageID = tripp.cloudinary_ids[counter];
+                    info[counter] = body;
+                    counter++;
+                    return (
+                      <div>
+                        <img src={img} width="100" height="100" />
+
+                        <h1>image {counter}</h1>
+                      </div>
+                    );
+                  })}
+
+                <br />
+                {edit && tripp.pictures && (
                   <div className="row gx-2">
-                    <div className="col-4">
-                      <input
-                        placeholder="Type"
-                        type="text"
-                        className="form-control"
-                      />
-                    </div>
-                    <div className="col-2">
-                      <select className="form-select">
-                        <option> USD </option>
-                        <option> EUR </option>
-                        <option> RUBL </option>
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label">Image to delete</label>
+                      <select
+                        className="form-select"
+                        value={deletei}
+                        onChange={handleChange2}
+                        id="delete"
+                      >
+                        {info.map((value, index) => {
+                          return <option value={index + 1}>{index + 1}</option>;
+                        })}
                       </select>
                     </div>
-                  </div>{" "}
-                  {/* row.// */}
-                </div>
-                <button className="btn btn-primary">Submit item</button>
+                  </div>
+                )}
+                {edit && tripp.pictures && (
+                  <button
+                    className="btn btn-primary"
+                    type="button"
+                    onClick={(e) => {
+                      dispatch(
+                        deletePhoto(tripp._id, info[parseInt(deletei) - 1])
+                      );
+                    }}
+                  >
+                    Deleted Selected image
+                  </button>
+                )}
+                <br />
+                <br />
+
+                <button
+                  className="btn btn-primary"
+                  type="button"
+                  onClick={update}
+                >
+                  {edit ? "Save Changes" : "Add Trips"}{" "}
+                </button>
               </form>
             </div>
           </div>{" "}
@@ -100,5 +362,4 @@ const AddTrip = ({ history }) => {
     </div>
   );
 };
-
 export default AddTrip;

@@ -4,6 +4,8 @@ import HeaderAuth from "../Header/HeaderAuth";
 import SideBar from "../SideBar/SideBar";
 import { useDispatch, useSelector } from "react-redux";
 import { getTrips } from "../../JS/actions/trip";
+import { toggleFlase } from "../../JS/actions/Edit";
+
 import Trip from "./Trip";
 const TripList = ({ history }) => {
   const [pageNumber, setPageNumber] = useState(0);
@@ -33,7 +35,13 @@ const TripList = ({ history }) => {
           <div className="content-header">
             <h2 className="content-title">Trip List </h2>
             <div>
-              <Link to={{ pathname: `/add_trip` }} className="btn btn-primary">
+              <Link
+                to={{ pathname: `/add_trip` }}
+                onClick={() => {
+                  dispatch(toggleFlase());
+                }}
+                className="btn btn-primary"
+              >
                 <i className="material-icons md-plus" /> Add new
               </Link>
             </div>
