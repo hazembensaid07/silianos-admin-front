@@ -33,7 +33,7 @@ const Trip = ({ trip, name, page }) => {
             },
           }}
         >
-          Detail
+          Details
         </Link>
         <div className="dropdown">
           <a data-bs-toggle="dropdown" className="btn btn-light">

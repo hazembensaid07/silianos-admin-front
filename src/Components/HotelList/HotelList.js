@@ -58,7 +58,7 @@ const HotelList = ({ history }) => {
         <section className="content-main">
           <div className="content-header">
             <h2 className="content-title">Hotels List </h2>
-            <div>
+            <div style={{ marginTop: "10px" }}>
               <Link to={{ pathname: `/add_hotel` }} className="btn btn-primary">
                 <i className="material-icons md-plus" /> Add new
               </Link>

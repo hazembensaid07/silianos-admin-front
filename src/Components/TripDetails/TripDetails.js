@@ -96,7 +96,7 @@ const TripDetails = ({ location }) => {
                     <div className="col-sm-6 mb-3">
                       <label className="form-label">Best_Destination </label>
                       <p className="form-control" rows={4}>
-                        {bestt}
+                        hello
                       </p>
                     </div>
                   </div>{" "}

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Header from "../../Header/Header";
+import { Redirect } from "react-router-dom";
+import { isAuth } from "../../../helpers/helper";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
@@ -29,6 +31,9 @@ const AdminRequest = () => {
   };
   return (
     <div>
+      {isAuth().role === "Cn4CgaPX.uD6@gB5" && (
+        <Redirect to="admin_dashboard" />
+      )}
       <ToastContainer />
       <b className="screen-overlay" />
       <Header />

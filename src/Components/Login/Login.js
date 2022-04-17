@@ -42,7 +42,7 @@ const Login = ({ history }) => {
   return (
     <div>
       <ToastContainer />
-
+      {isAuth() && <Redirect to="admin_request" />}
       <b className="screen-overlay" />
       <Header />
       <section className="content-main">

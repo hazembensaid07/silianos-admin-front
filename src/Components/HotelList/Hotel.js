@@ -38,7 +38,7 @@ const Hotel = ({ hotel, name, page }) => {
             state: { id: hotel._id, pictures: hotel.pictures },
           }}
         >
-          Detail
+          Details
         </Link>
         <div className="dropdown">
           <a data-bs-toggle="dropdown" className="btn btn-light">
