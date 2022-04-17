@@ -146,7 +146,7 @@ const AddHotel = ({ history }) => {
         "application/x-www-form-urlencoded";
       axios({
         method: "post",
-        url: "https://sylanos.herokuapp.com/api/org/add",
+        url: "https://sylanos.herokuapp.com/api/hotel/add",
         data: data,
         headers: {
           authorization: token,
