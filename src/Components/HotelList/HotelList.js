@@ -2,13 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import HeaderAuth from "../Header/HeaderAuth";
 import { useDispatch, useSelector } from "react-redux";
-import { getHotels } from "../../JS/actions/hotel";
+import {
+  getHotels,
+  getActivesHotels,
+  getDisabledHotels,
+} from "../../JS/actions/hotel";
 import SideBar from "../SideBar/SideBar";
 import Hotel from "./Hotel";
 import { toggleFlase } from "../../JS/actions/Edit";
 
 const HotelList = ({ history }) => {
   const [pageNumber, setPageNumber] = useState(0);
+  const [show, setShow] = useState(0);
   const numberOfpages = useSelector((state) => state.hotelReducer.pages);
   const pages = new Array(numberOfpages).fill(null).map((v, i) => i);
   const [name, setName] = useState("");
@@ -21,9 +26,29 @@ const HotelList = ({ history }) => {
   const gotoNext = () => {
     setPageNumber(Math.min(numberOfpages - 1, pageNumber + 1));
   };
+  const clickActive = (event) => {
+    setShow(1);
+    setPageNumber(0);
+  };
+  const clickDisabled = (event) => {
+    setShow(2);
+    setPageNumber(0);
+  };
+  const clickAll = (event) => {
+    setShow(0);
+    setPageNumber(0);
+  };
   useEffect(() => {
-    dispatch(getHotels(name, pageNumber));
-  }, [name, dispatch, pageNumber]);
+    if (show === 0) {
+      dispatch(getHotels(name, pageNumber));
+    }
+    if (show === 1) {
+      dispatch(getActivesHotels(name, pageNumber));
+    }
+    if (show === 2) {
+      dispatch(getDisabledHotels(name, pageNumber));
+    }
+  }, [name, dispatch, show, pageNumber]);
 
   return (
     <div>
@@ -57,18 +82,43 @@ const HotelList = ({ history }) => {
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
+
                 <div className="col-lg-2 col-6 col-md-3">
-                  <select className="form-select">
-                    <option>Status</option>
-                    <option>Active</option>
-                    <option>Disabled</option>
-                  </select>
+                  <div>
+                    <button
+                      to={{ pathname: `/add_hotel` }}
+                      className="btn btn-success"
+                      style={{ color: "white" }}
+                      onClick={clickActive}
+                    >
+                      <i className="material-icons md-plus" /> Active
+                    </button>
+                  </div>
+                </div>
+                <div className="col-lg-2 col-6 col-md-3">
+                  <div>
+                    <button onClick={clickDisabled} className="btn btn-danger">
+                      <i className="material-icons md-plus" /> Disabled
+                    </button>
+                  </div>
+                </div>
+                <div className="col-lg-2 col-6 col-md-3">
+                  <div>
+                    <button
+                      to={{ pathname: `/add_hotel` }}
+                      className="btn btn-primary"
+                      onClick={clickAll}
+                    >
+                      <i className="material-icons md-plus" /> Show All
+                    </button>
+                  </div>
                 </div>
               </div>
             </header>{" "}
             {/* card-header end// */}
             <div className="card-body">
               <div className="table-responsive">
+                {loadHotels && hotels.length === 0 && <p></p>}
                 <table className="table table-hover">
                   <thead>
                     <tr>
@@ -79,7 +129,7 @@ const HotelList = ({ history }) => {
                       <th className="text-end"> Action </th>
                     </tr>
                   </thead>
-                  {loadHotels && hotels.length === 0 && <b>loading</b>}
+
                   <tbody>
                     {hotels.length !== 0 &&
                       hotels.map((el) => (

@@ -1,62 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import HeaderAuth from "../Header/HeaderAuth";
 import SideBar from "../SideBar/SideBar";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import { maxWidth } from "@mui/system";
+import { useDispatch, useSelector } from "react-redux";
+import { getHotel } from "../../JS/actions/hotel";
 
-const HotelDetails = ({ history }) => {
-  const itemData = [
-    {
-      img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-      title: "Breakfast",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-      title: "Burger",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-      title: "Camera",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
-      title: "Coffee",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
-      title: "Hats",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
-      title: "Honey",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1516802273409-68526ee1bdd6",
-      title: "Basketball",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1518756131217-31eb79b20e8f",
-      title: "Fern",
-    },
-    {
-      img: "https://res.cloudinary.com/dpkmrsjaa/image/upload/v1649868415/oga1tipumkckppbpwcf3.jpg",
-      title: "Mushrooms",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1567306301408-9b74779a11af",
-      title: "Tomato basil",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1471357674240-e1a485acb3e1",
-      title: "Sea star",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1589118949245-7d38baf380d6",
-      title: "Bike",
-    },
-  ];
+const HotelDetails = ({ location }) => {
+  const id = location.state.id;
+  const pics = location.state.pictures;
+  const dispatch = useDispatch();
+  const hotel = useSelector((state) => state.hotelReducer.hotel);
+  const loadHotels = useSelector((state) => state.hotelReducer.loadHotels);
 
+  useEffect(() => {
+    dispatch(getHotel(id));
+  }, []);
   return (
     <div>
       <b className="screen-overlay" />
@@ -66,94 +25,222 @@ const HotelDetails = ({ history }) => {
         <section className="content-main" style={{ maxWidth: "820px" }}>
           <div className="card mb-4">
             <div className="card-body">
-              <form>
-                <div className="mb-4">
-                  <label htmlFor="product_name" className="form-label">
-                    Product title
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Type here"
-                    className="form-control"
-                    id="product_name"
-                  />
-                </div>
-                <div className="mb-4">
-                  <ImageList
-                    sx={{
-                      width: 690,
-                      height: 450,
-                    }}
-                    variant="quilted"
-                    cols={3}
-                    rowHeight={250}
-                  >
-                    {itemData.map((item) => (
-                      <ImageListItem key={item.img}>
-                        <img
-                          src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                          srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                          alt={item.title}
-                          loading="lazy"
-                        />
-                      </ImageListItem>
-                    ))}
-                  </ImageList>
-                </div>
-                <div className="mb-4">
-                  <label className="form-label">Images</label>
-                  <input className="form-control" type="file" />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="product_name" className="form-label">
-                    Tags
-                  </label>
-                  <input type="text" className="form-control" />
-                </div>
-                <div className="row gx-2">
-                  <div className="col-sm-6 mb-3">
-                    <label className="form-label">Category</label>
-                    <select className="form-select">
-                      <option> Automobiles </option>
-                      <option> Home items </option>
-                      <option> Electronics </option>
-                      <option> Smartphones </option>
-                      <option> Sport items </option>
-                      <option> Baby and Tous </option>
-                    </select>
+              {loadHotels ? (
+                <h1>Loading</h1>
+              ) : (
+                <form>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="product_name"
+                      disabled="disabled"
+                      className="form-label"
+                    >
+                      Hotel Name
+                    </label>
+                    <p className="form-control" id="product_name">
+                      {" "}
+                      {hotel.name}
+                    </p>
                   </div>
-                  <div className="col-sm-6 mb-3">
-                    <label className="form-label">Sub-category</label>
-                    <select className="form-select">
-                      <option> Nissan </option>
-                      <option> Honda </option>
-                      <option> Mercedes </option>
-                      <option> Chevrolet </option>
-                    </select>
+                  <div className="mb-4">
+                    <ImageList
+                      sx={{
+                        width: 690,
+                        height: 450,
+                      }}
+                      variant="quilted"
+                      cols={3}
+                      rowHeight={250}
+                    >
+                      {pics.map((item) => (
+                        <ImageListItem key={item}>
+                          <img
+                            src={`${item}?w=164&h=164&fit=crop&auto=format`}
+                            srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                            alt="picture"
+                          />
+                        </ImageListItem>
+                      ))}
+                    </ImageList>
                   </div>
-                </div>{" "}
-                {/* row.// */}
-                <div className="mb-4">
-                  <label className="form-label">Price</label>
+                  <div className="mb-4">
+                    <label className="form-label">Description</label>
+                    <p className="form-control" rows={4}>
+                      Disponible en :Petit Dejeuner, Demi Pension, Pension
+                      complete, All Inclusive Soft
+                    </p>
+                  </div>
                   <div className="row gx-2">
-                    <div className="col-4">
-                      <input
-                        placeholder="Type"
-                        type="text"
-                        className="form-control"
-                      />
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label">Etoiles</label>
+                      <p className="form-control" rows={4}>
+                        5 étoiles
+                      </p>
                     </div>
-                    <div className="col-2">
-                      <select className="form-select">
-                        <option> USD </option>
-                        <option> EUR </option>
-                        <option> RUBL </option>
-                      </select>
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label">Logement </label>
+                      <p className="form-control" rows={4}>
+                        LPD , DP , PC , ALL_IN_SOFT , ALL_IN_HARD
+                      </p>
                     </div>
                   </div>{" "}
                   {/* row.// */}
-                </div>
-              </form>
+                  <div className="row gx-2">
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label">prix_lpd_adulte</label>
+                      <p className="form-control" rows={4}>
+                        50 DT
+                      </p>
+                    </div>
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label"> prix_dp_adulte</label>
+                      <p className="form-control" rows={4}>
+                        50 DT
+                      </p>
+                    </div>
+                  </div>{" "}
+                  <div className="row gx-2">
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label">prix_pc_adulte</label>
+                      <p className="form-control" rows={4}>
+                        50 DT
+                      </p>
+                    </div>
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label">
+                        {" "}
+                        pricx_all_in_soft_adulte
+                      </label>
+                      <p className="form-control" rows={4}>
+                        50 DT
+                      </p>
+                    </div>
+                  </div>{" "}
+                  <div className="row gx-2">
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label">prix_lpd_adulte</label>
+                      <p className="form-control" rows={4}>
+                        50 DT
+                      </p>
+                    </div>
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label"> prix_dp_adulte</label>
+                      <p className="form-control" rows={4}>
+                        50 DT
+                      </p>
+                    </div>
+                  </div>{" "}
+                  <div className="row gx-2">
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label">prix_all_in_adulte</label>
+                      <p className="form-control" rows={4}>
+                        50 DT
+                      </p>
+                    </div>
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label">
+                        réduction_enfant_2ans
+                      </label>
+                      <p className="form-control" rows={4}>
+                        50 %
+                      </p>
+                    </div>
+                  </div>{" "}
+                  <div className="row gx-2">
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label">
+                        réduction_enfant_12ans
+                      </label>
+                      <p className="form-control" rows={4}>
+                        50 %
+                      </p>
+                    </div>
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label">
+                        réduction_enfant_adulte
+                      </label>
+                      <p className="form-control" rows={4}>
+                        50 %
+                      </p>
+                    </div>
+                  </div>{" "}
+                  <div className="row gx-2">
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label">
+                        réduction_enfant_séparé
+                      </label>
+                      <p className="form-control" rows={4}>
+                        50 %
+                      </p>
+                    </div>
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label">réduction_3éme_lit</label>
+                      <p className="form-control" rows={4}>
+                        50 %
+                      </p>
+                    </div>
+                  </div>{" "}
+                  <div className="row gx-2">
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label">réduction_4éme_lit</label>
+                      <p className="form-control" rows={4}>
+                        50 %
+                      </p>
+                    </div>
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label">supp_single</label>
+                      <p className="form-control" rows={4}>
+                        50 DT
+                      </p>
+                    </div>
+                  </div>{" "}
+                  <div className="row gx-2">
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label">supp_suite</label>
+                      <p className="form-control" rows={4}>
+                        50 DT
+                      </p>
+                    </div>
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label">Discount</label>
+                      <p className="form-control" rows={4}>
+                        50 %
+                      </p>
+                    </div>
+                  </div>{" "}
+                  <div className="row gx-2">
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label"> best_hotel</label>
+                      <p className="form-control" rows={4}>
+                        true
+                      </p>
+                    </div>
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label">family_only</label>
+                      <p className="form-control" rows={4}>
+                        false
+                      </p>
+                    </div>
+                  </div>{" "}
+                  <div className="row gx-2">
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label"> total_chambre</label>
+                      <p className="form-control" rows={4}>
+                        200
+                      </p>
+                    </div>
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label">
+                        {" "}
+                        max_personnes_par_chambre
+                      </label>
+                      <p className="form-control" rows={4}>
+                        50
+                      </p>
+                    </div>
+                  </div>{" "}
+                </form>
+              )}
             </div>
           </div>{" "}
           {/* card end// */}

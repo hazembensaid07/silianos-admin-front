@@ -175,6 +175,52 @@ export const getHotels = (name, pageNumber) => async (dispatch) => {
     });
   }
 };
+export const getActivesHotels = (name, pageNumber) => async (dispatch) => {
+  dispatch({ type: GET_HOTELS__LOAD });
+  try {
+    const token = getCookie("token");
+    const options = {
+      headers: { authorization: token },
+    };
+    const result = await axios.get(
+      `${apiUri()}/hotel/active/all?search=${name}&page=${pageNumber}`,
+      options
+    );
+
+    dispatch({
+      type: GET_HOTELS__SUCCESS,
+      payload: { hotels: result.data.response, pages: result.data.totalPages },
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_HOTELS_FAIL,
+      payload: error.response.data.error,
+    });
+  }
+};
+export const getDisabledHotels = (name, pageNumber) => async (dispatch) => {
+  dispatch({ type: GET_HOTELS__LOAD });
+  try {
+    const token = getCookie("token");
+    const options = {
+      headers: { authorization: token },
+    };
+    const result = await axios.get(
+      `${apiUri()}/hotel/disable/all?search=${name}&page=${pageNumber}`,
+      options
+    );
+
+    dispatch({
+      type: GET_HOTELS__SUCCESS,
+      payload: { hotels: result.data.response, pages: result.data.totalPages },
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_HOTELS_FAIL,
+      payload: error.response.data.error,
+    });
+  }
+};
 export const getHotel = (id) => async (dispatch) => {
   dispatch({ type: GET_HOTELS__LOAD });
   try {
