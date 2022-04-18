@@ -807,7 +807,6 @@ const AddHotel = ({ history }) => {
                   <input
                     type="checkbox"
                     name="languages"
-                    checked={check.v1}
                     /* defaultChecked={check.v1} */
                     value="dp"
                     onChange={onChangeDp}
