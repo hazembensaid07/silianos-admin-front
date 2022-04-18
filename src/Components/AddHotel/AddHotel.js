@@ -814,20 +814,10 @@ const AddHotel = ({ history }) => {
                   />
                   <label htmlFor="language3"> dp</label>
                   <br />
-                  <input
-                    type="checkbox"
-                    name="languages"
-                    value="all_in_soft"
-                    onChange={onChange}
-                  />
+                  <input type="checkbox" name="languages" value="all_in_soft" />
                   <label htmlFor="language4"> all_in_soft</label>
                   <br />
-                  <input
-                    type="checkbox"
-                    name="languages"
-                    value="all_in"
-                    onChange={onChange}
-                  />
+                  <input type="checkbox" name="languages" value="all_in" />
                   <label htmlFor="language5"> all_in</label>
                   <br />
                 </div>
