@@ -5,6 +5,10 @@ import { deletePhoto, getTrip } from "../../JS/actions/trip";
 import { useDispatch, useSelector } from "react-redux";
 import { getCookie } from "../../helpers/helper";
 import axios from "axios";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
+import handleScroll from "../scroll.js";
+import apiUri from "../Components/apiUri";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
@@ -73,7 +77,7 @@ const AddTrip = () => {
         "application/x-www-form-urlencoded";
       axios({
         method: "post",
-        url: "https://sylanos.herokuapp.com/api/org/add",
+        url: `${apiUri()}/org/add`,
         data: data,
         headers: {
           authorization: token,
@@ -94,10 +98,11 @@ const AddTrip = () => {
             meta_title: "",
           });
           setFile([]);
+          handleScroll(e);
         })
         .catch((error) => {
           console.log(error);
-          toast.error("something went wrong verify your input");
+          toast.error(error.response.data.error);
         });
     } else {
       let trippp = {};
@@ -118,7 +123,7 @@ const AddTrip = () => {
         "application/x-www-form-urlencoded";
       axios({
         method: "post",
-        url: "https://sylanos.herokuapp.com/api/org/update",
+        url: `${apiUri()}/org/update`,
         data: data,
         headers: {
           authorization: token,
@@ -128,10 +133,11 @@ const AddTrip = () => {
         .then((response) => {
           toast.success("updated");
           dispatch(getTrip(tripp._id));
+          handleScroll(e);
         })
         .catch((error) => {
           console.log(error);
-          toast.error("something went wrong verify your input");
+          toast.error(error.response.data.error);
         });
     }
   };
@@ -293,23 +299,41 @@ const AddTrip = () => {
                     onChange={handleChangeFile}
                   />
                 </div>
-                {edit &&
-                  tripp.pictures &&
-                  tripp.pictures.map((img) => {
-                    const body = {};
-                    body.id = tripp._id;
-                    body.pictureUrl = img;
-                    body.imageID = tripp.cloudinary_ids[counter];
-                    info[counter] = body;
-                    counter++;
-                    return (
-                      <div>
-                        <img src={img} width="100" height="100" />
+                {edit && tripp.pictures && (
+                  <div className="mb-4">
+                    <ImageList
+                      sx={{
+                        width: 600,
+                        height: 450,
+                      }}
+                      variant="quilted"
+                      cols={3}
+                      rowHeight={250}
+                    >
+                      {tripp.pictures.map((img) => {
+                        const body = {};
+                        body.id = tripp._id;
+                        body.pictureUrl = img;
+                        body.imageID = tripp.cloudinary_ids[counter];
+                        info[counter] = body;
+                        counter++;
 
-                        <h1>image {counter}</h1>
-                      </div>
-                    );
-                  })}
+                        return (
+                          <ImageListItem key={img}>
+                            <img
+                              src={img}
+                              srcSet={`${{
+                                img,
+                              }}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                              alt="15"
+                              loading="lazy"
+                            />
+                          </ImageListItem>
+                        );
+                      })}
+                    </ImageList>
+                  </div>
+                )}
 
                 <br />
                 {edit && tripp.pictures && (
