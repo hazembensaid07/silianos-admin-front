@@ -12,8 +12,6 @@ import RessetPassword from "./Components/ResetPassword/RessetPassword";
 import SignUp from "./Components/SignUp/SignUp";
 import TripDetails from "./Components/TripDetails/TripDetails";
 import TripList from "./Components/TripList/TripList";
-import UpdateHotel from "./Components/UpdateHotel/UpdateHotel";
-import UpdateTrip from "./Components/UpdateTrip/UpdateTrip";
 import VoucherList from "./Components/VoucherList/VoucherList";
 import { Switch, Route } from "react-router-dom";
 import Error from "./Components/error";
@@ -34,11 +32,11 @@ function App() {
         <AdminRoute exact path="/hotels" component={HotelList} />
         <AdminRoute exact path="/add_hotel" component={AddHotel} />
         <AdminRoute exact path="/hotel_details" component={HotelDetails} />
-        <AdminRoute exact path="/update_hotel" component={UpdateHotel} />
+
         <AdminRoute exact path="/trips" component={TripList} />
         <AdminRoute exact path="/add_trip" component={AddTrip} />
         <AdminRoute exact path="/trip_details" component={TripDetails} />
-        <AdminRoute exact path="/update_trip" component={UpdateTrip} />
+
         <Route exact path="/admin_list" component={AdminList} />
         <Route exact path="/admin_list/:id" component={AdminList} />
         <AdminRoute exact path="/voucher_list" component={VoucherList} />

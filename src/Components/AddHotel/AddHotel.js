@@ -7,7 +7,7 @@ import { getCookie } from "../../helpers/helper";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import handleScroll from "../scroll.js";
-import apiUri from "../Components/apiUri";
+import apiUri from "../apiUri";
 
 import { deletePhoto, getHotel } from "../../JS/actions/hotel";
 import { ToastContainer, toast } from "react-toastify";
