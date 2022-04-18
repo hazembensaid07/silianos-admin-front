@@ -8,6 +8,7 @@ import axios from "axios";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import handleScroll from "../scroll.js";
+import apiUri from "../Components/apiUri";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
@@ -76,7 +77,7 @@ const AddTrip = () => {
         "application/x-www-form-urlencoded";
       axios({
         method: "post",
-        url: "https://sylanos.herokuapp.com/api/org/add",
+        url: `${apiUri()}/org/add`,
         data: data,
         headers: {
           authorization: token,
@@ -122,7 +123,7 @@ const AddTrip = () => {
         "application/x-www-form-urlencoded";
       axios({
         method: "post",
-        url: "https://sylanos.herokuapp.com/api/org/update",
+        url: `${apiUri()}/org/update`,
         data: data,
         headers: {
           authorization: token,

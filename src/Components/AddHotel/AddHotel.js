@@ -7,14 +7,9 @@ import { getCookie } from "../../helpers/helper";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import handleScroll from "../scroll.js";
+import apiUri from "../Components/apiUri";
 
-import {
-  addHotel,
-  deletePhoto,
-  getHotel,
-  updateHotel,
-} from "../../JS/actions/hotel";
-import { Link } from "react-router-dom";
+import { deletePhoto, getHotel } from "../../JS/actions/hotel";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 const AddHotel = ({ history }) => {
@@ -66,7 +61,10 @@ const AddHotel = ({ history }) => {
 
   const handleChangeArray = (e) => {
     e.preventDefault();
-    setHotel({ ...hotel, [e.target.id]: e.target.value.split(",") });
+    let t = e.target.value.split(",");
+    for (let i = 0; i < t.length; i++) {
+      setHotel({ ...hotel, [e.target.id[i]]: t[i] });
+    }
   };
   const handleChange = (e) => {
     e.preventDefault();
@@ -145,7 +143,7 @@ const AddHotel = ({ history }) => {
         "application/x-www-form-urlencoded";
       axios({
         method: "post",
-        url: "https://sylanos.herokuapp.com/api/hotel/add",
+        url: `${apiUri()}/hotel/add`,
         data: data,
         headers: {
           authorization: token,
@@ -234,7 +232,7 @@ const AddHotel = ({ history }) => {
         "application/x-www-form-urlencoded";
       axios({
         method: "post",
-        url: "https://sylanos.herokuapp.com/api/hotel/update",
+        url: `${apiUri()}/hotel/update`,
         data: data,
         headers: {
           authorization: token,
@@ -690,7 +688,7 @@ const AddHotel = ({ history }) => {
                   <input
                     type="checkbox"
                     name="logement"
-                    defaultChecked={true}
+                    /*defaultChecked={true}*/
                     value="lpd"
                     onChange={onChange}
                   />
