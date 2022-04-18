@@ -81,7 +81,6 @@ const AddHotel = ({ history }) => {
       c = true;
     }
     setCheck({ ...check, v1: c });
-    e.checked = c;
     if (c === true) {
       let string = hotel.logement[0];
       let arr = string.split(",");
