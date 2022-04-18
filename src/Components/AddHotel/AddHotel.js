@@ -4,14 +4,12 @@ import SideBar from "../SideBar/SideBar";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { getCookie } from "../../helpers/helper";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
+import handleScroll from "../scroll.js";
+import apiUri from "../Components/apiUri";
 
-import {
-  addHotel,
-  deletePhoto,
-  getHotel,
-  updateHotel,
-} from "../../JS/actions/hotel";
-import { Link } from "react-router-dom";
+import { deletePhoto, getHotel } from "../../JS/actions/hotel";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 const AddHotel = ({ history }) => {
@@ -48,7 +46,7 @@ const AddHotel = ({ history }) => {
     sup_suite: "",
     sup_vue_sur_mer: "",
     discount: "",
-    family_only: "",
+    family_only: true,
     total_chambre: "",
     autres: "",
     max_chambre: "",
@@ -63,7 +61,10 @@ const AddHotel = ({ history }) => {
 
   const handleChangeArray = (e) => {
     e.preventDefault();
-    setHotel({ ...hotel, [e.target.id]: e.target.value.split(",") });
+    let t = e.target.value.split(",");
+    for (let i = 0; i < t.length; i++) {
+      setHotel({ ...hotel, [e.target.id[i]]: t[i] });
+    }
   };
   const handleChange = (e) => {
     e.preventDefault();
@@ -73,12 +74,7 @@ const AddHotel = ({ history }) => {
     e.preventDefault();
     setDeletei(e.target.value);
   };
-  const handleHotel = () => {
-    if (!edit) {
-      dispatch(addHotel(hotel, file));
-    }
-    dispatch(updateHotel(hotel, file, hotell._id));
-  };
+
   const handleDelete = (id, body) => {
     dispatch(deletePhoto(id, body));
   };
@@ -107,11 +103,11 @@ const AddHotel = ({ history }) => {
       description,
       ville,
       etoiles,
-      logement,
+
       localisation,
       best_hotel,
       meta_description,
-      meta_keywords,
+
       meta_title,
       price_lpd_adulte,
       price_dp_adulte,
@@ -134,6 +130,7 @@ const AddHotel = ({ history }) => {
 
       reduction_enfant_single,
     } = hotel;
+
     const token = getCookie("token");
 
     const data = new FormData();
@@ -146,7 +143,7 @@ const AddHotel = ({ history }) => {
         "application/x-www-form-urlencoded";
       axios({
         method: "post",
-        url: "https://sylanos.herokuapp.com/api/hotel/add",
+        url: `${apiUri()}/hotel/add`,
         data: data,
         headers: {
           authorization: token,
@@ -187,6 +184,7 @@ const AddHotel = ({ history }) => {
             reduction_enfant_single: "",
           });
           setFile([]);
+          handleScroll(e);
         })
         .catch((error) => {
           console.log(error);
@@ -199,11 +197,11 @@ const AddHotel = ({ history }) => {
         description,
         ville,
         etoiles,
-        logement,
+
         localisation,
         best_hotel,
         meta_description,
-        meta_keywords,
+
         meta_title,
         price_lpd_adulte,
         price_dp_adulte,
@@ -227,12 +225,14 @@ const AddHotel = ({ history }) => {
         reduction_enfant_single,
       };
       hotelll.id = hotell._id;
+      hotelll.logement = [...hotel.logement];
+      hotelll.meta_keywords = [...hotel.meta_keywords];
 
       axios.defaults.headers.post["Content-Type"] =
         "application/x-www-form-urlencoded";
       axios({
         method: "post",
-        url: "https://sylanos.herokuapp.com/api/hotel/update",
+        url: `${apiUri()}/hotel/update`,
         data: data,
         headers: {
           authorization: token,
@@ -242,10 +242,11 @@ const AddHotel = ({ history }) => {
         .then((response) => {
           toast.success("updated");
           dispatch(getHotel(hotell._id));
+          handleScroll(e);
         })
         .catch((error) => {
           console.log(error);
-          toast.error("something went wrong verify your input");
+          toast.error(error.response.data.error);
         });
     }
   };
@@ -689,6 +690,7 @@ const AddHotel = ({ history }) => {
                   <input
                     type="checkbox"
                     name="logement"
+                    /*defaultChecked={true}*/
                     value="lpd"
                     onChange={onChange}
                   />
@@ -727,23 +729,41 @@ const AddHotel = ({ history }) => {
                   <label htmlFor="language5"> all_in</label>
                   <br />
                 </div>
-                {edit &&
-                  hotell.pictures &&
-                  hotell.pictures.map((img) => {
-                    const body = {};
-                    body.id = hotell._id;
-                    body.pictureUrl = img;
-                    body.imageID = hotell.cloudinary_ids[counter];
-                    info[counter] = body;
-                    counter++;
-                    return (
-                      <div>
-                        <img src={img} width="100" height="100" />
+                {edit && hotell.pictures && (
+                  <div className="mb-4">
+                    <ImageList
+                      sx={{
+                        width: 600,
+                        height: 450,
+                      }}
+                      variant="quilted"
+                      cols={3}
+                      rowHeight={250}
+                    >
+                      {hotell.pictures.map((img) => {
+                        const body = {};
+                        body.id = hotell._id;
+                        body.pictureUrl = img;
+                        body.imageID = hotell.cloudinary_ids[counter];
+                        info[counter] = body;
+                        counter++;
 
-                        <h1>image {counter}</h1>
-                      </div>
-                    );
-                  })}
+                        return (
+                          <ImageListItem key={img}>
+                            <img
+                              src={img}
+                              srcSet={`${{
+                                img,
+                              }}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                              alt="15"
+                              loading="lazy"
+                            />
+                          </ImageListItem>
+                        );
+                      })}
+                    </ImageList>
+                  </div>
+                )}
 
                 <br />
                 {edit && hotell.pictures && (
