@@ -8,7 +8,7 @@ import axios from "axios";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import handleScroll from "../scroll.js";
-import apiUri from "../Components/apiUri";
+import apiUri from "../apiUri";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";

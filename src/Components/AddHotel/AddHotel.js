@@ -7,7 +7,7 @@ import { getCookie } from "../../helpers/helper";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import handleScroll from "../scroll.js";
-import apiUri from "../Components/apiUri";
+import apiUri from "../apiUri";
 
 import { deletePhoto, getHotel } from "../../JS/actions/hotel";
 import { ToastContainer, toast } from "react-toastify";
@@ -16,7 +16,6 @@ const AddHotel = ({ history }) => {
   let counter = 0;
   let info = [];
   const [deletei, setDeletei] = useState(1);
-
   const dispatch = useDispatch();
   const edit = useSelector((state) => state.editReducer.edit);
   const hotell = useSelector((state) => state.hotelReducer.hotel);
@@ -53,7 +52,127 @@ const AddHotel = ({ history }) => {
     reduction_enfant_single: "",
   });
   const [file, setFile] = useState([]);
+  const [check, setCheck] = useState({
+    v1: false /*dp*/,
+    v2: false /*lpd*/,
+    v3: false /*pc*/,
+  });
 
+  if (edit) {
+    if (hotell.logement) {
+      if (hotell.logement[0]) {
+        let c = hotell.logement[0].split(",");
+        let v1 = c.includes("dp") || c.includes(" dp");
+        let v2 = c.includes("lpd") || c.includes(" lpd");
+        let v3 = c.includes("pc") || c.includes(" pc");
+
+        check.v1 = v1;
+        check.v2 = v2;
+        check.v3 = v3;
+      }
+    }
+  }
+
+  const onChangeDp = (e) => {
+    e.preventDefault();
+    console.log("test");
+    let c = false;
+    if (check.v1 === false) {
+      c = true;
+    }
+    setCheck({ ...check, v1: c });
+    e.checked = c;
+    if (c === true) {
+      let string = hotel.logement[0];
+      let arr = string.split(",");
+      arr.push("dp");
+      hotel.logement = arr;
+    }
+    if (c === false) {
+      let string = hotel.logement[0];
+      let arr = string.split(",");
+
+      let t = arr.includes("dp");
+      let t2 = arr.includes(" dp");
+      if (t) {
+        let index = arr.indexOf("dp");
+        arr.splice(index, 1);
+        hotel.logement = arr;
+      }
+      if (t2) {
+        let index = arr.indexOf(" dp");
+        arr.splice(index, 1);
+        hotel.logement = arr;
+      }
+    }
+  };
+  const onChangeLpd = (e) => {
+    e.preventDefault();
+    console.log("test");
+    let c = false;
+    if (check.v2 === false) {
+      c = true;
+    }
+    setCheck({ ...check, v2: c });
+    if (c === true) {
+      let string = hotel.logement[0];
+      let arr = string.split(",");
+      arr.push("lpd");
+      hotel.logement = arr;
+    }
+    if (c === false) {
+      let string = hotel.logement[0];
+      let arr = string.split(",");
+
+      let t = arr.includes("lpd");
+      let t2 = arr.includes(" lpd");
+      if (t) {
+        let index = arr.indexOf("lpd");
+        arr.splice(index, 1);
+        hotel.logement = arr;
+      }
+      if (t2) {
+        let index = arr.indexOf(" lpd");
+        arr.splice(index, 1);
+        hotel.logement = arr;
+      }
+    }
+  };
+
+  const onChangePc = (e) => {
+    e.preventDefault();
+    console.log("test");
+    let c = false;
+    if (check.v3 === false) {
+      c = true;
+    }
+    setCheck({ ...check, v3: c });
+    if (c === true) {
+      let string = hotel.logement[0];
+      let arr = string.split(",");
+      arr.push("pc");
+      hotel.logement = arr;
+    }
+    if (c === false) {
+      let string = hotel.logement[0];
+      let arr = string.split(",");
+
+      let t = arr.includes("pc");
+      let t2 = arr.includes(" pc");
+      if (t) {
+        let index = arr.indexOf("pc");
+        arr.splice(index, 1);
+        hotel.logement = arr;
+      }
+      if (t2) {
+        let index = arr.indexOf(" pc");
+        arr.splice(index, 1);
+        hotel.logement = arr;
+      }
+    }
+  };
+  if (hotel.logement) {
+  }
   const handleChangeFile = (e) => {
     e.preventDefault();
     setFile(e.target.files);
@@ -61,10 +180,7 @@ const AddHotel = ({ history }) => {
 
   const handleChangeArray = (e) => {
     e.preventDefault();
-    let t = e.target.value.split(",");
-    for (let i = 0; i < t.length; i++) {
-      setHotel({ ...hotel, [e.target.id[i]]: t[i] });
-    }
+    setHotel({ ...hotel, [e.target.id]: e.target.value.split(",") });
   };
   const handleChange = (e) => {
     e.preventDefault();
@@ -78,23 +194,6 @@ const AddHotel = ({ history }) => {
   const handleDelete = (id, body) => {
     dispatch(deletePhoto(id, body));
   };
-  const onChange = (e) => {
-    const isChecked = e.target.checked;
-    if (isChecked) {
-      if (hotel.logement.indexOf(e.target.value)) {
-        let obj = hotel.logement.slice();
-        obj.splice(hotel.logement.indexOf(e.target.value), 1);
-      }
-      let obj = hotel.logement.slice();
-      obj.push(e.target.value);
-      setHotel({ ...hotel, logement: obj });
-    } else {
-      let index = hotel.logement.indexOf(e.target.value);
-      let obj = hotel.logement.slice();
-      obj.splice(index, 1);
-      setHotel({ ...hotel, logement: obj });
-    }
-  };
 
   const update = async (e) => {
     e.preventDefault();
@@ -103,11 +202,11 @@ const AddHotel = ({ history }) => {
       description,
       ville,
       etoiles,
-
+      meta_keywords,
       localisation,
       best_hotel,
       meta_description,
-
+      logement,
       meta_title,
       price_lpd_adulte,
       price_dp_adulte,
@@ -187,7 +286,6 @@ const AddHotel = ({ history }) => {
           handleScroll(e);
         })
         .catch((error) => {
-          console.log(error);
           toast.error(error.response.data.error);
         });
     } else {
@@ -197,10 +295,11 @@ const AddHotel = ({ history }) => {
         description,
         ville,
         etoiles,
-
+        meta_keywords,
         localisation,
         best_hotel,
         meta_description,
+        logement,
 
         meta_title,
         price_lpd_adulte,
@@ -225,8 +324,6 @@ const AddHotel = ({ history }) => {
         reduction_enfant_single,
       };
       hotelll.id = hotell._id;
-      hotelll.logement = [...hotel.logement];
-      hotelll.meta_keywords = [...hotel.meta_keywords];
 
       axios.defaults.headers.post["Content-Type"] =
         "application/x-www-form-urlencoded";
@@ -245,46 +342,47 @@ const AddHotel = ({ history }) => {
           handleScroll(e);
         })
         .catch((error) => {
-          console.log(error);
           toast.error(error.response.data.error);
         });
     }
   };
 
   useEffect(() => {
-    edit
-      ? setHotel(hotell)
-      : setHotel({
-          name: "",
-          description: "",
-          ville: "",
-          etoiles: "",
-          logement: [],
-          localisation: "",
-          best_hotel: false,
-          meta_description: "",
-          meta_keywords: [],
-          meta_title: "",
-          price_lpd_adulte: "",
-          price_dp_adulte: "",
-          price_pc_adulte: "",
-          price_all_in_soft_adulte: "",
-          price_all_in_adulte: "",
-          reduction_enfant_2ans: "",
-          reduction_enfant_12ans: "",
-          reduction_enfant_adulte: "",
-          reduction_3_lit: "",
-          reduction_4_lit: "",
-          sup_single: "",
-          sup_suite: "",
-          sup_vue_sur_mer: "",
-          discount: "",
-          family_only: "",
-          total_chambre: "",
-          autres: "",
-          max_chambre: "",
-          reduction_enfant_single: "",
-        });
+    if (edit) {
+      setHotel(hotell);
+    } else {
+      setHotel({
+        name: "",
+        description: "",
+        ville: "",
+        etoiles: "",
+        logement: [],
+        localisation: "",
+        best_hotel: false,
+        meta_description: "",
+        meta_keywords: [],
+        meta_title: "",
+        price_lpd_adulte: "",
+        price_dp_adulte: "",
+        price_pc_adulte: "",
+        price_all_in_soft_adulte: "",
+        price_all_in_adulte: "",
+        reduction_enfant_2ans: "",
+        reduction_enfant_12ans: "",
+        reduction_enfant_adulte: "",
+        reduction_3_lit: "",
+        reduction_4_lit: "",
+        sup_single: "",
+        sup_suite: "",
+        sup_vue_sur_mer: "",
+        discount: "",
+        family_only: "",
+        total_chambre: "",
+        autres: "",
+        max_chambre: "",
+        reduction_enfant_single: "",
+      });
+    }
   }, [edit, hotell]);
   return (
     <div>
@@ -688,9 +786,10 @@ const AddHotel = ({ history }) => {
                   <input
                     type="checkbox"
                     name="logement"
-                    /*defaultChecked={true}*/
+                    checked={check.v2}
+                    /*defaultChecked={check.v2}*/
                     value="lpd"
-                    onChange={onChange}
+                    onChange={onChangeLpd}
                   />
                   <label htmlFor="language1"> lpd</label>
                   <br />
@@ -698,15 +797,19 @@ const AddHotel = ({ history }) => {
                     type="checkbox"
                     name="languages"
                     value="pc"
-                    onChange={onChange}
+                    checked={check.v3}
+                    /* defaultChecked={check.v3}*/
+                    onChange={onChangePc}
                   />
                   <label htmlFor="language2"> pc</label>
                   <br />
                   <input
                     type="checkbox"
                     name="languages"
+                    checked={check.v1}
+                    /* defaultChecked={check.v1} */
                     value="dp"
-                    onChange={onChange}
+                    onChange={onChangeDp}
                   />
                   <label htmlFor="language3"> dp</label>
                   <br />
