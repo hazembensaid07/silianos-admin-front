@@ -1,92 +1,108 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import HeaderAuth from "../Header/HeaderAuth";
 import SideBar from "../SideBar/SideBar";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
+import { useDispatch, useSelector } from "react-redux";
+import { getTrip } from "../../JS/actions/trip";
 
-const TripDetails = ({ history }) => {
+const TripDetails = ({ location }) => {
+  const id = location.state.id;
+  const pics = location.state.pictures;
+  const best = location.state.best;
+  console.log(best);
+  const dispatch = useDispatch();
+  const trip = useSelector((state) => state.tripReducer.trip);
+  const loadTrips = useSelector((state) => state.tripReducer.loadTrips);
+  const [bestt, setBest] = useState(false);
+  useEffect(() => {
+    dispatch(getTrip(id));
+    if (best) {
+      setBest(true);
+    } else {
+      setBest(false);
+    }
+  }, []);
   return (
     <div>
       <b className="screen-overlay" />
       <SideBar />
       <main className="main-wrap">
         <HeaderAuth />
-        <section className="content-main" style={{ maxWidth: "720px" }}>
+        <section className="content-main" style={{ maxWidth: "820px" }}>
           <div className="card mb-4">
             <div className="card-body">
-              <form>
-                <div className="mb-4">
-                  <label htmlFor="product_name" className="form-label">
-                    Product title
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Type here"
-                    className="form-control"
-                    id="product_name"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="form-label">Full description</label>
-                  <textarea
-                    placeholder="Type here"
-                    className="form-control"
-                    rows={4}
-                    defaultValue={""}
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="form-label">Images</label>
-                  <input className="form-control" type="file" />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="product_name" className="form-label">
-                    Tags
-                  </label>
-                  <input type="text" className="form-control" />
-                </div>
-                <div className="row gx-2">
-                  <div className="col-sm-6 mb-3">
-                    <label className="form-label">Category</label>
-                    <select className="form-select">
-                      <option> Automobiles </option>
-                      <option> Home items </option>
-                      <option> Electronics </option>
-                      <option> Smartphones </option>
-                      <option> Sport items </option>
-                      <option> Baby and Tous </option>
-                    </select>
+              {loadTrips ? (
+                <h1>Loading</h1>
+              ) : (
+                <form>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="product_name"
+                      disabled="disabled"
+                      className="form-label"
+                    >
+                      Destination
+                    </label>
+                    <p className="form-control" id="product_name">
+                      {trip.destination}
+                    </p>
                   </div>
-                  <div className="col-sm-6 mb-3">
-                    <label className="form-label">Sub-category</label>
-                    <select className="form-select">
-                      <option> Nissan </option>
-                      <option> Honda </option>
-                      <option> Mercedes </option>
-                      <option> Chevrolet </option>
-                    </select>
+                  <div className="mb-4">
+                    <ImageList
+                      sx={{
+                        width: 690,
+                        height: 450,
+                      }}
+                      variant="quilted"
+                      cols={3}
+                      rowHeight={250}
+                    >
+                      {pics.map((item) => (
+                        <ImageListItem key={item}>
+                          <img
+                            src={`${item}?w=164&h=164&fit=crop&auto=format`}
+                            srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                          />
+                        </ImageListItem>
+                      ))}
+                    </ImageList>
                   </div>
-                </div>{" "}
-                {/* row.// */}
-                <div className="mb-4">
-                  <label className="form-label">Price</label>
+                  <div className="mb-4">
+                    <label className="form-label">Description</label>
+                    <p className="form-control" rows={4}>
+                      {trip.description}
+                    </p>
+                  </div>
+                  <div className="mb-4">
+                    <label className="form-label">Programme</label>
+                    <p className="form-control" rows={4}>
+                      {trip.programme}
+                    </p>
+                  </div>
+                  <div className="mb-4">
+                    <label className="form-label">Dates</label>
+                    <p className="form-control" rows={4}>
+                      {trip.dates}
+                    </p>
+                  </div>
                   <div className="row gx-2">
-                    <div className="col-4">
-                      <input
-                        placeholder="Type"
-                        type="text"
-                        className="form-control"
-                      />
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label">Prix</label>
+                      <p className="form-control" rows={4}>
+                        {trip.price}
+                      </p>
                     </div>
-                    <div className="col-2">
-                      <select className="form-select">
-                        <option> USD </option>
-                        <option> EUR </option>
-                        <option> RUBL </option>
-                      </select>
+                    <div className="col-sm-6 mb-3">
+                      <label className="form-label">Best_Destination </label>
+                      <p className="form-control" rows={4}>
+                        {bestt}
+                      </p>
                     </div>
                   </div>{" "}
                   {/* row.// */}
-                </div>
-              </form>
+                </form>
+              )}
             </div>
           </div>{" "}
           {/* card end// */}

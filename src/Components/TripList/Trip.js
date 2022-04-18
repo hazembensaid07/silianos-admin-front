@@ -26,7 +26,17 @@ const Trip = ({ trip, name, page }) => {
       <td>{trip.dates}</td>
 
       <td className="text-end">
-        <Link className="btn btn-light" to={{ pathname: `/trip_details` }}>
+        <Link
+          className="btn btn-light"
+          to={{
+            pathname: `/trip_details`,
+            state: {
+              id: trip._id,
+              pictures: trip.pictures,
+              best: trip.best_org,
+            },
+          }}
+        >
           Detail
         </Link>
         <div className="dropdown">
