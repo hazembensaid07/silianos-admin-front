@@ -190,7 +190,7 @@ const AddHotel = ({ history }) => {
         })
         .catch((error) => {
           console.log(error);
-          toast.error("something went wrong verify your input");
+          toast.error(error.response.data.error);
         });
     } else {
       let hotelll = {};
@@ -295,7 +295,9 @@ const AddHotel = ({ history }) => {
         <HeaderAuth />
         <section className="content-main" style={{ maxWidth: "720px" }}>
           <div className="content-header">
-            <h2 className="content-title">Add Hotel </h2>
+            <h2 className="content-title">
+              {!edit && "Add Hotel "} {edit && "Update Hotel"}
+            </h2>
           </div>
           <div className="card mb-4">
             <div className="card-body">
@@ -707,6 +709,22 @@ const AddHotel = ({ history }) => {
                     onChange={onChange}
                   />
                   <label htmlFor="language3"> dp</label>
+                  <br />
+                  <input
+                    type="checkbox"
+                    name="languages"
+                    value="all_in_soft"
+                    onChange={onChange}
+                  />
+                  <label htmlFor="language4"> all_in_soft</label>
+                  <br />
+                  <input
+                    type="checkbox"
+                    name="languages"
+                    value="all_in"
+                    onChange={onChange}
+                  />
+                  <label htmlFor="language5"> all_in</label>
                   <br />
                 </div>
                 {edit &&

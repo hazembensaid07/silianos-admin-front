@@ -59,10 +59,7 @@ const HotelList = ({ history }) => {
         <section className="content-main">
           <div className="content-header">
             <h2 className="content-title">Hotels List </h2>
-<<<<<<< HEAD
-            <div style={{ marginTop: "10px" }}>
-              <Link to={{ pathname: `/add_hotel` }} className="btn btn-primary">
-=======
+
             <div>
               <Link
                 to={{ pathname: `/add_hotel` }}
@@ -71,7 +68,6 @@ const HotelList = ({ history }) => {
                   dispatch(toggleFlase());
                 }}
               >
->>>>>>> origin/master
                 <i className="material-icons md-plus" /> Add new
               </Link>
             </div>

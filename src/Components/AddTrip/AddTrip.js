@@ -161,7 +161,9 @@ const AddTrip = () => {
         <HeaderAuth />
         <section className="content-main" style={{ maxWidth: "720px" }}>
           <div className="content-header">
-            <h2 className="content-title">Add Trip </h2>
+            <h2 className="content-title">
+              {!edit && "Add Trip "} {edit && "Update Trip"}
+            </h2>
           </div>
           <div className="card mb-4">
             <div className="card-body">
