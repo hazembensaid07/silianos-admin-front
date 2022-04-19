@@ -24,7 +24,7 @@ const AddHotel = ({ history }) => {
     name: "",
     description: "",
     ville: "",
-    etoiles: "",
+    etoiles: "4",
     logement: [],
     localisation: "",
     best_hotel: false,
@@ -51,127 +51,16 @@ const AddHotel = ({ history }) => {
     max_chambre: "",
     reduction_enfant_single: "",
   });
+  console.log(hotel);
   const [file, setFile] = useState([]);
-  const [check, setCheck] = useState({
-    v1: false /*dp*/,
-    v2: false /*lpd*/,
-    v3: false /*pc*/,
+  let [logement2, setLog] = useState({
+    lpd: "false",
+    dp: "false",
+    pc: "false",
+    all_in_soft: "false",
+    all_in_hard: "false",
   });
 
-  if (edit) {
-    if (hotell.logement) {
-      if (hotell.logement[0]) {
-        let c = hotell.logement[0].split(",");
-        let v1 = c.includes("dp") || c.includes(" dp");
-        let v2 = c.includes("lpd") || c.includes(" lpd");
-        let v3 = c.includes("pc") || c.includes(" pc");
-
-        check.v1 = v1;
-        check.v2 = v2;
-        check.v3 = v3;
-      }
-    }
-  }
-
-  const onChangeDp = (e) => {
-    e.preventDefault();
-    console.log("test");
-    let c = false;
-    if (check.v1 === false) {
-      c = true;
-    }
-    setCheck({ ...check, v1: c });
-    if (c === true) {
-      let string = hotel.logement[0];
-      let arr = string.split(",");
-      arr.push("dp");
-      hotel.logement = arr;
-    }
-    if (c === false) {
-      let string = hotel.logement[0];
-      let arr = string.split(",");
-
-      let t = arr.includes("dp");
-      let t2 = arr.includes(" dp");
-      if (t) {
-        let index = arr.indexOf("dp");
-        arr.splice(index, 1);
-        hotel.logement = arr;
-      }
-      if (t2) {
-        let index = arr.indexOf(" dp");
-        arr.splice(index, 1);
-        hotel.logement = arr;
-      }
-    }
-  };
-  const onChangeLpd = (e) => {
-    e.preventDefault();
-    console.log("test");
-    let c = false;
-    if (check.v2 === false) {
-      c = true;
-    }
-    setCheck({ ...check, v2: c });
-    if (c === true) {
-      let string = hotel.logement[0];
-      let arr = string.split(",");
-      arr.push("lpd");
-      hotel.logement = arr;
-    }
-    if (c === false) {
-      let string = hotel.logement[0];
-      let arr = string.split(",");
-
-      let t = arr.includes("lpd");
-      let t2 = arr.includes(" lpd");
-      if (t) {
-        let index = arr.indexOf("lpd");
-        arr.splice(index, 1);
-        hotel.logement = arr;
-      }
-      if (t2) {
-        let index = arr.indexOf(" lpd");
-        arr.splice(index, 1);
-        hotel.logement = arr;
-      }
-    }
-  };
-
-  const onChangePc = (e) => {
-    e.preventDefault();
-    console.log("test");
-    let c = false;
-    if (check.v3 === false) {
-      c = true;
-    }
-    setCheck({ ...check, v3: c });
-    if (c === true) {
-      let string = hotel.logement[0];
-      let arr = string.split(",");
-      arr.push("pc");
-      hotel.logement = arr;
-    }
-    if (c === false) {
-      let string = hotel.logement[0];
-      let arr = string.split(",");
-
-      let t = arr.includes("pc");
-      let t2 = arr.includes(" pc");
-      if (t) {
-        let index = arr.indexOf("pc");
-        arr.splice(index, 1);
-        hotel.logement = arr;
-      }
-      if (t2) {
-        let index = arr.indexOf(" pc");
-        arr.splice(index, 1);
-        hotel.logement = arr;
-      }
-    }
-  };
-  if (hotel.logement) {
-  }
   const handleChangeFile = (e) => {
     e.preventDefault();
     setFile(e.target.files);
@@ -181,9 +70,14 @@ const AddHotel = ({ history }) => {
     e.preventDefault();
     setHotel({ ...hotel, [e.target.id]: e.target.value.split(",") });
   };
+
   const handleChange = (e) => {
     e.preventDefault();
     setHotel({ ...hotel, [e.target.id]: e.target.value });
+  };
+  const handleChange3 = (e) => {
+    e.preventDefault();
+    setLog({ ...logement2, [e.target.id]: e.target.value });
   };
   const handleChange2 = (e) => {
     e.preventDefault();
@@ -225,9 +119,29 @@ const AddHotel = ({ history }) => {
       total_chambre,
       autres,
       max_chambre,
-
       reduction_enfant_single,
     } = hotel;
+    let loge = "";
+    console.log(logement2);
+    if (logement2.lpd === "true") {
+      loge += "lpd,";
+    }
+    if (logement2.dp === "true") {
+      loge += "dp,";
+    }
+    if (logement2.pc === "true") {
+      loge += "pc,";
+    }
+    if (logement2.all_in_soft === "true") {
+      loge += "all_in_soft,";
+    }
+    if (logement2.all_in_hard === "true") {
+      loge += "all_in_hard,";
+    }
+    console.log(hotel.logement);
+    hotel.logement[0] = loge;
+    console.log(loge);
+    console.log(hotel.logement);
 
     const token = getCookie("token");
 
@@ -249,12 +163,12 @@ const AddHotel = ({ history }) => {
         },
       })
         .then((response) => {
-          toast.success("new Trip added");
+          toast.success("new Hotel added");
           setHotel({
             name: "",
             description: "",
             ville: "",
-            etoiles: "",
+            etoiles: "4",
             logement: [],
             localisation: "",
             best_hotel: false,
@@ -275,7 +189,7 @@ const AddHotel = ({ history }) => {
             sup_suite: "",
             sup_vue_sur_mer: "",
             discount: "",
-            family_only: "",
+            family_only: false,
             total_chambre: "",
             autres: "",
             max_chambre: "",
@@ -299,7 +213,6 @@ const AddHotel = ({ history }) => {
         best_hotel,
         meta_description,
         logement,
-
         meta_title,
         price_lpd_adulte,
         price_dp_adulte,
@@ -319,7 +232,6 @@ const AddHotel = ({ history }) => {
         total_chambre,
         autres,
         max_chambre,
-
         reduction_enfant_single,
       };
       hotelll.id = hotell._id;
@@ -349,12 +261,48 @@ const AddHotel = ({ history }) => {
   useEffect(() => {
     if (edit) {
       setHotel(hotell);
+      let arr = hotell.logement[0].split(",");
+      console.log(arr);
+      let t = {
+        lpd: "false",
+        dp: "false",
+        pc: "false",
+        all_in_soft: "false",
+        all_in_hard: "false",
+      };
+      console.log(arr.includes("lpd"));
+      if (arr.includes("lpd") || arr.includes(" lpd")) {
+        t.lpd = "true";
+      }
+      if (arr.includes("dp") || arr.includes(" dp")) {
+        t.dp = "true";
+      }
+      if (arr.includes("pc") || arr.includes(" pc")) {
+        t.pc = "true";
+      }
+      if (
+        arr.includes("all_in_soft") ||
+        arr.includes(" all_in_soft") ||
+        arr.includes("all in soft") ||
+        arr.includes(" all in soft")
+      ) {
+        t.all_in_soft = "true";
+      }
+      if (
+        arr.includes("all_in_hard") ||
+        arr.includes(" all_in_hard") ||
+        arr.includes("all in hard") ||
+        arr.includes(" all in hard")
+      ) {
+        t.all_in_hard = "true";
+      }
+      setLog(t);
     } else {
       setHotel({
         name: "",
         description: "",
         ville: "",
-        etoiles: "",
+        etoiles: "4",
         logement: [],
         localisation: "",
         best_hotel: false,
@@ -375,7 +323,7 @@ const AddHotel = ({ history }) => {
         sup_suite: "",
         sup_vue_sur_mer: "",
         discount: "",
-        family_only: "",
+        family_only: true,
         total_chambre: "",
         autres: "",
         max_chambre: "",
@@ -393,9 +341,7 @@ const AddHotel = ({ history }) => {
         <HeaderAuth />
         <section className="content-main" style={{ maxWidth: "720px" }}>
           <div className="content-header">
-            <h2 className="content-title">
-              {!edit && "Add Hotel "} {edit && "Update Hotel"}
-            </h2>
+            <h2 className="content-title">Add Hotel </h2>
           </div>
           <div className="card mb-4">
             <div className="card-body">
@@ -725,6 +671,77 @@ const AddHotel = ({ history }) => {
                     onChange={handleChange}
                   />
                 </div>
+
+                <div className="row gx-2">
+                  <div className="col-sm-6 mb-3">
+                    <label className="form-label">LPD</label>
+                    <select
+                      className="form-select"
+                      value={logement2.lpd}
+                      onChange={handleChange3}
+                      id="lpd"
+                    >
+                      <option value={true}> true </option>
+                      <option value={false}> false </option>
+                    </select>
+                  </div>
+                </div>
+                <div className="row gx-2">
+                  <div className="col-sm-6 mb-3">
+                    <label className="form-label">DP</label>
+                    <select
+                      className="form-select"
+                      value={logement2.dp}
+                      onChange={handleChange3}
+                      id="dp"
+                    >
+                      <option value={true}> true </option>
+                      <option value={false}> false </option>
+                    </select>
+                  </div>
+                </div>
+                <div className="row gx-2">
+                  <div className="col-sm-6 mb-3">
+                    <label className="form-label">PC</label>
+                    <select
+                      className="form-select"
+                      value={logement2.pc}
+                      onChange={handleChange3}
+                      id="pc"
+                    >
+                      <option value={true}> true </option>
+                      <option value={false}> false </option>
+                    </select>
+                  </div>
+                </div>
+                <div className="row gx-2">
+                  <div className="col-sm-6 mb-3">
+                    <label className="form-label">ALL_IN_SOFT</label>
+                    <select
+                      className="form-select"
+                      value={logement2.all_in_soft}
+                      onChange={handleChange3}
+                      id="all_in_soft"
+                    >
+                      <option value={true}> true </option>
+                      <option value={false}> false </option>
+                    </select>
+                  </div>
+                </div>
+                <div className="row gx-2">
+                  <div className="col-sm-6 mb-3">
+                    <label className="form-label">ALL_IN_HARD</label>
+                    <select
+                      className="form-select"
+                      value={logement2.all_in_hard}
+                      onChange={handleChange3}
+                      id="all_in_hard"
+                    >
+                      <option value={true}> true </option>
+                      <option value={false}> false </option>
+                    </select>
+                  </div>
+                </div>
                 <div className="row gx-2">
                   <div className="col-sm-6 mb-3">
                     <label className="form-label">best_hotel</label>
@@ -779,47 +796,7 @@ const AddHotel = ({ history }) => {
                     onChange={handleChangeFile}
                   />
                 </div>
-                <div className="mb-4">
-                  <label htmlFor="localisation" className="form-label">
-                    logement:
-                  </label>
-                  <br />
-                  <input
-                    type="checkbox"
-                    name="logement"
-                    checked={check.v2}
-                    /*defaultChecked={check.v2}*/
-                    value="lpd"
-                    onChange={onChangeLpd}
-                  />
-                  <label htmlFor="language1"> lpd</label>
-                  <br />
-                  <input
-                    type="checkbox"
-                    name="languages"
-                    value="pc"
-                    checked={check.v3}
-                    /* defaultChecked={check.v3}*/
-                    onChange={onChangePc}
-                  />
-                  <label htmlFor="language2"> pc</label>
-                  <br />
-                  <input
-                    type="checkbox"
-                    name="languages"
-                    /* defaultChecked={check.v1} */
-                    value="dp"
-                    onChange={onChangeDp}
-                  />
-                  <label htmlFor="language3"> dp</label>
-                  <br />
-                  <input type="checkbox" name="languages" value="all_in_soft" />
-                  <label htmlFor="language4"> all_in_soft</label>
-                  <br />
-                  <input type="checkbox" name="languages" value="all_in" />
-                  <label htmlFor="language5"> all_in</label>
-                  <br />
-                </div>
+
                 {edit && hotell.pictures && (
                   <div className="mb-4">
                     <ImageList
