@@ -89,13 +89,13 @@ const HotelDetails = ({ location }) => {
                     <div className="col-sm-6 mb-3">
                       <label className="form-label">prix_lpd_adulte</label>
                       <p className="form-control" rows={4}>
-                        {hotel.price_lpd_adulte}
+                        {hotel.pricelpdadulte}
                       </p>
                     </div>
                     <div className="col-sm-6 mb-3">
                       <label className="form-label"> prix_dp_adulte</label>
                       <p className="form-control" rows={4}>
-                        {hotel.price_dp_adulte}
+                        {hotel.pricedpadulte}
                       </p>
                     </div>
                   </div>{" "}
@@ -103,7 +103,7 @@ const HotelDetails = ({ location }) => {
                     <div className="col-sm-6 mb-3">
                       <label className="form-label">prix_pc_adulte</label>
                       <p className="form-control" rows={4}>
-                        {hotel.price_pc_adulte}
+                        {hotel.pricepcadulte}
                       </p>
                     </div>
                     <div className="col-sm-6 mb-3">
@@ -112,7 +112,7 @@ const HotelDetails = ({ location }) => {
                         prix_all_in_soft_adulte
                       </label>
                       <p className="form-control" rows={4}>
-                        {hotel.price_all_in_soft_adulte}
+                        {hotel.priceallinsoftadulte}
                       </p>
                     </div>
                   </div>{" "}
@@ -120,7 +120,7 @@ const HotelDetails = ({ location }) => {
                     <div className="col-sm-6 mb-3">
                       <label className="form-label">prix_all_in_adulte</label>
                       <p className="form-control" rows={4}>
-                        {hotel.price_all_in_adulte}
+                        {hotel.priceallinadulte}
                       </p>
                     </div>
                     <div className="col-sm-6 mb-3">
@@ -128,7 +128,7 @@ const HotelDetails = ({ location }) => {
                         réduction_enfant_2ans
                       </label>
                       <p className="form-control" rows={4}>
-                        {hotel.reduction_enfant_2ans}
+                        {hotel.reductionenfant2ans}
                       </p>
                     </div>
                   </div>{" "}
@@ -138,7 +138,7 @@ const HotelDetails = ({ location }) => {
                         réduction_enfant_12ans
                       </label>
                       <p className="form-control" rows={4}>
-                        {hotel.reduction_enfant_12ans}
+                        {hotel.reductionenfant12ans}
                       </p>
                     </div>
                     <div className="col-sm-6 mb-3">
@@ -146,7 +146,7 @@ const HotelDetails = ({ location }) => {
                         réduction_enfant_adulte
                       </label>
                       <p className="form-control" rows={4}>
-                        {hotel.reduction_enfant_adulte}
+                        {hotel.reductionenfantadulte}
                       </p>
                     </div>
                   </div>{" "}
@@ -156,13 +156,13 @@ const HotelDetails = ({ location }) => {
                         réduction_enfant_séparé
                       </label>
                       <p className="form-control" rows={4}>
-                        {hotel.reduction_enfant_single}
+                        {hotel.reductionenfantsingle}
                       </p>
                     </div>
                     <div className="col-sm-6 mb-3">
                       <label className="form-label">réduction_3éme_lit</label>
                       <p className="form-control" rows={4}>
-                        {hotel.reduction_3_lit}
+                        {hotel.reduction3lit}
                       </p>
                     </div>
                   </div>{" "}
@@ -170,13 +170,13 @@ const HotelDetails = ({ location }) => {
                     <div className="col-sm-6 mb-3">
                       <label className="form-label">réduction_4éme_lit</label>
                       <p className="form-control" rows={4}>
-                        {hotel.reduction_4_lit}
+                        {hotel.reduction4lit}
                       </p>
                     </div>
                     <div className="col-sm-6 mb-3">
                       <label className="form-label">supp_single</label>
                       <p className="form-control" rows={4}>
-                        {hotel.sup_single}
+                        {hotel.supsingle}
                       </p>
                     </div>
                   </div>{" "}
@@ -184,7 +184,7 @@ const HotelDetails = ({ location }) => {
                     <div className="col-sm-6 mb-3">
                       <label className="form-label">supp_suite</label>
                       <p className="form-control" rows={4}>
-                        {hotel.sup_suite}
+                        {hotel.supsuite}
                       </p>
                     </div>
                     <div className="col-sm-6 mb-3">
@@ -198,13 +198,13 @@ const HotelDetails = ({ location }) => {
                     <div className="col-sm-6 mb-3">
                       <label className="form-label"> best_hotel</label>
                       <p className="form-control" rows={4}>
-                        {hotel.best_hotel ? "true" : "false"}
+                        {hotel.besthotel ? "true" : "false"}
                       </p>
                     </div>
                     <div className="col-sm-6 mb-3">
                       <label className="form-label">family_only</label>
                       <p className="form-control" rows={4}>
-                        {hotel.family_only ? "true" : "false"}
+                        {hotel.familyonly ? "true" : "false"}
                       </p>
                     </div>
                   </div>{" "}
@@ -212,7 +212,7 @@ const HotelDetails = ({ location }) => {
                     <div className="col-sm-6 mb-3">
                       <label className="form-label"> total_chambre</label>
                       <p className="form-control" rows={4}>
-                        {hotel.total_chambre}
+                        {hotel.totalchambre}
                       </p>
                     </div>
                     <div className="col-sm-6 mb-3">
@@ -221,7 +221,7 @@ const HotelDetails = ({ location }) => {
                         max_personnes_par_chambre
                       </label>
                       <p className="form-control" rows={4}>
-                        {hotel.max_chambre}
+                        {hotel.maxchambre}
                       </p>
                     </div>
                   </div>{" "}

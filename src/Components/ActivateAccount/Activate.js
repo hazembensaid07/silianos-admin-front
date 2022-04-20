@@ -6,6 +6,7 @@ import apiUri from "../apiUri";
 import { Redirect } from "react-router-dom";
 import { isAuth } from "../../helpers/helper";
 import Header from "../Header/Header";
+import { Link } from "react-router-dom";
 const Activate = ({ match }) => {
   const [token, setToken] = useState("");
   const clickSubmit = (event) => {
@@ -53,6 +54,15 @@ const Activate = ({ match }) => {
                 </button>
               </div>
             </form>
+            <p className="text-center mb-2">
+              <Link
+                to={{
+                  pathname: `/`,
+                }}
+              >
+                Sign in
+              </Link>
+            </p>
           </div>
         </div>
       </section>

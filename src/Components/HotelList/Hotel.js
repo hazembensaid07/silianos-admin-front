@@ -20,12 +20,12 @@ const Hotel = ({ hotel, name, page, hotels, history }) => {
         <b>{hotel.name}</b>
       </td>
       <td>{hotel.ville}</td>
-      {hotel.total_chambre > 0 && (
+      {hotel.totalchambre > 0 && (
         <td>
           <span className="badge rounded-pill alert-success">Active</span>
         </td>
       )}
-      {hotel.total_chambre === 0 && (
+      {hotel.totalchambre === 0 && (
         <td>
           <span className="badge rounded-pill alert-danger">Disabled</span>
         </td>
