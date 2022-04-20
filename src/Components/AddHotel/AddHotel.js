@@ -19,7 +19,7 @@ const AddHotel = ({ history }) => {
   const dispatch = useDispatch();
   const edit = useSelector((state) => state.editReducer.edit);
   const hotell = useSelector((state) => state.hotelReducer.hotel);
-
+  console.log(hotell);
   const [hotel, setHotel] = useState({
     name: "",
     description: "",
@@ -51,7 +51,6 @@ const AddHotel = ({ history }) => {
     max_chambre: "",
     reduction_enfant_single: "",
   });
-  console.log(hotel);
   const [file, setFile] = useState([]);
   let [logement2, setLog] = useState({
     lpd: "false",
@@ -142,6 +141,7 @@ const AddHotel = ({ history }) => {
     hotel.logement[0] = loge;
     console.log(loge);
     console.log(hotel.logement);
+    console.log(hotel);
 
     const token = getCookie("token");
 
@@ -199,7 +199,12 @@ const AddHotel = ({ history }) => {
           handleScroll(e);
         })
         .catch((error) => {
-          toast.error(error.response.data.error);
+          console.log(error.response);
+          if (error.response) {
+            toast.error(error.response.data.error);
+          } else {
+            toast.error("Server error");
+          }
         });
     } else {
       let hotelll = {};
@@ -253,15 +258,18 @@ const AddHotel = ({ history }) => {
           handleScroll(e);
         })
         .catch((error) => {
-          toast.error(error.response.data.error);
+          console.log(error.response);
+          if (error.response) {
+            toast.error(error.response.data.error);
+          } else {
+            toast.error("Server error");
+          }
         });
     }
   };
-
-  useEffect(() => {
-    if (edit) {
-      setHotel(hotell);
-      let arr = hotell.logement[0].split(",");
+  /*const f1 = () => {
+    setHotel(hotell);
+    let arr = hotell.logement[0].split(",");
       console.log(arr);
       let t = {
         lpd: "false",
@@ -297,6 +305,55 @@ const AddHotel = ({ history }) => {
         t.all_in_hard = "true";
       }
       setLog(t);
+  };*/
+
+  useEffect(() => {
+    if (edit) {
+      setHotel(hotell);
+      if (hotell.logement) {
+        console.log(
+          "test-------------------------------------------------------------------------------------------------------------"
+        );
+        console.log(hotell.logement[0]);
+        let test = hotell;
+
+        let arr = test.logement[0].split(",");
+        console.log(arr);
+        let t = {
+          lpd: "false",
+          dp: "false",
+          pc: "false",
+          all_in_soft: "false",
+          all_in_hard: "false",
+        };
+        console.log(arr.includes("lpd"));
+        if (arr.includes("lpd") || arr.includes(" lpd")) {
+          t.lpd = "true";
+        }
+        if (arr.includes("dp") || arr.includes(" dp")) {
+          t.dp = "true";
+        }
+        if (arr.includes("pc") || arr.includes(" pc")) {
+          t.pc = "true";
+        }
+        if (
+          arr.includes("all_in_soft") ||
+          arr.includes(" all_in_soft") ||
+          arr.includes("all in soft") ||
+          arr.includes(" all in soft")
+        ) {
+          t.all_in_soft = "true";
+        }
+        if (
+          arr.includes("all_in_hard") ||
+          arr.includes(" all_in_hard") ||
+          arr.includes("all in hard") ||
+          arr.includes(" all in hard")
+        ) {
+          t.all_in_hard = "true";
+        }
+        setLog(t);
+      }
     } else {
       setHotel({
         name: "",
@@ -330,7 +387,7 @@ const AddHotel = ({ history }) => {
         reduction_enfant_single: "",
       });
     }
-  }, [edit, hotell]);
+  }, [edit, hotell, hotell.logement]);
   return (
     <div>
       <ToastContainer />
