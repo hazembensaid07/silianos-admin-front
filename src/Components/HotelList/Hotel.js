@@ -2,8 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteHotel, getHotel } from "../../JS/actions/hotel";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.min.css";
+import { toast } from "react-toastify";
 import { toggleTrue } from "../../JS/actions/Edit";
 
 const Hotel = ({ hotel, name, page, hotels, history }) => {

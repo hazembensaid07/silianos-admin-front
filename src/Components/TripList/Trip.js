@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteTrip } from "../../JS/actions/trip";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 import { toggleTrue } from "../../JS/actions/Edit";
 import { getTrip } from "../../JS/actions/trip";
