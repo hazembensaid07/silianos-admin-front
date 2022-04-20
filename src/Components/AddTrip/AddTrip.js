@@ -101,13 +101,11 @@ const AddTrip = () => {
           handleScroll(e);
         })
         .catch((error) => {
-          console.log("----------------------------------------error");
           if (error.response.data.error) {
             toast.error(error.response.data.error);
           } else {
             toast("error");
           }
-          console(error.response.data.error);
         });
     } else {
       let trippp = {};
@@ -141,7 +139,6 @@ const AddTrip = () => {
           handleScroll(e);
         })
         .catch((error) => {
-          console.log(error);
           toast.error(error.response.data.error);
         });
     }
@@ -384,9 +381,7 @@ const AddTrip = () => {
               </form>
             </div>
           </div>{" "}
-          {/* card end// */}
         </section>{" "}
-        {/* content-main end// */}
       </main>
     </div>
   );

@@ -12,14 +12,13 @@ import apiUri from "../apiUri";
 import { deletePhoto, getHotel } from "../../JS/actions/hotel";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-const AddHotel = ({ history }) => {
+const AddHotel = () => {
   let counter = 0;
   let info = [];
   const [deletei, setDeletei] = useState(1);
   const dispatch = useDispatch();
   const edit = useSelector((state) => state.editReducer.edit);
   const hotell = useSelector((state) => state.hotelReducer.hotel);
-  console.log(hotell);
   const [hotel, setHotel] = useState({
     name: "",
     description: "",
@@ -83,10 +82,6 @@ const AddHotel = ({ history }) => {
     setDeletei(e.target.value);
   };
 
-  const handleDelete = (id, body) => {
-    dispatch(deletePhoto(id, body));
-  };
-
   const update = async (e) => {
     e.preventDefault();
     const {
@@ -121,7 +116,6 @@ const AddHotel = ({ history }) => {
       reduction_enfant_single,
     } = hotel;
     let loge = "";
-    console.log(logement2);
     if (logement2.lpd === "true") {
       loge += "lpd,";
     }
@@ -137,11 +131,7 @@ const AddHotel = ({ history }) => {
     if (logement2.all_in_hard === "true") {
       loge += "all_in_hard,";
     }
-    console.log(hotel.logement);
     hotel.logement[0] = loge;
-    console.log(loge);
-    console.log(hotel.logement);
-    console.log(hotel);
 
     const token = getCookie("token");
 
@@ -199,7 +189,6 @@ const AddHotel = ({ history }) => {
           handleScroll(e);
         })
         .catch((error) => {
-          console.log(error.response);
           if (error.response) {
             toast.error(error.response.data.error);
           } else {
@@ -258,7 +247,6 @@ const AddHotel = ({ history }) => {
           handleScroll(e);
         })
         .catch((error) => {
-          console.log(error.response);
           if (error.response) {
             toast.error(error.response.data.error);
           } else {
@@ -267,58 +255,15 @@ const AddHotel = ({ history }) => {
         });
     }
   };
-  /*const f1 = () => {
-    setHotel(hotell);
-    let arr = hotell.logement[0].split(",");
-      console.log(arr);
-      let t = {
-        lpd: "false",
-        dp: "false",
-        pc: "false",
-        all_in_soft: "false",
-        all_in_hard: "false",
-      };
-      console.log(arr.includes("lpd"));
-      if (arr.includes("lpd") || arr.includes(" lpd")) {
-        t.lpd = "true";
-      }
-      if (arr.includes("dp") || arr.includes(" dp")) {
-        t.dp = "true";
-      }
-      if (arr.includes("pc") || arr.includes(" pc")) {
-        t.pc = "true";
-      }
-      if (
-        arr.includes("all_in_soft") ||
-        arr.includes(" all_in_soft") ||
-        arr.includes("all in soft") ||
-        arr.includes(" all in soft")
-      ) {
-        t.all_in_soft = "true";
-      }
-      if (
-        arr.includes("all_in_hard") ||
-        arr.includes(" all_in_hard") ||
-        arr.includes("all in hard") ||
-        arr.includes(" all in hard")
-      ) {
-        t.all_in_hard = "true";
-      }
-      setLog(t);
-  };*/
 
   useEffect(() => {
     if (edit) {
       setHotel(hotell);
       if (hotell.logement) {
-        console.log(
-          "test-------------------------------------------------------------------------------------------------------------"
-        );
-        console.log(hotell.logement[0]);
         let test = hotell;
 
         let arr = test.logement[0].split(",");
-        console.log(arr);
+
         let t = {
           lpd: "false",
           dp: "false",
@@ -326,7 +271,7 @@ const AddHotel = ({ history }) => {
           all_in_soft: "false",
           all_in_hard: "false",
         };
-        console.log(arr.includes("lpd"));
+
         if (arr.includes("lpd") || arr.includes(" lpd")) {
           t.lpd = "true";
         }
@@ -933,9 +878,7 @@ const AddHotel = ({ history }) => {
               </form>
             </div>
           </div>{" "}
-          {/* card end// */}
         </section>{" "}
-        {/* content-main end// */}
       </main>
     </div>
   );
