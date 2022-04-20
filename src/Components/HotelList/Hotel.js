@@ -7,7 +7,6 @@ import "react-toastify/dist/ReactToastify.min.css";
 import { toggleTrue } from "../../JS/actions/Edit";
 
 const Hotel = ({ hotel, name, page, hotels, history }) => {
-
   const dispatch = useDispatch();
   const error = useSelector((state) => state.hotelReducer.error);
   const clickDelete = (event) => {
@@ -38,7 +37,11 @@ const Hotel = ({ hotel, name, page, hotels, history }) => {
           className="btn btn-light"
           to={{
             pathname: `/hotel_details`,
-            state: { id: hotel._id, pictures: hotel.pictures },
+            state: {
+              id: hotel._id,
+              pictures: hotel.pictures,
+              logement: hotel.logement[0],
+            },
           }}
         >
           Details
