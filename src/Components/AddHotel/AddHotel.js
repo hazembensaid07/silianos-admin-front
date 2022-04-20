@@ -30,25 +30,25 @@ const AddHotel = () => {
     meta_description: "",
     meta_keywords: [],
     meta_title: "",
-    price_lpd_adulte: "",
-    price_dp_adulte: "",
-    price_pc_adulte: "",
-    price_all_in_soft_adulte: "",
-    price_all_in_adulte: "",
-    reduction_enfant_2ans: "",
-    reduction_enfant_12ans: "",
-    reduction_enfant_adulte: "",
-    reduction_3_lit: "",
-    reduction_4_lit: "",
-    sup_single: "",
-    sup_suite: "",
-    sup_vue_sur_mer: "",
-    discount: "",
+    price_lpd_adulte: 0,
+    price_dp_adulte: 0,
+    price_pc_adulte: 0,
+    price_all_in_soft_adulte: 0,
+    price_all_in_adulte: 0,
+    reduction_enfant_2ans: 0,
+    reduction_enfant_12ans: 0,
+    reduction_enfant_adulte: 0,
+    reduction_3_lit: 0,
+    reduction_4_lit: 0,
+    sup_single: 0,
+    sup_suite: 0,
+    sup_vue_sur_mer: 0,
+    discount: 0,
     family_only: true,
-    total_chambre: "",
-    autres: "",
-    max_chambre: "",
-    reduction_enfant_single: "",
+    total_chambre: 0,
+    autres: 0,
+    max_chambre: 0,
+    reduction_enfant_single: 0,
   });
   const [file, setFile] = useState([]);
   let [logement2, setLog] = useState({
@@ -154,6 +154,7 @@ const AddHotel = () => {
       })
         .then((response) => {
           toast.success("new Hotel added");
+          setFile([]);
           setHotel({
             name: "",
             description: "",
@@ -185,15 +186,11 @@ const AddHotel = () => {
             max_chambre: "",
             reduction_enfant_single: "",
           });
-          setFile([]);
+
           handleScroll(e);
         })
         .catch((error) => {
-          if (error.response) {
-            toast.error(error.response.data.error);
-          } else {
-            toast.error("Server error");
-          }
+          toast.error(error.response.data.error);
         });
     } else {
       let hotelll = {};
