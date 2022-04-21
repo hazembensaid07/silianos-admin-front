@@ -205,13 +205,14 @@ const AddTrip = () => {
                   <label htmlFor="ville" className="form-label">
                     programme
                   </label>
-                  <input
-                    type="text"
+
+                  <textarea
                     placeholder="Type here"
                     className="form-control"
-                    id="programme"
+                    rows={4}
                     value={trip.programme}
-                    onChange={handleChange}
+                    onInput={handleChange}
+                    id="programme"
                   />
                 </div>
                 <div className="mb-4">
