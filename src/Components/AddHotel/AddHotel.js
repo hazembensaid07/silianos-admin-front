@@ -208,7 +208,7 @@ const AddHotel = () => {
         pricelpdadulte,
         pricedpadulte,
         pricepcadulte,
-        price_allinsoftadulte,
+        priceallinsoftadulte,
         priceallinadulte,
         reductionenfant2ans,
         reductionenfant12ans,
