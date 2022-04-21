@@ -27,10 +27,10 @@ const AddTrip = () => {
     programme: "",
     price: "",
     dates: "",
-    best_org: false,
-    meta_description: "",
-    meta_keywords: "",
-    meta_title: "",
+    bestorg: false,
+    metadescription: "",
+    metakeywords: "",
+    metatitle: "",
   });
 
   const [file, setFile] = useState([]);
@@ -60,10 +60,10 @@ const AddTrip = () => {
       programme,
       price,
       dates,
-      best_org,
-      meta_description,
-      meta_keywords,
-      meta_title,
+      bestorg,
+      metadescription,
+      metakeywords,
+      metatitle,
     } = trip;
     const token = getCookie("token");
 
@@ -92,10 +92,10 @@ const AddTrip = () => {
             programme: "",
             price: "",
             dates: "",
-            best_org: false,
-            meta_description: "",
-            meta_keywords: "",
-            meta_title: "",
+            bestorg: false,
+            metadescription: "",
+            metakeywords: "",
+            metatitle: "",
           });
           setFile([]);
           handleScroll(e);
@@ -115,10 +115,10 @@ const AddTrip = () => {
         programme,
         price,
         dates,
-        best_org,
-        meta_description,
-        meta_keywords,
-        meta_title,
+        bestorg,
+        metadescription,
+        metakeywords,
+        metatitle,
       };
       trippp.id = tripp._id;
 
@@ -153,10 +153,10 @@ const AddTrip = () => {
           programme: "",
           price: "",
           dates: "",
-          best_org: false,
-          meta_description: "",
-          meta_keywords: "",
-          meta_title: "",
+          bestorg: false,
+          metadescription: "",
+          metakeywords: "",
+          metatitle: "",
         });
   }, [edit, tripp]);
   return (
@@ -248,8 +248,8 @@ const AddTrip = () => {
                     type="text"
                     placeholder="Type here"
                     className="form-control"
-                    id="meta_keywords"
-                    value={trip.meta_keywords}
+                    id="metakeywords"
+                    value={trip.metakeywords}
                     onChange={handleChangeArray}
                   />
                 </div>
@@ -261,8 +261,8 @@ const AddTrip = () => {
                     type="text"
                     placeholder="Type here"
                     className="form-control"
-                    id="meta_description"
-                    value={trip.meta_description}
+                    id="metadescription"
+                    value={trip.metadescription}
                     onChange={handleChange}
                   />
                 </div>
@@ -274,19 +274,19 @@ const AddTrip = () => {
                     type="text"
                     placeholder="Type here"
                     className="form-control"
-                    id="meta_title"
-                    value={trip.meta_title}
+                    id="metatitle"
+                    value={trip.metatitle}
                     onChange={handleChange}
                   />
                 </div>
                 <div className="row gx-2">
                   <div className="col-sm-6 mb-3">
-                    <label className="form-label">best_org</label>
+                    <label className="form-label">best _ org</label>
                     <select
                       className="form-select"
-                      value={trip.best_org}
+                      value={trip.bestorg}
                       onChange={handleChange}
-                      id="best_org"
+                      id="bestorg"
                     >
                       <option value={true}> true </option>
                       <option value={false}> false </option>

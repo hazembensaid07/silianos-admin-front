@@ -16,7 +16,7 @@ export const getTrips = (name, pageNumber) => async (dispatch) => {
       headers: { authorization: token },
     };
     const result = await axios.get(
-      `https://sylanos.herokuapp.com/api/org/all/orgs?search=${name}&page=${pageNumber}`,
+      `${apiUri()}/org/all/orgs?search=${name}&page=${pageNumber}`,
       options
     );
 

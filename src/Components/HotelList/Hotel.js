@@ -2,8 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteHotel, getHotel } from "../../JS/actions/hotel";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.min.css";
+import { toast } from "react-toastify";
 import { toggleTrue } from "../../JS/actions/Edit";
 
 const Hotel = ({ hotel, name, page, hotels, history }) => {
@@ -21,12 +20,12 @@ const Hotel = ({ hotel, name, page, hotels, history }) => {
         <b>{hotel.name}</b>
       </td>
       <td>{hotel.ville}</td>
-      {hotel.total_chambre > 0 && (
+      {hotel.totalchambre > 0 && (
         <td>
           <span className="badge rounded-pill alert-success">Active</span>
         </td>
       )}
-      {hotel.total_chambre === 0 && (
+      {hotel.totalchambre === 0 && (
         <td>
           <span className="badge rounded-pill alert-danger">Disabled</span>
         </td>

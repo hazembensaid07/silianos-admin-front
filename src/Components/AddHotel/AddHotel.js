@@ -30,25 +30,25 @@ const AddHotel = () => {
     meta_description: "",
     meta_keywords: [],
     meta_title: "",
-    price_lpd_adulte: "",
-    price_dp_adulte: "",
-    price_pc_adulte: "",
-    price_all_in_soft_adulte: "",
-    price_all_in_adulte: "",
-    reduction_enfant_2ans: "",
-    reduction_enfant_12ans: "",
-    reduction_enfant_adulte: "",
-    reduction_3_lit: "",
-    reduction_4_lit: "",
-    sup_single: "",
-    sup_suite: "",
-    sup_vue_sur_mer: "",
-    discount: "",
+    price_lpd_adulte: 0,
+    price_dp_adulte: 0,
+    price_pc_adulte: 0,
+    price_all_in_soft_adulte: 0,
+    price_all_in_adulte: 0,
+    reduction_enfant_2ans: 0,
+    reduction_enfant_12ans: 0,
+    reduction_enfant_adulte: 0,
+    reduction_3_lit: 0,
+    reduction_4_lit: 0,
+    sup_single: 0,
+    sup_suite: 0,
+    sup_vue_sur_mer: 0,
+    discount: 0,
     family_only: true,
-    total_chambre: "",
-    autres: "",
-    max_chambre: "",
-    reduction_enfant_single: "",
+    total_chambre: 0,
+    autres: 0,
+    max_chambre: 0,
+    reduction_enfant_single: 0,
   });
   const [file, setFile] = useState([]);
   let [logement2, setLog] = useState({
@@ -89,31 +89,31 @@ const AddHotel = () => {
       description,
       ville,
       etoiles,
-      meta_keywords,
-      localisation,
-      best_hotel,
-      meta_description,
       logement,
-      meta_title,
-      price_lpd_adulte,
-      price_dp_adulte,
-      price_pc_adulte,
-      price_all_in_soft_adulte,
-      price_all_in_adulte,
-      reduction_enfant_2ans,
-      reduction_enfant_12ans,
-      reduction_enfant_adulte,
-      reduction_3_lit,
-      reduction_4_lit,
-      sup_single,
-      sup_suite,
-      sup_vue_sur_mer,
+      localisation,
+      besthotel,
+      metadescription,
+      metakeywords,
+      metatitle,
+      pricelpdadulte,
+      pricedpadulte,
+      pricepcadulte,
+      priceallinsoftadulte,
+      priceallinadulte,
+      reductionenfant2ans,
+      reductionenfant12ans,
+      reductionenfantadulte,
+      reduction3lit,
+      reduction4lit,
+      supsingle,
+      supsuite,
+      supvuesurmer,
       discount,
-      family_only,
-      total_chambre,
+      familyonly,
+      totalchambre,
       autres,
-      max_chambre,
-      reduction_enfant_single,
+      maxchambre,
+      reductionenfantsingle,
     } = hotel;
     let loge = "";
     if (logement2.lpd === "true") {
@@ -154,6 +154,7 @@ const AddHotel = () => {
       })
         .then((response) => {
           toast.success("new Hotel added");
+          setFile([]);
           setHotel({
             name: "",
             description: "",
@@ -161,39 +162,35 @@ const AddHotel = () => {
             etoiles: "4",
             logement: [],
             localisation: "",
-            best_hotel: false,
-            meta_description: "",
-            meta_keywords: [],
-            meta_title: "",
-            price_lpd_adulte: "",
-            price_dp_adulte: "",
-            price_pc_adulte: "",
-            price_all_in_soft_adulte: "",
-            price_all_in_adulte: "",
-            reduction_enfant_2ans: "",
-            reduction_enfant_12ans: "",
-            reduction_enfant_adulte: "",
-            reduction_3_lit: "",
-            reduction_4_lit: "",
-            sup_single: "",
-            sup_suite: "",
-            sup_vue_sur_mer: "",
+            besthotel: false,
+            metadescription: "",
+            metakeywords: [],
+            metatitle: "",
+            pricelpdadulte: "",
+            pricedpadulte: "",
+            pricepcadulte: "",
+            priceallinsoftadulte: "",
+            priceallinadulte: "",
+            reductionenfant2ans: "",
+            reductionenfant12ans: "",
+            reductionenfantadulte: "",
+            reduction3lit: "",
+            reduction4lit: "",
+            supsingle: "",
+            supsuite: "",
+            supvuesurmer: "",
             discount: "",
-            family_only: false,
-            total_chambre: "",
+            familyonly: false,
+            totalchambre: "",
             autres: "",
-            max_chambre: "",
-            reduction_enfant_single: "",
+            maxchambre: "",
+            reductionenfantsingle: "",
           });
-          setFile([]);
+
           handleScroll(e);
         })
         .catch((error) => {
-          if (error.response) {
-            toast.error(error.response.data.error);
-          } else {
-            toast.error("Server error");
-          }
+          toast.error(error.response.data.error);
         });
     } else {
       let hotelll = {};
@@ -202,31 +199,31 @@ const AddHotel = () => {
         description,
         ville,
         etoiles,
-        meta_keywords,
-        localisation,
-        best_hotel,
-        meta_description,
         logement,
-        meta_title,
-        price_lpd_adulte,
-        price_dp_adulte,
-        price_pc_adulte,
-        price_all_in_soft_adulte,
-        price_all_in_adulte,
-        reduction_enfant_2ans,
-        reduction_enfant_12ans,
-        reduction_enfant_adulte,
-        reduction_3_lit,
-        reduction_4_lit,
-        sup_single,
-        sup_suite,
-        sup_vue_sur_mer,
+        localisation,
+        besthotel,
+        metadescription,
+        metakeywords,
+        metatitle,
+        pricelpdadulte,
+        pricedpadulte,
+        pricepcadulte,
+        priceallinsoftadulte,
+        priceallinadulte,
+        reductionenfant2ans,
+        reductionenfant12ans,
+        reductionenfantadulte,
+        reduction3lit,
+        reduction4lit,
+        supsingle,
+        supsuite,
+        supvuesurmer,
         discount,
-        family_only,
-        total_chambre,
+        familyonly,
+        totalchambre,
         autres,
-        max_chambre,
-        reduction_enfant_single,
+        maxchambre,
+        reductionenfantsingle,
       };
       hotelll.id = hotell._id;
 
@@ -307,29 +304,29 @@ const AddHotel = () => {
         etoiles: "4",
         logement: [],
         localisation: "",
-        best_hotel: false,
-        meta_description: "",
-        meta_keywords: [],
-        meta_title: "",
-        price_lpd_adulte: "",
-        price_dp_adulte: "",
-        price_pc_adulte: "",
-        price_all_in_soft_adulte: "",
-        price_all_in_adulte: "",
-        reduction_enfant_2ans: "",
-        reduction_enfant_12ans: "",
-        reduction_enfant_adulte: "",
-        reduction_3_lit: "",
-        reduction_4_lit: "",
-        sup_single: "",
-        sup_suite: "",
-        sup_vue_sur_mer: "",
+        besthotel: false,
+        metadescription: "",
+        metakeywords: [],
+        metatitle: "",
+        pricelpdadulte: "",
+        pricedpadulte: "",
+        pricepcadulte: "",
+        priceallinsoftadulte: "",
+        priceallinadulte: "",
+        reductionenfant2ans: "",
+        reductionenfant12ans: "",
+        reductionenfantadulte: "",
+        reduction3lit: "",
+        reduction4lit: "",
+        supsingle: "",
+        supsuite: "",
+        supvuesurmer: "",
         discount: "",
-        family_only: true,
-        total_chambre: "",
+        familyonly: false,
+        totalchambre: "",
         autres: "",
-        max_chambre: "",
-        reduction_enfant_single: "",
+        maxchambre: "",
+        reductionenfantsingle: "",
       });
     }
   }, [edit, hotell, hotell.logement]);
@@ -407,8 +404,8 @@ const AddHotel = () => {
                     type="text"
                     placeholder="Type here"
                     className="form-control"
-                    id="price_lpd_adulte"
-                    value={hotel.price_lpd_adulte}
+                    id="pricelpdadulte"
+                    value={hotel.pricelpdadulte}
                     onChange={handleChange}
                   />
                 </div>
@@ -420,8 +417,8 @@ const AddHotel = () => {
                     type="text"
                     placeholder="Type here"
                     className="form-control"
-                    id="price_dp_adulte"
-                    value={hotel.price_dp_adulte}
+                    id="pricedpadulte"
+                    value={hotel.pricedpadulte}
                     onChange={handleChange}
                   />
                 </div>
@@ -433,8 +430,8 @@ const AddHotel = () => {
                     type="text"
                     placeholder="Type here"
                     className="form-control"
-                    id="price_pc_adulte"
-                    value={hotel.price_pc_adulte}
+                    id="pricepcadulte"
+                    value={hotel.pricepcadulte}
                     onChange={handleChange}
                   />
                 </div>
@@ -446,8 +443,8 @@ const AddHotel = () => {
                     type="text"
                     placeholder="Type here"
                     className="form-control"
-                    id="price_all_in_soft_adulte"
-                    value={hotel.price_all_in_soft_adulte}
+                    id="priceallinsoftadulte"
+                    value={hotel.priceallinsoftadulte}
                     onChange={handleChange}
                   />
                 </div>
@@ -459,8 +456,8 @@ const AddHotel = () => {
                     type="text"
                     placeholder="Type here"
                     className="form-control"
-                    id="price_all_in_adulte"
-                    value={hotel.price_all_in_adulte}
+                    id="priceallinadulte"
+                    value={hotel.priceallinadulte}
                     onChange={handleChange}
                   />
                 </div>
@@ -472,8 +469,8 @@ const AddHotel = () => {
                     type="text"
                     placeholder="Type here"
                     className="form-control"
-                    id="reduction_enfant_2ans"
-                    value={hotel.reduction_enfant_2ans}
+                    id="reductionenfant2ans"
+                    value={hotel.reductionenfant2ans}
                     onChange={handleChange}
                   />
                 </div>
@@ -485,8 +482,8 @@ const AddHotel = () => {
                     type="text"
                     placeholder="Type here"
                     className="form-control"
-                    id="reduction_enfant_12ans"
-                    value={hotel.reduction_enfant_12ans}
+                    id="reductionenfant12ans"
+                    value={hotel.reductionenfant12ans}
                     onChange={handleChange}
                   />
                 </div>
@@ -498,8 +495,8 @@ const AddHotel = () => {
                     type="text"
                     placeholder="Type here"
                     className="form-control"
-                    id="reduction_enfant_adulte"
-                    value={hotel.reduction_enfant_adulte}
+                    id="reductionenfantadulte"
+                    value={hotel.reductionenfantadulte}
                     onChange={handleChange}
                   />
                 </div>
@@ -511,8 +508,8 @@ const AddHotel = () => {
                     type="text"
                     placeholder="Type here"
                     className="form-control"
-                    id="reduction_enfant_single"
-                    value={hotel.reduction_enfant_single}
+                    id="reductionenfantsingle"
+                    value={hotel.reductionenfantsingle}
                     onChange={handleChange}
                   />
                 </div>
@@ -524,8 +521,8 @@ const AddHotel = () => {
                     type="text"
                     placeholder="Type here"
                     className="form-control"
-                    id="reduction_3_lit"
-                    value={hotel.reduction_3_lit}
+                    id="reduction3lit"
+                    value={hotel.reduction3lit}
                     onChange={handleChange}
                   />
                 </div>
@@ -537,8 +534,8 @@ const AddHotel = () => {
                     type="text"
                     placeholder="Type here"
                     className="form-control"
-                    id="reduction_4_lit"
-                    value={hotel.reduction_4_lit}
+                    id="reduction4lit"
+                    value={hotel.reduction4lit}
                     onChange={handleChange}
                   />
                 </div>
@@ -550,8 +547,8 @@ const AddHotel = () => {
                     type="text"
                     placeholder="Type here"
                     className="form-control"
-                    id="sup_single"
-                    value={hotel.sup_single}
+                    id="supsingle"
+                    value={hotel.supsingle}
                     onChange={handleChange}
                   />
                 </div>
@@ -563,8 +560,8 @@ const AddHotel = () => {
                     type="text"
                     placeholder="Type here"
                     className="form-control"
-                    id="sup_suite"
-                    value={hotel.sup_suite}
+                    id="supsuite"
+                    value={hotel.supsuite}
                     onChange={handleChange}
                   />
                 </div>
@@ -576,8 +573,8 @@ const AddHotel = () => {
                     type="text"
                     placeholder="Type here"
                     className="form-control"
-                    id="sup_vue_sur_mer"
-                    value={hotel.sup_vue_sur_mer}
+                    id="supvuesurmer"
+                    value={hotel.supvuesurmer}
                     onChange={handleChange}
                   />
                 </div>
@@ -602,8 +599,8 @@ const AddHotel = () => {
                     type="text"
                     placeholder="Type here"
                     className="form-control"
-                    id="total_chambre"
-                    value={hotel.total_chambre}
+                    id="totalchambre"
+                    value={hotel.totalchambre}
                     onChange={handleChange}
                   />
                 </div>
@@ -615,8 +612,8 @@ const AddHotel = () => {
                     type="text"
                     placeholder="Type here"
                     className="form-control"
-                    id="max_chambre"
-                    value={hotel.max_chambre}
+                    id="maxchambre"
+                    value={hotel.maxchambre}
                     onChange={handleChange}
                   />
                 </div>
@@ -641,8 +638,8 @@ const AddHotel = () => {
                     type="text"
                     placeholder="Type here"
                     className="form-control"
-                    id="meta_keywords"
-                    value={hotel.meta_keywords}
+                    id="metakeywords"
+                    value={hotel.metakeywords}
                     onChange={handleChangeArray}
                   />
                 </div>
@@ -654,8 +651,8 @@ const AddHotel = () => {
                     type="text"
                     placeholder="Type here"
                     className="form-control"
-                    id="meta_description"
-                    value={hotel.meta_description}
+                    id="metadescription"
+                    value={hotel.metadescription}
                     onChange={handleChange}
                   />
                 </div>
@@ -667,8 +664,8 @@ const AddHotel = () => {
                     type="text"
                     placeholder="Type here"
                     className="form-control"
-                    id="meta_title"
-                    value={hotel.meta_title}
+                    id="metatitle"
+                    value={hotel.metatitle}
                     onChange={handleChange}
                   />
                 </div>
@@ -748,9 +745,9 @@ const AddHotel = () => {
                     <label className="form-label">best_hotel</label>
                     <select
                       className="form-select"
-                      value={hotel.best_hotel}
+                      value={hotel.besthotel}
                       onChange={handleChange}
-                      id="best_hotel"
+                      id="besthotel"
                     >
                       <option value={true}> true </option>
                       <option value={false}> false </option>
@@ -762,9 +759,9 @@ const AddHotel = () => {
                     <label className="form-label">family_only</label>
                     <select
                       className="form-select"
-                      value={hotel.family_only}
+                      value={hotel.familyonly}
                       onChange={handleChange}
-                      id="family_only"
+                      id="familyonly"
                     >
                       <option value={true}> true </option>
                       <option value={false}> false </option>
