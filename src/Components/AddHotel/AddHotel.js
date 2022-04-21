@@ -365,13 +365,12 @@ const AddHotel = () => {
                   <label htmlFor="description" className="form-label">
                     description
                   </label>
-                  <input
-                    type="text"
+                  <textarea
                     placeholder="Type here"
                     className="form-control"
-                    id="description"
+                    rows={4}
                     value={hotel.description}
-                    onChange={handleChange}
+                    onInput={handleChange}
                   />
                 </div>
                 <div className="mb-4">
