@@ -362,9 +362,11 @@ const AddHotel = () => {
                   <label htmlFor="description" className="form-label">
                     description
                   </label>
+
                   <textarea
                     placeholder="Type here"
                     className="form-control"
+                    id="description"
                     rows={4}
                     value={hotel.description}
                     onInput={handleChange}
