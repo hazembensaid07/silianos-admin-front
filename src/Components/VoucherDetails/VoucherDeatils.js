@@ -105,7 +105,7 @@ const VoucherDeatils = ({ location }) => {
                           <div className="col-sm-6 mb-3">
                             <label className="form-label">Hotel Name </label>
                             <p className="form-control" rows={4}>
-                              {voucher.hotelName}
+                              {voucher.nomHotel}
                             </p>
                           </div>
                           <div className="col-sm-6 mb-3">
@@ -152,8 +152,10 @@ const VoucherDeatils = ({ location }) => {
                     <div className="box shadow-sm bg-light">
                       <h6>Payment info</h6>
                       <p>
-                        Paid_Agency : {voucher.paidAgency ? true : false} <br />
-                        Paid_Hotel : {voucher.paidHotel ? true : false} <br />
+                        Paid_Agency : {voucher.paidAgency ? "true" : "false"}{" "}
+                        <br />
+                        Paid_Hotel : {voucher.paidHotel ? "true" : "false"}{" "}
+                        <br />
                       </p>
                     </div>
                   </div>
