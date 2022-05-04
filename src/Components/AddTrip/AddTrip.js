@@ -20,7 +20,6 @@ const AddTrip = () => {
   const [deletei, setDeletei] = useState(1);
   const edit = useSelector((state) => state.editReducer.edit);
   const tripp = useSelector((state) => state.tripReducer.trip);
-  const [disabled, setDisabled] = useState(false);
 
   const [trip, setTrip] = useState({
     destination: "",
@@ -32,6 +31,7 @@ const AddTrip = () => {
     metadescription: "",
     metakeywords: "",
     metatitle: "",
+    disabled: false,
   });
 
   const [file, setFile] = useState([]);
@@ -54,9 +54,10 @@ const AddTrip = () => {
   };
 
   const update = async (e) => {
-    setDisabled(true);
-
     e.preventDefault();
+    let updatedItem = { ...trip, disabled: true };
+    setTrip(updatedItem);
+
     const {
       destination,
       description,
@@ -99,6 +100,7 @@ const AddTrip = () => {
             metadescription: "",
             metakeywords: "",
             metatitle: "",
+            disabled: false,
           });
           setFile([]);
           handleScroll(e);
@@ -160,6 +162,7 @@ const AddTrip = () => {
           metadescription: "",
           metakeywords: "",
           metatitle: "",
+          disabled: false,
         });
   }, [edit, tripp]);
   return (
@@ -380,7 +383,7 @@ const AddTrip = () => {
                   className="btn btn-primary"
                   type="button"
                   onClick={update}
-                  disabled={disabled}
+                  disabled={trip.disabled}
                 >
                   {edit ? "Save Changes" : "Add Trips"}{" "}
                 </button>
