@@ -89,7 +89,11 @@ export const getUnpaidVouchers = (cin, pageNumber) => async (dispatch) => {
 export const getVoucher = (id) => async (dispatch) => {
   dispatch({ type: GET_VOUCHERS_LOAD });
   try {
-    const response = await axios.get(`${apiUri()}/voucher/one`);
+    const token = getCookie("token");
+    const options = {
+      headers: { authorization: token },
+    };
+    const response = await axios.get(`${apiUri()}/voucher/one/${id}`, options);
 
     dispatch({ type: GET_VOUCHER, payload: response.data.result });
   } catch (error) {

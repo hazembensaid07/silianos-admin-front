@@ -18,7 +18,7 @@ import Error from "./Components/error";
 import Activate from "./Components/ActivateAccount/Activate";
 import UserRoute from "./routes/UserRoute";
 import AdminRoute from "./routes/AdminRoute";
-
+import VoucherDeatils from "./Components/VoucherDetails/VoucherDeatils";
 function App() {
   return (
     <div className="App">
@@ -40,6 +40,7 @@ function App() {
         <Route exact path="/admin_list" component={AdminList} />
         <Route exact path="/admin_list/:id" component={AdminList} />
         <AdminRoute exact path="/voucher_list" component={VoucherList} />
+        <AdminRoute exact path="/voucher_details" component={VoucherDeatils} />
         <Route exact path="/activate/:token" component={Activate} />
         <Route exact path="/*" component={Error} />
       </Switch>
