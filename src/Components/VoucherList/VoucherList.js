@@ -112,11 +112,12 @@ const VoucherList = ({ history }) => {
                 <table className="table table-hover">
                   <thead>
                     <tr>
-                      <th>CIN</th>
                       <th>Name</th>
-                      <th>Email</th>
+                      <th>Cin</th>
                       <th>Tel</th>
-                      <th>Paid_Agency</th>
+                      <th>paiement status</th>
+                      <th>Tel</th>
+
                       <th className="text-end"> Action </th>
                     </tr>
                   </thead>

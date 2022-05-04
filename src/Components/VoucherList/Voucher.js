@@ -15,6 +15,7 @@ const Voucher = ({ voucher, cin, page }) => {
         <b>{voucher.name}</b>
       </td>
       <td>{voucher.Cin}</td>
+      <td>{voucher.tel}</td>
       {voucher.paidAgency && (
         <td>
           <span className="badge rounded-pill alert-success">paid</span>
