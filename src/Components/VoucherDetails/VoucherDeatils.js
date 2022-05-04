@@ -109,9 +109,6 @@ const VoucherDeatils = ({ location }) => {
                   </div>
                   <div className="col-md-4">
                     <article className="icontext align-items-start">
-                      <span className="icon icon-sm rounded-circle bg-primary-light">
-                        <i className="text-primary material-icons md-local_shipping" />
-                      </span>
                       <div className="text">
                         <h6 className="mb-1"> Date d'arrivée </h6>
                         <p className="mb-1">{voucher.date_arrivée}</p>
@@ -120,9 +117,6 @@ const VoucherDeatils = ({ location }) => {
                   </div>
                   <div className="col-md-4">
                     <article className="icontext align-items-start">
-                      <span className="icon icon-sm rounded-circle bg-primary-light">
-                        <i className="text-primary material-icons md-place" />
-                      </span>
                       <div className="text">
                         <h6 className="mb-1">Date de Départ </h6>
                         <p className="mb-1">{voucher.date_départ}</p>
