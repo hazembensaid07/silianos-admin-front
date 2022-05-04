@@ -3,11 +3,15 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteVoucher, getVoucher } from "../../JS/actions/voucher";
 
-const Voucher = ({ voucher, cin, page }) => {
+const Voucher = ({ voucher, cin, page, vouchers }) => {
   const dispatch = useDispatch();
   const error = useSelector((state) => state.voucherReducer.error);
   const clickDelete = (event) => {
-    dispatch(deleteVoucher(cin, page, voucher._id));
+    if (vouchers === 1) {
+      dispatch(deleteVoucher(cin, 0, voucher._id));
+    } else {
+      dispatch(deleteVoucher(cin, page, voucher._id));
+    }
   };
   return (
     <tr>

@@ -5,13 +5,14 @@ import { deleteHotel, getHotel } from "../../JS/actions/hotel";
 import { toast } from "react-toastify";
 import { toggleTrue } from "../../JS/actions/Edit";
 
-const Hotel = ({ hotel, name, page }) => {
+const Hotel = ({ hotel, name, page, hotels }) => {
   const dispatch = useDispatch();
   const error = useSelector((state) => state.hotelReducer.error);
   const clickDelete = (event) => {
-    dispatch(deleteHotel(name, page, hotel._id));
-    if (!error) {
-      toast.success("Hotel deleted");
+    if (hotels === 1) {
+      dispatch(deleteHotel(name, 0, hotel._id));
+    } else {
+      dispatch(deleteHotel(name, page, hotel._id));
     }
   };
   return (

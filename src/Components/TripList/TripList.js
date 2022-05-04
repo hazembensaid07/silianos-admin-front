@@ -81,6 +81,7 @@ const TripList = ({ history }) => {
                           trip={el}
                           name={name}
                           page={pageNumber}
+                          trips={trips.length}
                         />
                       ))}
                   </tbody>

@@ -8,13 +8,14 @@ import { toggleTrue } from "../../JS/actions/Edit";
 import { getTrip } from "../../JS/actions/trip";
 
 import "react-toastify/dist/ReactToastify.min.css";
-const Trip = ({ trip, name, page }) => {
+const Trip = ({ trip, name, page, trips }) => {
   const dispatch = useDispatch();
   const error = useSelector((state) => state.hotelReducer.error);
   const clickDelete = (event) => {
-    dispatch(deleteTrip(name, page, trip._id));
-    if (!error) {
-      toast.success("Hotel deleted");
+    if (trips === 1) {
+      dispatch(deleteTrip(name, 0, trip._id));
+    } else {
+      dispatch(deleteTrip(name, page, trip._id));
     }
   };
   return (

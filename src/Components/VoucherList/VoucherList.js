@@ -129,6 +129,7 @@ const VoucherList = ({ history }) => {
                           voucher={el}
                           cin={cin}
                           page={pageNumber}
+                          vouchers={vouchers.length}
                         />
                       ))}
                   </tbody>
