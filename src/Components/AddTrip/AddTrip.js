@@ -20,6 +20,7 @@ const AddTrip = () => {
   const [deletei, setDeletei] = useState(1);
   const edit = useSelector((state) => state.editReducer.edit);
   const tripp = useSelector((state) => state.tripReducer.trip);
+  const [disabled, setDisabled] = useState(false);
 
   const [trip, setTrip] = useState({
     destination: "",
@@ -53,6 +54,8 @@ const AddTrip = () => {
   };
 
   const update = async (e) => {
+    setDisabled(true);
+
     e.preventDefault();
     const {
       destination,
@@ -377,6 +380,7 @@ const AddTrip = () => {
                   className="btn btn-primary"
                   type="button"
                   onClick={update}
+                  disabled={disabled}
                 >
                   {edit ? "Save Changes" : "Add Trips"}{" "}
                 </button>

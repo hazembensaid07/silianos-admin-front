@@ -15,6 +15,8 @@ import "react-toastify/dist/ReactToastify.min.css";
 const AddHotel = () => {
   let counter = 0;
   let info = [];
+  const [disabled, setDisabled] = useState(false);
+
   const [deletei, setDeletei] = useState(1);
   const dispatch = useDispatch();
   const edit = useSelector((state) => state.editReducer.edit);
@@ -83,6 +85,8 @@ const AddHotel = () => {
   };
 
   const update = async (e) => {
+    setDisabled(true);
+
     e.preventDefault();
     const {
       name,
@@ -870,6 +874,7 @@ const AddHotel = () => {
                   className="btn btn-primary"
                   type="button"
                   onClick={update}
+                  disabled={disabled}
                 >
                   {edit ? "Save Changes" : "Add Hotel"}{" "}
                 </button>
