@@ -116,7 +116,6 @@ const VoucherList = ({ history }) => {
                       <th>Cin</th>
                       <th>Tel</th>
                       <th>paiement status</th>
-                      <th>Tel</th>
 
                       <th className="text-end"> Action </th>
                     </tr>

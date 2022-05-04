@@ -21,7 +21,7 @@ const Voucher = ({ voucher, cin, page }) => {
           <span className="badge rounded-pill alert-success">paid</span>
         </td>
       )}
-      {voucher.paidAgency && (
+      {!voucher.paidAgency && (
         <td>
           <span className="badge rounded-pill alert-danger">unpaid</span>
         </td>
