@@ -11,4 +11,4 @@ const Room = ({ room, index }) => {
   );
 };
 
-export default Romm;
+export default Room;
