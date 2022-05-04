@@ -128,7 +128,7 @@ const VoucherDeatils = ({ location }) => {
                             {voucher.nuits}
                           </p>
                         </div>
-                        <div className="mb-4">
+                        <div className="mb-6">
                           <table className="table border table-hover table-lg">
                             <thead>
                               <tr>
