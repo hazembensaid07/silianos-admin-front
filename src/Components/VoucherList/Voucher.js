@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteVoucher, getVoucher } from "../../JS/actions/voucher";
+import { useDispatch } from "react-redux";
+import { deleteVoucher } from "../../JS/actions/voucher";
 
 const Voucher = ({ voucher, cin, page, vouchers }) => {
   const dispatch = useDispatch();
-  const error = useSelector((state) => state.voucherReducer.error);
+
   const clickDelete = (event) => {
     if (vouchers === 1) {
       dispatch(deleteVoucher(cin, 0, voucher._id));
@@ -38,6 +38,7 @@ const Voucher = ({ voucher, cin, page, vouchers }) => {
             pathname: `/voucher_details`,
             state: {
               id: voucher._id,
+              rooms: voucher.rooms,
             },
           }}
         >
@@ -53,7 +54,9 @@ const Voucher = ({ voucher, cin, page, vouchers }) => {
               className="dropdown-item"
               to={{
                 pathname: `/updateVoucher`,
-                state: { id: voucher._id },
+                state: {
+                  id: voucher._id,
+                },
               }}
             >
               Edit info

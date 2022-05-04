@@ -1,21 +1,51 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import HeaderAuth from "../Header/HeaderAuth";
 import SideBar from "../SideBar/SideBar";
 import { useDispatch, useSelector } from "react-redux";
-import { getVoucher } from "../../JS/actions/voucher";
+import {
+  getVoucher,
+  validateVoucher,
+  validateVoucherHotel,
+} from "../../JS/actions/voucher";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 import Room from "./room";
 const VoucherDeatils = ({ location }) => {
+  const [show, setShow] = useState(0);
   const id = location.state.id;
+  const rooms = location.state.rooms;
   const dispatch = useDispatch();
   const voucher = useSelector((state) => state.voucherReducer.voucher);
+  const error = useSelector((state) => state.voucherReducer.error);
   const loadVouchers = useSelector(
     (state) => state.voucherReducer.loadVouchers
   );
+  const validateAgencyPaymentt = (event, id) => {
+    event.preventDefault();
+    try {
+      dispatch(validateVoucher(id));
+      setShow(2);
+      toast.success("validé");
+    } catch (err) {
+      toast.error(error);
+    }
+  };
+  const validateHotelPaymentt = (event, id) => {
+    event.preventDefault();
+    try {
+      dispatch(validateVoucherHotel(id));
+      setShow(1);
+      toast.success("validé");
+    } catch (err) {
+      toast.error(error);
+    }
+  };
   useEffect(() => {
     dispatch(getVoucher(id));
-  }, []);
+  }, [show]);
   return (
     <div>
+      <ToastContainer />
       <b className="screen-overlay" />
 
       <SideBar />
@@ -38,19 +68,22 @@ const VoucherDeatils = ({ location }) => {
                     </small>
                   </div>
                   <div className="col-lg-6 col-md-6 ms-auto text-md-end">
-                    <select
-                      className="form-select d-inline-block"
-                      style={{ maxWidth: "200px" }}
+                    <button
+                      className="btn btn-light"
+                      onClick={(event) => {
+                        validateAgencyPaymentt(event, id);
+                      }}
                     >
-                      <option>Change status</option>
-                      <option>Awaiting payment</option>
-                      <option>Confirmed</option>
-                      <option>Shipped</option>
-                      <option>Delivered</option>
-                    </select>
-                    <a className="btn btn-light" href="#">
-                      Save
-                    </a>
+                      valider agence
+                    </button>
+                    <button
+                      className="btn btn-light"
+                      onClick={(event) => {
+                        validateHotelPaymentt(event, id);
+                      }}
+                    >
+                      valider hotel
+                    </button>
                     <a className="btn btn-secondary ms-2" href="#">
                       <i className="icon material-icons md-print" />
                     </a>
@@ -128,20 +161,25 @@ const VoucherDeatils = ({ location }) => {
                             {voucher.nuits}
                           </p>
                         </div>
-                        <div className="mb-6">
+                        <div className="table-responsive">
                           <table className="table border table-hover table-lg">
                             <thead>
                               <tr>
                                 <th width="40%">Room </th>
                                 <th width="20%">Nombres Adultes </th>
                                 <th width="20%">Nombre Enfants -12 ans</th>
-                                <th width="20%">Nombre Enfants -2 ans</th>
+                                <th width="20%">Nombre Enfants -2ans</th>
                               </tr>
                             </thead>
                             <tbody>
-                              {voucher.rooms.map((el, index) => (
-                                <Room key={el.index} room={el} index={index} />
-                              ))}
+                              {rooms.length !== 0 &&
+                                rooms.map((el, index) => (
+                                  <Room
+                                    key={el.index}
+                                    room={el}
+                                    index={index}
+                                  />
+                                ))}
                             </tbody>
                           </table>
                         </div>

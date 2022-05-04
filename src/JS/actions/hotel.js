@@ -13,7 +13,6 @@ export const addHotel = (hotel, file) => async (dispatch) => {
   for (const key of Object.keys(file)) {
     data.append("image", file[key]);
   }
-  console.log(hotel);
   const token = getCookie("token");
   try {
     axios.defaults.headers.post["Content-Type"] =
@@ -107,7 +106,7 @@ export const updateHotel = (hotel, file, id) => async (dispatch) => {
   for (const key of Object.keys(file)) {
     data.append("image", file[key]);
   }
-  console.log(hotell);
+
   const token = getCookie("token");
   try {
     axios.defaults.headers.post["Content-Type"] =

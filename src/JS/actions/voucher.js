@@ -115,3 +115,41 @@ export const deleteVoucher = (cin, pageNumber, id) => async (dispatch) => {
     });
   }
 };
+export const validateVoucher = (id) => async (dispatch) => {
+  try {
+    const token = getCookie("token");
+    const options = {
+      headers: { authorization: token },
+    };
+
+    const result = await axios.post(
+      `${apiUri()}/voucher/validate-agency`,
+      { _id: id },
+      options
+    );
+  } catch (error) {
+    dispatch({
+      type: GET_VOUCHERS_FAIL,
+      payload: error.response.data.error,
+    });
+  }
+};
+export const validateVoucherHotel = (id) => async (dispatch) => {
+  try {
+    const token = getCookie("token");
+    const options = {
+      headers: { authorization: token },
+    };
+
+    const result = await axios.post(
+      `${apiUri()}/voucher/validate-hotel`,
+      { _id: id },
+      options
+    );
+  } catch (error) {
+    dispatch({
+      type: GET_VOUCHERS_FAIL,
+      payload: error.response.data.error,
+    });
+  }
+};
