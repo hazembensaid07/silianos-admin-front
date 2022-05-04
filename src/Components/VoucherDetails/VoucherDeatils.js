@@ -3,7 +3,7 @@ import HeaderAuth from "../Header/HeaderAuth";
 import SideBar from "../SideBar/SideBar";
 import { useDispatch, useSelector } from "react-redux";
 import { getVoucher } from "../../JS/actions/voucher";
-
+import Room from "./room";
 const VoucherDeatils = ({ location }) => {
   const id = location.state.id;
   const dispatch = useDispatch();
@@ -138,7 +138,11 @@ const VoucherDeatils = ({ location }) => {
                                 <th width="20%">Nombre Enfants -2 ans</th>
                               </tr>
                             </thead>
-                            <tbody></tbody>
+                            <tbody>
+                              {voucher.rooms.map((el, index) => (
+                                <Home key={el.index} room={el} index={index} />
+                              ))}
+                            </tbody>
                           </table>
                         </div>
                       </form>
