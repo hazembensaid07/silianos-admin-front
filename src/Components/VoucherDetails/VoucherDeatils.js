@@ -138,19 +138,7 @@ const VoucherDeatils = ({ location }) => {
                                 <th width="20%">Nombre Enfants -2 ans</th>
                               </tr>
                             </thead>
-                            <tbody>
-                              {voucher.rooms.map((el, index) => (
-                                <tr>
-                                  <td> {index}</td>
-                                  <td> {el.nombreAdulte}</td>
-                                  <td> {el.nombreEnfants2ans}</td>
-                                  <td className="text-end">
-                                    {" "}
-                                    {el.nombreEnfants12ans}
-                                  </td>
-                                </tr>
-                              ))}
-                            </tbody>
+                            <tbody></tbody>
                           </table>
                         </div>
                       </form>
