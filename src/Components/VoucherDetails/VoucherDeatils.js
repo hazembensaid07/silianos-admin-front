@@ -140,7 +140,7 @@ const VoucherDeatils = ({ location }) => {
                             </thead>
                             <tbody>
                               {voucher.rooms.map((el, index) => (
-                                <Home key={el.index} room={el} index={index} />
+                                <Room key={el.index} room={el} index={index} />
                               ))}
                             </tbody>
                           </table>
