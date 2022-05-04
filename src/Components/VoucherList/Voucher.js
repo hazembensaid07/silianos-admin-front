@@ -1,45 +1,38 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteHotel, getHotel } from "../../JS/actions/hotel";
-import { toast } from "react-toastify";
-import { toggleTrue } from "../../JS/actions/Edit";
+import { deleteVoucher, getVoucher } from "../../JS/actions/voucher";
 
-const Hotel = ({ hotel, name, page }) => {
+const Voucher = ({ voucher, cin, page }) => {
   const dispatch = useDispatch();
-  const error = useSelector((state) => state.hotelReducer.error);
+  const error = useSelector((state) => state.voucherReducer.error);
   const clickDelete = (event) => {
-    dispatch(deleteHotel(name, page, hotel._id));
-    if (!error) {
-      toast.success("Hotel deleted");
-    }
+    dispatch(deleteVoucher(cin, page, voucher._id));
   };
   return (
     <tr>
       <td>
-        <b>{hotel.name}</b>
+        <b>{voucher.name}</b>
       </td>
-      <td>{hotel.ville}</td>
-      {hotel.totalchambre > 0 && (
+      <td>{voucher.Cin}</td>
+      {voucher.paidAgency && (
         <td>
-          <span className="badge rounded-pill alert-success">Active</span>
+          <span className="badge rounded-pill alert-success">paid</span>
         </td>
       )}
-      {hotel.totalchambre === 0 && (
+      {voucher.paidAgency && (
         <td>
-          <span className="badge rounded-pill alert-danger">Disabled</span>
+          <span className="badge rounded-pill alert-danger">unpaid</span>
         </td>
       )}
-      <td>{hotel.etoiles}</td>
+      <td>{voucher.nomHotel}</td>
       <td className="text-end">
         <Link
           className="btn btn-light"
           to={{
-            pathname: `/hotel_details`,
+            pathname: `/voucher_details`,
             state: {
-              id: hotel._id,
-              pictures: hotel.pictures,
-              logement: hotel.logement[0],
+              id: voucher._id,
             },
           }}
         >
@@ -54,12 +47,8 @@ const Hotel = ({ hotel, name, page }) => {
             <Link
               className="dropdown-item"
               to={{
-                pathname: `/add_hotel`,
-                state: { hotel: hotel },
-              }}
-              onClick={() => {
-                dispatch(toggleTrue());
-                dispatch(getHotel(hotel._id));
+                pathname: `/updateVoucher`,
+                state: { id: voucher._id },
               }}
             >
               Edit info
@@ -75,4 +64,4 @@ const Hotel = ({ hotel, name, page }) => {
   );
 };
 
-export default Hotel;
+export default Voucher;

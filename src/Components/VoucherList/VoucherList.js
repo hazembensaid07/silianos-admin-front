@@ -1,9 +1,55 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import HeaderAuth from "../Header/HeaderAuth";
 import SideBar from "../SideBar/SideBar";
-
+import { useDispatch, useSelector } from "react-redux";
+import Voucher from "./Voucher";
+import {
+  getVouchers,
+  getPaidVouchers,
+  getUnpaidVouchers,
+} from "../../JS/actions/voucher";
 const VoucherList = ({ history }) => {
+  const [pageNumber, setPageNumber] = useState(0);
+  const [show, setShow] = useState(0);
+  const numberOfpages = useSelector((state) => state.voucherReducer.pages);
+  const pages = new Array(numberOfpages).fill(null).map((v, i) => i);
+  const [cin, setCin] = useState("");
+  const dispatch = useDispatch();
+  const vouchers = useSelector((state) => state.voucherReducer.vouchers);
+  const loadVouchers = useSelector(
+    (state) => state.voucherReducer.loadVouchers
+  );
+  const gotoPrevious = () => {
+    setPageNumber(Math.max(0, pageNumber - 1));
+  };
+  const gotoNext = () => {
+    setPageNumber(Math.min(numberOfpages - 1, pageNumber + 1));
+  };
+  const clickPaid = (event) => {
+    setShow(1);
+    setPageNumber(0);
+  };
+  const clickUnpaid = (event) => {
+    setShow(2);
+    setPageNumber(0);
+  };
+  const clickAll = (event) => {
+    setShow(0);
+    setPageNumber(0);
+  };
+  useEffect(() => {
+    if (show === 0) {
+      dispatch(getVouchers(cin, pageNumber));
+    }
+    if (show === 1) {
+      dispatch(getPaidVouchers(cin, pageNumber));
+    }
+    if (show === 2) {
+      dispatch(getUnpaidVouchers(cin, pageNumber));
+    }
+  }, [cin, dispatch, show, pageNumber]);
+
   return (
     <div>
       <b className="screen-overlay" />
@@ -12,11 +58,12 @@ const VoucherList = ({ history }) => {
         <HeaderAuth />
         <section className="content-main">
           <div className="content-header">
-            <h2 className="content-title">Vouchers List </h2>
+            <h2 className="content-title">Voucher List </h2>
+
             <div>
-              <a href="#" className="btn btn-primary">
+              <Link to={{ pathname: `/add_hotel` }} className="btn btn-primary">
                 <i className="material-icons md-plus" /> Add new
-              </a>
+              </Link>
             </div>
           </div>
           <div className="card mb-4">
@@ -27,150 +74,130 @@ const VoucherList = ({ history }) => {
                     type="text"
                     placeholder="Search..."
                     className="form-control"
+                    onChange={(e) => setCin(e.target.value)}
                   />
                 </div>
+
                 <div className="col-lg-2 col-6 col-md-3">
-                  <select className="form-select">
-                    <option>Status</option>
-                    <option>paid Online </option>
-                    <option>paid In Agency </option>
-                    <option>paid With Bank </option>
-                    <option>not paid </option>
-                  </select>
+                  <div>
+                    <button
+                      className="btn btn-success"
+                      style={{ color: "white" }}
+                      onClick={clickPaid}
+                    >
+                      <i className="material-icons md-plus" /> Paid
+                    </button>
+                  </div>
+                </div>
+                <div className="col-lg-2 col-6 col-md-3">
+                  <div>
+                    <button onClick={clickUnpaid} className="btn btn-danger">
+                      <i className="material-icons md-plus" /> Unpaid
+                    </button>
+                  </div>
+                </div>
+                <div className="col-lg-2 col-6 col-md-3">
+                  <div>
+                    <button className="btn btn-primary" onClick={clickAll}>
+                      <i className="material-icons md-plus" /> Show All
+                    </button>
+                  </div>
                 </div>
               </div>
             </header>{" "}
             {/* card-header end// */}
             <div className="card-body">
               <div className="table-responsive">
+                {loadVouchers && vouchers.length === 0 && <p></p>}
                 <table className="table table-hover">
                   <thead>
                     <tr>
+                      <th>CIN</th>
                       <th>Name</th>
-                      <th>email</th>
-                      <th>amount </th>
-                      <th>date </th>
+                      <th>Email</th>
+                      <th>Tel</th>
+                      <th>Paid_Agency</th>
                       <th className="text-end"> Action </th>
                     </tr>
                   </thead>
+
                   <tbody>
-                    <tr>
-                      <td>
-                        <b>Lace mini dress with faux leather</b>
-                      </td>
-                      <td>Dresses</td>
-                      <td>
-                        <span className="badge rounded-pill alert-success">
-                          Active
-                        </span>
-                      </td>
-                      <td>03.12.2020</td>
-                      <td className="text-end">
-                        <a href="#" className="btn btn-light">
-                          Detail
-                        </a>
-                        <div className="dropdown">
-                          <a
-                            href="#"
-                            data-bs-toggle="dropdown"
-                            className="btn btn-light"
-                          >
-                            {" "}
-                            <i className="material-icons md-more_horiz" />{" "}
-                          </a>
-                          <div className="dropdown-menu">
-                            <a className="dropdown-item" href="#">
-                              View detail
-                            </a>
-                            <a className="dropdown-item" href="#">
-                              Edit info
-                            </a>
-                            <a className="dropdown-item text-danger" href="#">
-                              Delete
-                            </a>
-                            <a className="dropdown-item text-success" href="#">
-                              Validate
-                            </a>
-                          </div>
-                        </div>{" "}
-                        {/* dropdown //end */}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <b>Lace mini dress with faux leather</b>
-                      </td>
-                      <td>Dresses</td>
-                      <td>
-                        <span className="badge rounded-pill alert-success">
-                          Active
-                        </span>
-                      </td>
-                      <td>03.12.2020</td>
-                      <td className="text-end">
-                        <a href="#" className="btn btn-light">
-                          Detail
-                        </a>
-                        <div className="dropdown">
-                          <a
-                            href="#"
-                            data-bs-toggle="dropdown"
-                            className="btn btn-light"
-                          >
-                            {" "}
-                            <i className="material-icons md-more_horiz" />{" "}
-                          </a>
-                          <div className="dropdown-menu">
-                            <a className="dropdown-item" href="#">
-                              View detail
-                            </a>
-                            <a className="dropdown-item" href="#">
-                              Edit info
-                            </a>
-                            <a className="dropdown-item text-danger" href="#">
-                              Delete
-                            </a>
-                            <a className="dropdown-item text-success" href="#">
-                              Validate
-                            </a>
-                          </div>
-                        </div>{" "}
-                        {/* dropdown //end */}
-                      </td>
-                    </tr>
+                    {vouchers.length !== 0 &&
+                      vouchers.map((el) => (
+                        <Voucher
+                          key={el._id}
+                          voucher={el}
+                          cin={cin}
+                          page={pageNumber}
+                        />
+                      ))}
                   </tbody>
                 </table>
+                {!loadVouchers && vouchers.length === 0 && (
+                  <b>There is No Vouchers </b>
+                )}
               </div>{" "}
               {/* table-responsive end // */}
-              <nav className="float-end mt-3" aria-label="Page navigation">
-                <ul className="pagination">
-                  <li className="page-item disabled">
-                    <a className="page-link" href="#">
-                      Previous
-                    </a>
-                  </li>
-                  <li className="page-item active">
-                    <a className="page-link" href="#">
-                      1
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      2
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      3
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      Next
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+              {numberOfpages > 1 && (
+                <nav className="float-end mt-3" aria-label="Page navigation">
+                  <ul className="pagination">
+                    {numberOfpages > 1 && (
+                      <li className="page-item ">
+                        <a
+                          className="page-link"
+                          onClick={() => {
+                            gotoPrevious();
+                          }}
+                        >
+                          Previous
+                        </a>
+                      </li>
+                    )}
+
+                    {vouchers.length !== 0 &&
+                      pages.map((pageIndex) =>
+                        pageNumber === pageIndex ? (
+                          <li className="page-item active">
+                            <a
+                              key={pageIndex}
+                              className="page-link"
+                              onClick={() => {
+                                setPageNumber(pageIndex);
+                              }}
+                            >
+                              {pageIndex + 1}
+                            </a>
+                          </li>
+                        ) : (
+                          <li className="page-item ">
+                            <a
+                              key={pageIndex}
+                              className="page-link"
+                              onClick={() => {
+                                setPageNumber(pageIndex);
+                              }}
+                            >
+                              {pageIndex + 1}
+                            </a>
+                          </li>
+                        )
+                      )}
+
+                    {numberOfpages > 1 && (
+                      <li className="page-item ">
+                        <a
+                          className="page-link"
+                          onClick={() => {
+                            gotoNext();
+                          }}
+                        >
+                          next
+                        </a>
+                      </li>
+                    )}
+                  </ul>
+                </nav>
+              )}
             </div>{" "}
             {/* card-body end// */}
           </div>{" "}

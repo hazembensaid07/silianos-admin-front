@@ -3,10 +3,11 @@ import { request } from "./requests";
 import { hotelReducer } from "./hotels";
 import { tripReducer } from "./trip";
 import { editReducer } from "./Edit";
-
+import { voucherReducer } from "./voucher";
 export const rootReducer = combineReducers({
   request,
   hotelReducer,
   tripReducer,
   editReducer,
+  voucherReducer,
 });

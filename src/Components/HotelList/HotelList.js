@@ -87,7 +87,6 @@ const HotelList = ({ history }) => {
                 <div className="col-lg-2 col-6 col-md-3">
                   <div>
                     <button
-                      to={{ pathname: `/add_hotel` }}
                       className="btn btn-success"
                       style={{ color: "white" }}
                       onClick={clickActive}
@@ -105,11 +104,7 @@ const HotelList = ({ history }) => {
                 </div>
                 <div className="col-lg-2 col-6 col-md-3">
                   <div>
-                    <button
-                      to={{ pathname: `/add_hotel` }}
-                      className="btn btn-primary"
-                      onClick={clickAll}
-                    >
+                    <button className="btn btn-primary" onClick={clickAll}>
                       <i className="material-icons md-plus" /> Show All
                     </button>
                   </div>
