@@ -19,6 +19,8 @@ import Activate from "./Components/ActivateAccount/Activate";
 import UserRoute from "./routes/UserRoute";
 import AdminRoute from "./routes/AdminRoute";
 import VoucherDeatils from "./Components/VoucherDetails/VoucherDeatils";
+import AddVocuher from "./Components/AddVoucher/AddVocuher";
+import VoucherByHotel from "./Components/VoucherList/VocuherByHotel";
 function App() {
   return (
     <div className="App">
@@ -30,6 +32,8 @@ function App() {
         <AdminRoute exact path="/admin_dashboard" component={AdminLand} />
         <UserRoute exact path="/admin_request" component={AdminRequest} />
         <AdminRoute exact path="/hotels" component={HotelList} />
+        <AdminRoute exact path="/vouchersbyhotel" component={VoucherByHotel} />
+        <AdminRoute exact path="/add_voucher" component={AddVocuher} />
         <AdminRoute exact path="/add_hotel" component={AddHotel} />
         <AdminRoute exact path="/hotel_details" component={HotelDetails} />
 

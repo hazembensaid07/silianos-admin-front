@@ -3,6 +3,9 @@ import {
   GET_VOUCHERS_SUCCESS,
   GET_VOUCHERS_LOAD,
   GET_VOUCHER,
+  GET_VOUCHERS_SUCCESS_BY_HOTEL,
+  GET_VOUCHERS_LOAD_By_HOTEL,
+  GET_VOUCHERS_FAIL_BY_HOTEL,
 } from "../constants/vouchers";
 import axios from "axios";
 import { getCookie } from "../../helpers/helper";
@@ -34,6 +37,33 @@ export const getVouchers = (cin, pageNumber) => async (dispatch) => {
     });
   }
 };
+export const getVouchersByHotel =
+  (cin, pageNumber, hotel) => async (dispatch) => {
+    dispatch({ type: GET_VOUCHERS_LOAD_By_HOTEL });
+    try {
+      const token = getCookie("token");
+      const options = {
+        headers: { authorization: token },
+      };
+      const result = await axios.get(
+        `${apiUri()}/voucher/byhotel/all?search=${cin}&hotel=${hotel}&page=${pageNumber}`,
+        options
+      );
+
+      dispatch({
+        type: GET_VOUCHERS_SUCCESS_BY_HOTEL,
+        payload: {
+          vouchers: result.data.response,
+          pages: result.data.totalPages,
+        },
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_VOUCHERS_FAIL,
+        payload: error.response.data.error,
+      });
+    }
+  };
 export const getPaidVouchers = (cin, pageNumber) => async (dispatch) => {
   dispatch({ type: GET_VOUCHERS_LOAD });
   try {
@@ -60,6 +90,33 @@ export const getPaidVouchers = (cin, pageNumber) => async (dispatch) => {
     });
   }
 };
+export const getPaidVouchersByhotel =
+  (cin, pageNumber, hotel) => async (dispatch) => {
+    dispatch({ type: GET_VOUCHERS_LOAD_By_HOTEL });
+    try {
+      const token = getCookie("token");
+      const options = {
+        headers: { authorization: token },
+      };
+      const result = await axios.get(
+        `${apiUri()}/voucher/byhotel/paid?search=${cin}&hotel=${hotel}&page=${pageNumber}`,
+        options
+      );
+
+      dispatch({
+        type: GET_VOUCHERS_SUCCESS_BY_HOTEL,
+        payload: {
+          vouchers: result.data.response,
+          pages: result.data.totalPages,
+        },
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_VOUCHERS_FAIL_BY_HOTEL,
+        payload: error.response.data.error,
+      });
+    }
+  };
 export const getUnpaidVouchers = (cin, pageNumber) => async (dispatch) => {
   dispatch({ type: GET_VOUCHERS_LOAD });
   try {
@@ -86,6 +143,33 @@ export const getUnpaidVouchers = (cin, pageNumber) => async (dispatch) => {
     });
   }
 };
+export const getUnpaidVouchersByHotel =
+  (cin, pageNumber, hotel) => async (dispatch) => {
+    dispatch({ type: GET_VOUCHERS_LOAD_By_HOTEL });
+    try {
+      const token = getCookie("token");
+      const options = {
+        headers: { authorization: token },
+      };
+      const result = await axios.get(
+        `${apiUri()}/voucher/byhotel/unpaid?search=${cin}&hotel=${hotel}&page=${pageNumber}`,
+        options
+      );
+
+      dispatch({
+        type: GET_VOUCHERS_SUCCESS_BY_HOTEL,
+        payload: {
+          vouchers: result.data.response,
+          pages: result.data.totalPages,
+        },
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_VOUCHERS_FAIL_BY_HOTEL,
+        payload: error.response.data.error,
+      });
+    }
+  };
 export const getVoucher = (id) => async (dispatch) => {
   dispatch({ type: GET_VOUCHERS_LOAD });
   try {

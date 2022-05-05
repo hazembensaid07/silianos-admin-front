@@ -1,29 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { signout } from "../../helpers/helper";
+import HeaderAuth from "../Header/HeaderAuth";
 import SideBar from "../SideBar/SideBar";
 import { useDispatch, useSelector } from "react-redux";
 import Voucher from "./Voucher";
 import {
-  getVouchers,
-  getPaidVouchers,
-  getUnpaidVouchers,
+  getPaidVouchersByhotel,
+  getUnpaidVouchersByHotel,
+  getVouchersByHotel,
 } from "../../JS/actions/voucher";
-const VoucherList = ({ history }) => {
+const VoucherByHotel = ({ location }) => {
+  const hotel = location.state.hotel;
   const [pageNumber, setPageNumber] = useState(0);
-  const [hotel, setHotel] = useState("");
   const [show, setShow] = useState(0);
   const numberOfpages = useSelector((state) => state.voucherReducer.pages);
   const pages = new Array(numberOfpages).fill(null).map((v, i) => i);
   const [cin, setCin] = useState("");
   const dispatch = useDispatch();
-  const vouchers = useSelector((state) => state.voucherReducer.vouchers);
+  const vouchers = useSelector((state) => state.voucherReducer.vouchersByHotel);
   const loadVouchers = useSelector(
     (state) => state.voucherReducer.loadVouchers
   );
-  const handleChange = (event) => {
-    setHotel(event.target.value);
-  };
   const gotoPrevious = () => {
     setPageNumber(Math.max(0, pageNumber - 1));
   };
@@ -44,13 +41,13 @@ const VoucherList = ({ history }) => {
   };
   useEffect(() => {
     if (show === 0) {
-      dispatch(getVouchers(cin, pageNumber));
+      dispatch(getVouchersByHotel(cin, pageNumber, hotel));
     }
     if (show === 1) {
-      dispatch(getPaidVouchers(cin, pageNumber));
+      dispatch(getPaidVouchersByhotel(cin, pageNumber, hotel));
     }
     if (show === 2) {
-      dispatch(getUnpaidVouchers(cin, pageNumber));
+      dispatch(getUnpaidVouchersByHotel(cin, pageNumber, hotel));
     }
   }, [cin, dispatch, show, pageNumber]);
 
@@ -58,73 +55,15 @@ const VoucherList = ({ history }) => {
     <div>
       <b className="screen-overlay" />
       <SideBar />
-
       <main className="main-wrap">
-        <header className="main-header navbar">
-          <div className="col-search">
-            <form className="searchform">
-              <div className="input-group">
-                <input
-                  list="search_terms"
-                  type="text"
-                  className="form-control"
-                  placeholder="search vouchers by hotel "
-                  value={hotel}
-                  onChange={handleChange}
-                />
-                <Link
-                  className="btn btn-light bg"
-                  to={{
-                    pathname: `/vouchersbyhotel`,
-                    state: { hotel: hotel },
-                  }}
-                >
-                  {" "}
-                  <i className="material-icons md-search" />{" "}
-                </Link>
-              </div>
-            </form>
-          </div>
-          <div className="col-brand"></div>
-
-          <div className="col-nav">
-            <button
-              className="btn btn-icon btn-mobile me-auto"
-              data-trigger="#offcanvas_aside"
-            >
-              <i className="md-28 material-icons md-menu" />
-            </button>
-            <ul className="nav">
-              <li className="dropdown nav-item">
-                <button className="dropdown-toggle" data-bs-toggle="dropdown">
-                  {" "}
-                </button>
-                <div className="dropdown-menu dropdown-menu-end">
-                  <button
-                    className="dropdown-item text-danger"
-                    onClick={() => {
-                      signout();
-                    }}
-                  >
-                    Exit
-                  </button>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </header>
+        <HeaderAuth />
         <section className="content-main">
           <div className="content-header">
-            <h2 className="content-title">Voucher List </h2>
-
-            <div>
-              <Link
-                to={{ pathname: `/add_voucher` }}
-                className="btn btn-primary"
-              >
-                <i className="material-icons md-plus" /> Add new
-              </Link>
-            </div>
+            {vouchers.length > 0 ? (
+              <h2 className="content-title">Voucher List {hotel}</h2>
+            ) : (
+              <h2 className="content-title">Voucher List </h2>
+            )}
           </div>
           <div className="card mb-4">
             <header className="card-header">
@@ -270,4 +209,4 @@ const VoucherList = ({ history }) => {
   );
 };
 
-export default VoucherList;
+export default VoucherByHotel;
