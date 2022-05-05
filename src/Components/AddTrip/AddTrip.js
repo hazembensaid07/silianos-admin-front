@@ -31,6 +31,7 @@ const AddTrip = () => {
     metadescription: "",
     metakeywords: "",
     metatitle: "",
+    disabled: false,
   });
 
   const [file, setFile] = useState([]);
@@ -54,6 +55,9 @@ const AddTrip = () => {
 
   const update = async (e) => {
     e.preventDefault();
+    let updatedItem = { ...trip, disabled: true };
+    setTrip(updatedItem);
+
     const {
       destination,
       description,
@@ -96,6 +100,7 @@ const AddTrip = () => {
             metadescription: "",
             metakeywords: "",
             metatitle: "",
+            disabled: false,
           });
           setFile([]);
           handleScroll(e);
@@ -157,6 +162,7 @@ const AddTrip = () => {
           metadescription: "",
           metakeywords: "",
           metatitle: "",
+          disabled: false,
         });
   }, [edit, tripp]);
   return (
@@ -377,6 +383,7 @@ const AddTrip = () => {
                   className="btn btn-primary"
                   type="button"
                   onClick={update}
+                  disabled={trip.disabled}
                 >
                   {edit ? "Save Changes" : "Add Trips"}{" "}
                 </button>
