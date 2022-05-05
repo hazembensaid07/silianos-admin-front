@@ -5,6 +5,7 @@ import SideBar from "../SideBar/SideBar";
 import { getCookie } from "../../helpers/helper";
 import axios from "axios";
 import apiUri from "../apiUri";
+import handleScroll from "../scroll.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 const schema = {
@@ -42,6 +43,32 @@ const AddVocuher = () => {
     nomHotel: "",
     pay: false,
   });
+  const [formFields, setFormFields] = useState([
+    { nombreAdulte: 0, nombreEnfants2ans: 0, nombreEnfants12ans: 0 },
+  ]);
+  const handleFormChange = (event, index) => {
+    let data = [...formFields];
+    data[index][event.target.name] = event.target.value;
+    setFormFields(data);
+  };
+
+  const addFields = (e) => {
+    e.preventDefault();
+    let object = {
+      nombreAdulte: 0,
+      nombreEnfants2ans: 0,
+      nombreEnfants12ans: 0,
+    };
+
+    setFormFields([...formFields, object]);
+  };
+
+  const removeFields = (index, e) => {
+    e.preventDefault();
+    let data = [...formFields];
+    data.splice(index, 1);
+    setFormFields(data);
+  };
   const handleChange = (e) => {
     e.preventDefault();
     setVoucher({ ...voucher, [e.target.id]: e.target.value });
@@ -58,8 +85,6 @@ const AddVocuher = () => {
     },
     translator
   );
-
-  console.log(errors);
 
   const handleSubmit = async (e) => {
     try {
@@ -82,6 +107,7 @@ const AddVocuher = () => {
           paidAgency: voucher.pay,
           tel: voucher.Tel,
           dateD: voucher.dateD,
+          rooms: formFields,
         };
         await axios.post(`${apiUri()}/voucher/add`, data, options);
         toast.success("Le voucher est ajouté");
@@ -97,6 +123,10 @@ const AddVocuher = () => {
           nomHotel: "",
           pay: false,
         });
+        setFormFields([
+          { nombreAdulte: 0, nombreEnfants2ans: 0, nombreEnfants12ans: 0 },
+        ]);
+        handleScroll(e);
       }
     } catch (error) {
       toast.error(error.response.data.error);
@@ -112,7 +142,7 @@ const AddVocuher = () => {
         <HeaderAuth />
         <section className="content-main" style={{ maxWidth: "800px" }}>
           <div className="content-header">
-            <h2 className="content-title">Add Voucher </h2>
+            <h2 className="content-title">Ajouter Voucher </h2>
           </div>
           <div className="card mb-4">
             <div className="card-body">
@@ -254,6 +284,69 @@ const AddVocuher = () => {
                   />
                   <Error name="nuits" withStyle />
                 </div>
+                <div className="mb-4">
+                  <label htmlFor="localisation" className="form-label">
+                    Chambres:
+                  </label>
+                </div>
+                {formFields.map((form, index) => {
+                  return (
+                    <div key={index}>
+                      <div className="row gx-2">
+                        <div className="col-sm-4 mb-3">
+                          <label htmlFor="localisation" className="form-label">
+                            Nombre des adultes
+                          </label>
+                          <input
+                            name="nombreAdulte"
+                            placeholder="nombre adultes"
+                            onChange={(event) => handleFormChange(event, index)}
+                            value={form.nombreAdulte}
+                            type="text"
+                            className="form-control"
+                          />
+                        </div>
+                        <div className="col-sm-4 mb-3">
+                          <label htmlFor="localisation" className="form-label">
+                            Nombre des enfants -12 ans
+                          </label>
+                          <input
+                            name="nombreEnfants12ans"
+                            placeholder="nombre enfants -12 ans"
+                            onChange={(event) => handleFormChange(event, index)}
+                            value={form.nombreEnfants12ans}
+                            type="text"
+                            className="form-control"
+                          />
+                        </div>
+                        <div className="col-sm-4  mb-3">
+                          <label htmlFor="localisation" className="form-label">
+                            Nombre des enfants -2 ans
+                          </label>
+                          <input
+                            name="nombreEnfants2ans"
+                            placeholder="nombre des enfants -2 ans"
+                            onChange={(event) => handleFormChange(event, index)}
+                            value={form.nombreEnfants2ans}
+                            type="text"
+                            className="form-control"
+                          />
+                        </div>
+                      </div>{" "}
+                      <button
+                        className="btn btn-primary"
+                        onClick={(e) => removeFields(index, e)}
+                      >
+                        supprimer
+                      </button>
+                    </div>
+                  );
+                })}
+                <br />
+
+                <button className="btn btn-primary" onClick={addFields}>
+                  ajouter une autre chambre
+                </button>
 
                 <br />
                 <br />
