@@ -195,8 +195,10 @@ const AddHotel = () => {
           handleScroll(e);
         })
         .catch((error) => {
+          const updated1 = { ...hotel, disabled: false };
+          setHotel(updated1);
           toast.error(error.response.data.error);
-              hotel = { ...hotel, disabled: false };
+          
 
         });
     } else {
@@ -251,8 +253,8 @@ const AddHotel = () => {
           handleScroll(e);
         })
         .catch((error) => {
-              hotel = { ...hotel, disabled: false };
-
+          const updated2 = { ...hotel, disabled: false };
+          setHotel(updated2);
           if (error.response) {
             toast.error(error.response.data.error);
           } else {

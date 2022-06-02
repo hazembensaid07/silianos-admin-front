@@ -106,7 +106,8 @@ const AddTrip = () => {
           handleScroll(e);
         })
         .catch((error) => {
-              trip = { ...trip, disabled: false };
+          const updated1 = { ...trip, disabled: false };
+          setTrip(updated1);
 
           if (error.response.data.error) {
             toast.error(error.response.data.error);
@@ -146,7 +147,8 @@ const AddTrip = () => {
           handleScroll(e);
         })
         .catch((error) => {
-              trip = { ...trip, disabled: false };
+          const updated2 = { ...trip, disabled: false };
+          setTrip(updated2);
 
           toast.error(error.response.data.error);
         });
