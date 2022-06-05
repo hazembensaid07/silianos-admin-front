@@ -6,12 +6,14 @@ import {
   getVoucher,
   validateVoucher,
   validateVoucherHotel,
+  validateVoucherAccompte,
 } from "../../JS/actions/voucher";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import Room from "./room";
 const VoucherDeatils = ({ location }) => {
   const [show, setShow] = useState(0);
+  const [accompte, setAccompte] = useState(0);
   const id = location.state.id;
   const rooms = location.state.rooms;
   const dispatch = useDispatch();
@@ -20,6 +22,9 @@ const VoucherDeatils = ({ location }) => {
   const loadVouchers = useSelector(
     (state) => state.voucherReducer.loadVouchers
   );
+  const handleChange = (event) => {
+    setAccompte(event.target.value);
+  };
   const validateAgencyPaymentt = (event, id) => {
     event.preventDefault();
     try {
@@ -34,6 +39,21 @@ const VoucherDeatils = ({ location }) => {
       toast.error(error);
     }
   };
+  const validateAgencyPaymenttAcoompte = (event, id, accompte) => {
+    event.preventDefault();
+    try {
+      if (voucher.paidAgency) {
+        toast.error("déjà validé");
+      } else {
+        dispatch(validateVoucherAccompte(id, accompte));
+        setShow(2);
+        toast.success("validé");
+      }
+    } catch (err) {
+      toast.error(error);
+    }
+  };
+
   const validateHotelPaymentt = (event, id) => {
     event.preventDefault();
     try {
@@ -82,8 +102,9 @@ const VoucherDeatils = ({ location }) => {
                         validateAgencyPaymentt(event, id);
                       }}
                     >
-                      valider agence
+                      valider paiement total
                     </button>
+
                     <button
                       className="btn btn-light"
                       onClick={(event) => {
@@ -99,6 +120,23 @@ const VoucherDeatils = ({ location }) => {
                     >
                       <i className="icon material-icons md-print" />
                     </a>
+                  </div>
+                  <div className="col-lg-6 col-md-6 ms-auto text-md-end">
+                    <input
+                      onChange={handleChange}
+                      value={accompte}
+                      type="text"
+                      className="form-control"
+                      placeholder="accompte"
+                    />
+                    <button
+                      className="btn btn-light"
+                      onClick={(event) => {
+                        validateAgencyPaymenttAcoompte(event, id, accompte);
+                      }}
+                    >
+                      valider paiement d'un accompte
+                    </button>
                   </div>
                 </div>
               </header>{" "}

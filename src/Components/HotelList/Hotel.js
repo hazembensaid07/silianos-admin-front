@@ -5,7 +5,7 @@ import { deleteHotel, getHotel } from "../../JS/actions/hotel";
 import { toast } from "react-toastify";
 import { toggleTrue } from "../../JS/actions/Edit";
 
-const Hotel = ({ hotel, name, page, hotels }) => {
+const Hotel = ({ hotel, name, page, totalchambre, hotels }) => {
   const dispatch = useDispatch();
   const error = useSelector((state) => state.hotelReducer.error);
   const clickDelete = (event) => {
@@ -21,12 +21,12 @@ const Hotel = ({ hotel, name, page, hotels }) => {
         <b>{hotel.name}</b>
       </td>
       <td>{hotel.ville}</td>
-      {hotel.totalchambre > 0 && (
+      {totalchambre > 0 && (
         <td>
           <span className="badge rounded-pill alert-success">Active</span>
         </td>
       )}
-      {hotel.totalchambre === 0 && (
+      {totalchambre === 0 && (
         <td>
           <span className="badge rounded-pill alert-danger">Disabled</span>
         </td>

@@ -218,6 +218,25 @@ export const validateVoucher = (id) => async (dispatch) => {
     });
   }
 };
+export const validateVoucherAccompte = (id, accompte) => async (dispatch) => {
+  try {
+    const token = getCookie("token");
+    const options = {
+      headers: { authorization: token },
+    };
+
+    const result = await axios.post(
+      `${apiUri()}/voucher/validate-acoompte-agency`,
+      { _id: id, accompte: accompte },
+      options
+    );
+  } catch (error) {
+    dispatch({
+      type: GET_VOUCHERS_FAIL,
+      payload: error.response.data.error,
+    });
+  }
+};
 export const validateVoucherHotel = (id) => async (dispatch) => {
   try {
     const token = getCookie("token");
