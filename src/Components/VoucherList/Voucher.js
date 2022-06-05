@@ -50,17 +50,6 @@ const Voucher = ({ voucher, cin, page, vouchers }) => {
             <i className="material-icons md-more_horiz" />{" "}
           </a>
           <div className="dropdown-menu">
-            <Link
-              className="dropdown-item"
-              to={{
-                pathname: `/updateVoucher`,
-                state: {
-                  id: voucher._id,
-                },
-              }}
-            >
-              Modifier l'information
-            </Link>
             <button className="dropdown-item text-danger" onClick={clickDelete}>
               Supprimer
             </button>

@@ -18,6 +18,7 @@ import Error from "./Components/error";
 import Activate from "./Components/ActivateAccount/Activate";
 import UserRoute from "./routes/UserRoute";
 import AdminRoute from "./routes/AdminRoute";
+import SuperAdminRoute from "./routes/SuperAdminRoute";
 import VoucherDeatils from "./Components/VoucherDetails/VoucherDeatils";
 import AddVocuher from "./Components/AddVoucher/AddVocuher";
 import VoucherByHotel from "./Components/VoucherList/VocuherByHotel";
@@ -41,8 +42,8 @@ function App() {
         <AdminRoute exact path="/add_trip" component={AddTrip} />
         <AdminRoute exact path="/trip_details" component={TripDetails} />
 
-        <Route exact path="/admin_list" component={AdminList} />
-        <Route exact path="/admin_list/:id" component={AdminList} />
+        <SuperAdminRoute exact path="/admin_list" component={AdminList} />
+        <SuperAdminRoute exact path="/admin_list/:id" component={AdminList} />
         <AdminRoute exact path="/voucher_list" component={VoucherList} />
         <AdminRoute exact path="/voucher_details" component={VoucherDeatils} />
         <Route exact path="/activate/:token" component={Activate} />
