@@ -21,7 +21,7 @@ const SignUp = () => {
     event.preventDefault();
     axios({
       method: "POST",
-      url: `${apiUri()}/user/signup`,
+      url: `http://localhost:5000/api/user/signup`,
       data: { name, lastName, email, password },
     })
       .then((response) => {
@@ -54,7 +54,7 @@ const SignUp = () => {
             <h4 className="card-title mb-4">Sign Up </h4>
             <form>
               <div className="mb-3">
-                <label className="form-label">First Name</label>
+                <label className="form-label">Prénom</label>
                 <input
                   onChange={handleChange("name")}
                   value={name}
@@ -66,7 +66,7 @@ const SignUp = () => {
                 />
               </div>
               <div className="mb-3">
-                <label className="form-label">Last Name</label>
+                <label className="form-label">Nom</label>
                 <input
                   required
                   onChange={handleChange("lastName")}
@@ -88,14 +88,14 @@ const SignUp = () => {
                 />
               </div>
               <div className="mb-3">
-                <label className="form-label">Create password</label>
+                <label className="form-label">Créer un mot de passe</label>
                 <input
                   required
                   onChange={handleChange("password")}
                   value={password}
                   className="form-control"
                   placeholder="Password"
-                  type="password"
+                  type="mot de passe"
                 />
               </div>
               <div className="mb-4">
@@ -104,19 +104,19 @@ const SignUp = () => {
                   className="btn btn-primary w-100"
                   onClick={clickSubmit}
                 >
-                  Sign Up
+                  S'inscrire'
                 </button>
               </div>
             </form>
 
             <p className="text-center mb-2">
-              Already have an account?
+            Vous avez déjà un compte?
               <Link
                 to={{
                   pathname: `/`,
                 }}
               >
-                Sign in
+                Connecter
               </Link>
             </p>
           </div>
