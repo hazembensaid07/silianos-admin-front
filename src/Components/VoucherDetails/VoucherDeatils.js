@@ -92,7 +92,11 @@ const VoucherDeatils = ({ location }) => {
                     >
                       valider hotel
                     </button>
-                    <a className="btn btn-secondary ms-2" href="#">
+                    <a
+                      className="btn btn-secondary ms-2"
+                      target="_blank"
+                      href={voucher.pdfUrl}
+                    >
                       <i className="icon material-icons md-print" />
                     </a>
                   </div>
@@ -147,6 +151,12 @@ const VoucherDeatils = ({ location }) => {
                             <label className="form-label">Logement </label>
                             <p className="form-control" rows={4}>
                               {voucher.logement}
+                            </p>
+                          </div>
+                          <div className="col-sm-6 mb-3">
+                            <label className="form-label">Prix total </label>
+                            <p className="form-control" rows={4}>
+                              {voucher.price}
                             </p>
                           </div>
                         </div>{" "}

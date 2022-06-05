@@ -15,6 +15,7 @@ const schema = {
   Tel: Joi.string().required().min(4),
   nuits: Joi.number().integer().min(1),
   nomHotel: Joi.string().required().min(2),
+  price: Joi.number().integer().min(1),
 };
 const translator = (error) => {
   if (error === '"email" is not allowed to be empty')
@@ -42,6 +43,7 @@ const AddVocuher = () => {
     nuits: 1,
     nomHotel: "",
     pay: false,
+    price: 0,
   });
   const [formFields, setFormFields] = useState([
     { nombreAdulte: 0, nombreEnfants2ans: 0, nombreEnfants12ans: 0 },
@@ -82,6 +84,7 @@ const AddVocuher = () => {
       Tel: voucher.Tel,
       nuits: voucher.nuits,
       nomHotel: voucher.nomHotel,
+      price: voucher.price,
     },
     translator
   );
@@ -108,6 +111,7 @@ const AddVocuher = () => {
           tel: voucher.Tel,
           dateD: voucher.dateD,
           rooms: formFields,
+          price: voucher.price,
         };
         await axios.post(`${apiUri()}/voucher/add`, data, options);
         toast.success("Le voucher est ajouté");
@@ -122,6 +126,7 @@ const AddVocuher = () => {
           nuits: 1,
           nomHotel: "",
           pay: false,
+          price: 0,
         });
         setFormFields([
           { nombreAdulte: 0, nombreEnfants2ans: 0, nombreEnfants12ans: 0 },
@@ -240,6 +245,19 @@ const AddVocuher = () => {
                     className="form-control"
                     id="dateD"
                     value={voucher.dateD}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="localisation" className="form-label">
+                    Prix Total du voucher
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Type here"
+                    className="form-control"
+                    id="price"
+                    value={voucher.price}
                     onChange={handleChange}
                   />
                 </div>

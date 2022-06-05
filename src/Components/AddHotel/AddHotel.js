@@ -198,8 +198,6 @@ const AddHotel = () => {
           const updated1 = { ...hotel, disabled: false };
           setHotel(updated1);
           toast.error(error.response.data.error);
-          
-
         });
     } else {
       let hotelll = {};

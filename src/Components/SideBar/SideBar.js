@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { isAuth } from "../../helpers/helper";
 const SideBar = () => {
   //destructuring pathname from location
 
@@ -66,18 +67,20 @@ const SideBar = () => {
               <span className="text">Vouchers</span>
             </NavLink>
           </li>
-          <li className="menu-item ">
-            {" "}
-            <NavLink
-              className="menu-link"
-              to={{ pathname: `/admin_list` }}
-              activeStyle={{ color: "#ff0000" }}
-            >
+          {isAuth().email === "hazembensaid195@gmail.com" && (
+            <li className="menu-item ">
               {" "}
-              <i className="icon material-icons md-person" />
-              <span className="text">Admin Requests</span>
-            </NavLink>
-          </li>
+              <NavLink
+                className="menu-link"
+                to={{ pathname: `/admin_list` }}
+                activeStyle={{ color: "#ff0000" }}
+              >
+                {" "}
+                <i className="icon material-icons md-person" />
+                <span className="text">Admin Requests</span>
+              </NavLink>
+            </li>
+          )}
         </ul>
 
         <br />
