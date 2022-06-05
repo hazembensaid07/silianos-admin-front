@@ -63,10 +63,10 @@ const Hotel = ({ hotel, name, page, hotels }) => {
                 dispatch(getHotel(hotel._id));
               }}
             >
-              Edit info
+              Modifier l'information
             </Link>
             <button className="dropdown-item text-danger" onClick={clickDelete}>
-              Delete
+              Supprimer
             </button>
           </div>
         </div>{" "}

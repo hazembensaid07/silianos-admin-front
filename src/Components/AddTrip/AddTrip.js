@@ -181,7 +181,7 @@ const AddTrip = () => {
         <HeaderAuth />
         <section className="content-main" style={{ maxWidth: "720px" }}>
           <div className="content-header">
-            <h2 className="content-title">Add Trip </h2>
+            <h2 className="content-title">Ajouter voyage </h2>
           </div>
           <div className="card mb-4">
             <div className="card-body">
@@ -192,7 +192,7 @@ const AddTrip = () => {
                   </label>
                   <input
                     type="text"
-                    placeholder="Type here"
+                    placeholder="Tapez ici"
                     className="form-control"
                     id="destination"
                     value={trip.destination}
@@ -205,7 +205,7 @@ const AddTrip = () => {
                   </label>
 
                   <textarea
-                    placeholder="Type here"
+                    placeholder="Tapez ici"
                     className="form-control"
                     id="description"
                     rows={4}
@@ -219,7 +219,7 @@ const AddTrip = () => {
                   </label>
 
                   <textarea
-                    placeholder="Type here"
+                    placeholder="Tapez ici"
                     className="form-control"
                     rows={4}
                     value={trip.programme}
@@ -229,13 +229,13 @@ const AddTrip = () => {
                 </div>
                 <div className="mb-4">
                   <label htmlFor="localisation" className="form-label">
-                    price
+                    prix
                   </label>
                   <input
                     type="text"
-                    placeholder="Type here"
+                    placeholder="Tapez ici"
                     className="form-control"
-                    id="price"
+                    id="prix"
                     value={trip.price}
                     onChange={handleChange}
                   />
@@ -246,7 +246,7 @@ const AddTrip = () => {
                   </label>
                   <input
                     type="date"
-                    placeholder="Type here"
+                    placeholder="Tapez ici"
                     className="form-control"
                     id="dates"
                     value={trip.dates}
@@ -259,7 +259,7 @@ const AddTrip = () => {
                   </label>
                   <input
                     type="text"
-                    placeholder="Type here"
+                    placeholder="Tapez ici"
                     className="form-control"
                     id="metakeywords"
                     value={trip.metakeywords}
@@ -272,7 +272,7 @@ const AddTrip = () => {
                   </label>
                   <input
                     type="text"
-                    placeholder="Type here"
+                    placeholder="Tapez ici"
                     className="form-control"
                     id="metadescription"
                     value={trip.metadescription}
@@ -285,7 +285,7 @@ const AddTrip = () => {
                   </label>
                   <input
                     type="text"
-                    placeholder="Type here"
+                    placeholder="Tapez ici"
                     className="form-control"
                     id="metatitle"
                     value={trip.metatitle}
@@ -294,15 +294,15 @@ const AddTrip = () => {
                 </div>
                 <div className="row gx-2">
                   <div className="col-sm-6 mb-3">
-                    <label className="form-label">best _ org</label>
+                    <label className="form-label">Meilleure Destination</label>
                     <select
                       className="form-select"
                       value={trip.bestorg}
                       onChange={handleChange}
                       id="bestorg"
                     >
-                      <option value={true}> true </option>
-                      <option value={false}> false </option>
+                      <option value={true}> vrai</option>
+                      <option value={false}> faux </option>
                     </select>
                   </div>
                 </div>
@@ -355,7 +355,7 @@ const AddTrip = () => {
                 {edit && tripp.pictures && (
                   <div className="row gx-2">
                     <div className="col-sm-6 mb-3">
-                      <label className="form-label">Image to delete</label>
+                      <label className="form-label">Supprimer image</label>
                       <select
                         className="form-select"
                         value={deletei}
@@ -379,8 +379,7 @@ const AddTrip = () => {
                       );
                     }}
                   >
-                    Deleted Selected image
-                  </button>
+Supprmier les images selectionés                  </button>
                 )}
                 <br />
                 <br />
@@ -391,7 +390,7 @@ const AddTrip = () => {
                   onClick={update}
                   disabled={trip.disabled}
                 >
-                  {edit ? "Save Changes" : "Add Trips"}{" "}
+                  {edit ? "Mise à jour" : "Ajouter voyages"}{" "}
                 </button>
               </form>
             </div>

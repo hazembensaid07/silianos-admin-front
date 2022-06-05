@@ -33,7 +33,7 @@ const TripDetails = ({ location }) => {
           <div className="card mb-4">
             <div className="card-body">
               {loadTrips ? (
-                <h1>Loading</h1>
+                <h1>Chargement</h1>
               ) : (
                 <form>
                   <div className="mb-4">
@@ -94,9 +94,9 @@ const TripDetails = ({ location }) => {
                       </p>
                     </div>
                     <div className="col-sm-6 mb-3">
-                      <label className="form-label">Best_Destination </label>
+                      <label className="form-label">Meilleure destination </label>
                       <p className="form-control" rows={4}>
-                        {trip.bestorg ? "true" : "false"}
+                        {trip.bestorg ? "vrai" : "faux"}
                       </p>
                     </div>
                   </div>{" "}

@@ -11,7 +11,8 @@ const AdminLand = ({ history }) => {
         <HeaderAuth />
         <section className="content-main">
           <div className="content-header">
-            <h2 className="content-title"> Dashboard </h2>
+            <h2 className="content-title"> Tableau de bord
+ </h2>
           </div>
           <div className="row">
             <div className="col-lg-4">
@@ -21,7 +22,7 @@ const AdminLand = ({ history }) => {
                     <i className="text-primary material-icons md-monetization_on" />
                   </span>
                   <div className="text">
-                    <h6 className="mb-1">Total Hotels</h6> <span>50</span>
+                    <h6 className="mb-1">Total des hôtels</h6> <span>50</span>
                   </div>
                 </article>
               </div>{" "}
@@ -35,7 +36,7 @@ const AdminLand = ({ history }) => {
                     <i className="text-success material-icons md-local_shipping" />
                   </span>
                   <div className="text">
-                    <h6 className="mb-1">Total Trips</h6> <span>20</span>
+                    <h6 className="mb-1">Total des voyages</h6> <span>20</span>
                   </div>
                 </article>
               </div>{" "}
@@ -49,7 +50,7 @@ const AdminLand = ({ history }) => {
                     <i className="text-warning material-icons md-shopping_basket" />
                   </span>
                   <div className="text">
-                    <h6 className="mb-1">Total Vouchers</h6> <span>50</span>
+                    <h6 className="mb-1">Total des bons</h6> <span>50</span>
                   </div>
                 </article>
               </div>{" "}
@@ -61,7 +62,7 @@ const AdminLand = ({ history }) => {
           {/* row end// */}
           <div className="card mb-4">
             <div className="card-body">
-              <h5 className="card-title">Latest Vouchers</h5>
+              <h5 className="card-title">Bons d'achat les plus récents</h5>
               <div className="table-responsive">
                 <table className="table table-hover">
                   <tbody>
@@ -74,13 +75,12 @@ const AdminLand = ({ history }) => {
                       <td>$778.35</td>
                       <td>
                         <span className="badge rounded-pill alert-success">
-                          Delivered
-                        </span>
+                        Livré                        </span>
                       </td>
                       <td>07.05.2020</td>
                       <td className="text-end">
                         <a href="#" className="btn btn-light">
-                          Detail
+                          Details
                         </a>
                         <div className="dropdown">
                           <a
@@ -93,13 +93,14 @@ const AdminLand = ({ history }) => {
                           </a>
                           <div className="dropdown-menu">
                             <a className="dropdown-item" href="#">
-                              View detail
+                            Voir le détail
+
                             </a>
                             <a className="dropdown-item" href="#">
-                              Edit info
+                            Modifier l'information
                             </a>
                             <a className="dropdown-item text-danger" href="#">
-                              Delete
+                              Supprimer
                             </a>
                           </div>
                         </div>{" "}
@@ -115,13 +116,13 @@ const AdminLand = ({ history }) => {
                       <td>$778.35</td>
                       <td>
                         <span className="badge rounded-pill alert-success">
-                          Delivered
+                          Livré
                         </span>
                       </td>
                       <td>07.05.2020</td>
                       <td className="text-end">
                         <a href="#" className="btn btn-light">
-                          Detail
+                          Details
                         </a>
                         <div className="dropdown">
                           <a
@@ -134,13 +135,13 @@ const AdminLand = ({ history }) => {
                           </a>
                           <div className="dropdown-menu">
                             <a className="dropdown-item" href="#">
-                              View detail
+                            Voir le détail
                             </a>
                             <a className="dropdown-item" href="#">
-                              Edit info
+                            Modifier l'information
                             </a>
                             <a className="dropdown-item text-danger" href="#">
-                              Delete
+                              Supprimer
                             </a>
                           </div>
                         </div>{" "}

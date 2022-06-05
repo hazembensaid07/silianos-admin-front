@@ -33,7 +33,7 @@ const TripList = ({ history }) => {
         <HeaderAuth />
         <section className="content-main">
           <div className="content-header">
-            <h2 className="content-title">Trip List </h2>
+            <h2 className="content-title">Liste des voyages </h2>
             <div>
               <Link
                 to={{ pathname: `/add_trip` }}
@@ -42,7 +42,7 @@ const TripList = ({ history }) => {
                 }}
                 className="btn btn-primary"
               >
-                <i className="material-icons md-plus" /> Add new
+                <i className="material-icons md-plus" /> Ajouter
               </Link>
             </div>
           </div>
@@ -51,8 +51,8 @@ const TripList = ({ history }) => {
               <div className="row gx-3">
                 <div className="col-lg-4 col-md-6 me-auto">
                   <input
-                    type="text"
-                    placeholder="Search... By Destination "
+                    type="text"Se
+                    placeholder="chercher par destination.. "
                     className="form-control"
                     onChange={(e) => setName(e.target.value)}
                   />
@@ -67,7 +67,7 @@ const TripList = ({ history }) => {
                   <thead>
                     <tr>
                       <th>Destination</th>
-                      <th>price</th>
+                      <th>Prix</th>
                       <th>dates</th>
                       <th className="text-end"> Action </th>
                     </tr>

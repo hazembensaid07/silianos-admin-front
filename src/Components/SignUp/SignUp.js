@@ -21,7 +21,7 @@ const SignUp = () => {
     event.preventDefault();
     axios({
       method: "POST",
-      url: `http://localhost:5000/api/user/signup`,
+      url: `${apiUri()}/user/signup`,
       data: { name, lastName, email, password },
     })
       .then((response) => {
@@ -51,7 +51,7 @@ const SignUp = () => {
           style={{ maxWidth: "380px", marginTop: "60px" }}
         >
           <div className="card-body">
-            <h4 className="card-title mb-4">Sign Up </h4>
+            <h4 className="card-title mb-4">S'inscrire </h4>
             <form>
               <div className="mb-3">
                 <label className="form-label">Prénom</label>
@@ -60,7 +60,7 @@ const SignUp = () => {
                   value={name}
                   name="name"
                   className="form-control"
-                  placeholder="Type text"
+                  placeholder="écrire le prénom"
                   type="text"
                   required
                 />
@@ -72,7 +72,7 @@ const SignUp = () => {
                   onChange={handleChange("lastName")}
                   value={lastName}
                   className="form-control"
-                  placeholder="Type text"
+                  placeholder="écrire le nom"
                   type="text"
                 />
               </div>
@@ -83,7 +83,7 @@ const SignUp = () => {
                   onChange={handleChange("email")}
                   value={email}
                   className="form-control"
-                  placeholder="Type email"
+                  placeholder="écrire l'email"
                   type="text"
                 />
               </div>
@@ -94,7 +94,7 @@ const SignUp = () => {
                   onChange={handleChange("password")}
                   value={password}
                   className="form-control"
-                  placeholder="Password"
+                  placeholder="écrire le mot de passe"
                   type="mot de passe"
                 />
               </div>
@@ -104,7 +104,7 @@ const SignUp = () => {
                   className="btn btn-primary w-100"
                   onClick={clickSubmit}
                 >
-                  S'inscrire'
+                  S'inscrire
                 </button>
               </div>
             </form>

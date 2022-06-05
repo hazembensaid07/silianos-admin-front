@@ -20,7 +20,7 @@ const AdminList = () => {
         <HeaderAuth />
         <section className="content-main">
           <div className="content-header">
-            <h2 className="content-title">Admin Requests List </h2>
+            <h2 className="content-title">Demandes de role admin </h2>
           </div>
           <div className="card mb-4">
             {/* card-header end// */}
@@ -44,7 +44,7 @@ const AdminList = () => {
                 </table>
 
                 {!loadRequests && requests.length === 0 && (
-                  <b>There is No Requests </b>
+                  <b>Il n'y a pas de demande </b>
                 )}
               </div>{" "}
               {/* table-responsive end // */}

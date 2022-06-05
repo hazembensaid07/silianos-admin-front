@@ -60,9 +60,9 @@ const VoucherByHotel = ({ location }) => {
         <section className="content-main">
           <div className="content-header">
             {vouchers.length > 0 ? (
-              <h2 className="content-title">Voucher List {hotel}</h2>
+              <h2 className="content-title">Liste des bons d'achat {hotel}</h2>
             ) : (
-              <h2 className="content-title">Voucher List </h2>
+              <h2 className="content-title">Liste des bons d'achat </h2>
             )}
           </div>
           <div className="card mb-4">
@@ -84,21 +84,21 @@ const VoucherByHotel = ({ location }) => {
                       style={{ color: "white" }}
                       onClick={clickPaid}
                     >
-                      <i className="material-icons md-plus" /> Paid
+                      <i className="material-icons md-plus" /> Payé
                     </button>
                   </div>
                 </div>
                 <div className="col-lg-2 col-6 col-md-3">
                   <div>
                     <button onClick={clickUnpaid} className="btn btn-danger">
-                      <i className="material-icons md-plus" /> Unpaid
+                      <i className="material-icons md-plus" /> Impayé
                     </button>
                   </div>
                 </div>
                 <div className="col-lg-2 col-6 col-md-3">
                   <div>
                     <button className="btn btn-primary" onClick={clickAll}>
-                      <i className="material-icons md-plus" /> Show All
+                      <i className="material-icons md-plus" /> Afficher tout
                     </button>
                   </div>
                 </div>
@@ -111,10 +111,10 @@ const VoucherByHotel = ({ location }) => {
                 <table className="table table-hover">
                   <thead>
                     <tr>
-                      <th>Name</th>
+                      <th>Nom</th>
                       <th>Cin</th>
                       <th>Tel</th>
-                      <th>paiement status</th>
+                      <th>statut du paiement</th>
                       <th>Nom Hotel</th>
 
                       <th className="text-end"> Action </th>
@@ -135,7 +135,7 @@ const VoucherByHotel = ({ location }) => {
                   </tbody>
                 </table>
                 {!loadVouchers && vouchers.length === 0 && (
-                  <b>There is No Vouchers </b>
+                  <b>Il n'y a pas de bons d'achat </b>
                 )}
               </div>{" "}
               {/* table-responsive end // */}
@@ -150,7 +150,7 @@ const VoucherByHotel = ({ location }) => {
                             gotoPrevious();
                           }}
                         >
-                          Previous
+                          Précédent
                         </a>
                       </li>
                     )}
@@ -192,7 +192,7 @@ const VoucherByHotel = ({ location }) => {
                             gotoNext();
                           }}
                         >
-                          next
+                          Suivant
                         </a>
                       </li>
                     )}

@@ -36,8 +36,7 @@ const HotelDetails = ({ location }) => {
                       disabled="disabled"
                       className="form-label"
                     >
-                      Hotel Name
-                    </label>
+Nom hotel                    </label>
                     <p className="form-control" id="product_name">
                       {" "}
                       {hotel.name}
@@ -188,7 +187,7 @@ const HotelDetails = ({ location }) => {
                       </p>
                     </div>
                     <div className="col-sm-6 mb-3">
-                      <label className="form-label">Discount</label>
+                      <label className="form-label">Remise</label>
                       <p className="form-control" rows={4}>
                         {hotel.discount}
                       </p>
@@ -196,13 +195,13 @@ const HotelDetails = ({ location }) => {
                   </div>{" "}
                   <div className="row gx-2">
                     <div className="col-sm-6 mb-3">
-                      <label className="form-label"> best_hotel</label>
+                      <label className="form-label"> Meilleur Hotel</label>
                       <p className="form-control" rows={4}>
                         {hotel.besthotel ? "true" : "false"}
                       </p>
                     </div>
                     <div className="col-sm-6 mb-3">
-                      <label className="form-label">family_only</label>
+                      <label className="form-label">Seulement pour famille</label>
                       <p className="form-control" rows={4}>
                         {hotel.familyonly ? "true" : "false"}
                       </p>

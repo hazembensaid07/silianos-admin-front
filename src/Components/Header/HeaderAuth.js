@@ -25,7 +25,7 @@ const HeaderAuth = () => {
                   signout();
                 }}
               >
-                Exit
+                Se déconnecter
               </button>
             </div>
           </li>

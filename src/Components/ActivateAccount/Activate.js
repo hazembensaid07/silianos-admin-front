@@ -40,7 +40,7 @@ const Activate = ({ match }) => {
           style={{ maxWidth: "380px", marginTop: "100px" }}
         >
           <div className="card-body">
-            <h4 className="card-title mb-4">Welcome to Silianos</h4>
+            <h4 className="card-title mb-4">Bienvenue à Silianos</h4>
             <form>
               <div className="mb-4">
                 <button
@@ -50,7 +50,7 @@ const Activate = ({ match }) => {
                     clickSubmit(e);
                   }}
                 >
-                  Activate Your Account
+                  Activez votre compte
                 </button>
               </div>
             </form>
@@ -60,7 +60,7 @@ const Activate = ({ match }) => {
                   pathname: `/`,
                 }}
               >
-                Sign in
+                S'identifier
               </Link>
             </p>
           </div>

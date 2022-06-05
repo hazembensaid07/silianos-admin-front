@@ -38,7 +38,8 @@ const ForgotPassword = ({ history }) => {
           style={{ maxWidth: "380px", marginTop: "100px" }}
         >
           <div className="card-body">
-            <h4 className="card-title mb-4">Reset Password</h4>
+            <h4 className="card-title mb-4">                  Réinitialiser le mot de passe
+</h4>
             <form>
               <div className="mb-3">
                 <input
@@ -51,12 +52,13 @@ const ForgotPassword = ({ history }) => {
               </div>{" "}
               <div className="mb-4">
                 <button
-                  type="submit"
+                  type="soumettre"
                   className="btn btn-primary w-100"
                   onClick={clickSubmit}
                 >
                   {" "}
-                  Reset Password
+                  Réinitialiser le mot de passe
+
                 </button>
               </div>{" "}
             </form>
@@ -66,7 +68,7 @@ const ForgotPassword = ({ history }) => {
                   pathname: `/`,
                 }}
               >
-                Log In
+                S'identifier
               </Link>
             </p>
           </div>

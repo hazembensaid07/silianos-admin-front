@@ -57,10 +57,10 @@ const Trip = ({ trip, name, page, trips }) => {
                 dispatch(getTrip(trip._id));
               }}
             >
-              Edit info
+              Modifier l'information
             </Link>
             <button className="dropdown-item text-danger" onClick={clickDelete}>
-              Delete
+              Supprimer
             </button>
           </div>
         </div>{" "}

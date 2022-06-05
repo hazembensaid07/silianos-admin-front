@@ -58,7 +58,7 @@ const HotelList = ({ history }) => {
         <HeaderAuth />
         <section className="content-main">
           <div className="content-header">
-            <h2 className="content-title">Hotels List </h2>
+            <h2 className="content-title">Liste des hôtels </h2>
 
             <div>
               <Link
@@ -68,7 +68,7 @@ const HotelList = ({ history }) => {
                   dispatch(toggleFlase());
                 }}
               >
-                <i className="material-icons md-plus" /> Add new
+                <i className="material-icons md-plus" /> Ajouter 
               </Link>
             </div>
           </div>
@@ -78,7 +78,7 @@ const HotelList = ({ history }) => {
                 <div className="col-lg-4 col-md-6 me-auto">
                   <input
                     type="text"
-                    placeholder="Search..."
+                    placeholder="Chercher.."
                     className="form-control"
                     onChange={(e) => setName(e.target.value)}
                   />
@@ -91,21 +91,21 @@ const HotelList = ({ history }) => {
                       style={{ color: "white" }}
                       onClick={clickActive}
                     >
-                      <i className="material-icons md-plus" /> Active
+                      <i className="material-icons md-plus" /> Actif
                     </button>
                   </div>
                 </div>
                 <div className="col-lg-2 col-6 col-md-3">
                   <div>
                     <button onClick={clickDisabled} className="btn btn-danger">
-                      <i className="material-icons md-plus" /> Disabled
+                      <i className="material-icons md-plus" /> désactivé
                     </button>
                   </div>
                 </div>
                 <div className="col-lg-2 col-6 col-md-3">
                   <div>
                     <button className="btn btn-primary" onClick={clickAll}>
-                      <i className="material-icons md-plus" /> Show All
+                      <i className="material-icons md-plus" /> Afficher tous
                     </button>
                   </div>
                 </div>
@@ -118,10 +118,10 @@ const HotelList = ({ history }) => {
                 <table className="table table-hover">
                   <thead>
                     <tr>
-                      <th>Name</th>
+                      <th>Nom</th>
                       <th>Region</th>
                       <th>Status</th>
-                      <th>Stars</th>
+                      <th>Etoiles </th>
                       <th className="text-end"> Action </th>
                     </tr>
                   </thead>

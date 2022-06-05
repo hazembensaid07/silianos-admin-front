@@ -22,12 +22,12 @@ const Voucher = ({ voucher, cin, page, vouchers }) => {
       <td>{voucher.tel}</td>
       {voucher.paidAgency && (
         <td>
-          <span className="badge rounded-pill alert-success">paid</span>
+          <span className="badge rounded-pill alert-success">payé</span>
         </td>
       )}
       {!voucher.paidAgency && (
         <td>
-          <span className="badge rounded-pill alert-danger">unpaid</span>
+          <span className="badge rounded-pill alert-danger">impayé</span>
         </td>
       )}
       <td>{voucher.nomHotel}</td>
@@ -59,10 +59,10 @@ const Voucher = ({ voucher, cin, page, vouchers }) => {
                 },
               }}
             >
-              Edit info
+              Modifier l'information
             </Link>
             <button className="dropdown-item text-danger" onClick={clickDelete}>
-              Delete
+              Supprimer
             </button>
           </div>
         </div>{" "}

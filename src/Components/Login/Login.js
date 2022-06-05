@@ -51,7 +51,7 @@ const Login = ({ history }) => {
           style={{ maxWidth: "380px", marginTop: "100px" }}
         >
           <div className="card-body">
-            <h4 className="card-title mb-4">Sign in</h4>
+            <h4 className="card-title mb-4">s'identifier</h4>
             <form>
               <div className="mb-3">
                 <input
@@ -59,7 +59,7 @@ const Login = ({ history }) => {
                   value={email}
                   type="email"
                   className="form-control"
-                  placeholder="Username or email"
+                  placeholder="email"
                 />
               </div>
               <div className="mb-3">
@@ -68,7 +68,7 @@ const Login = ({ history }) => {
                   value={password}
                   type="password"
                   className="form-control"
-                  placeholder="Password"
+                  placeholder="Mot de passe"
                 />
               </div>
               <div className="mb-3">
@@ -78,7 +78,8 @@ const Login = ({ history }) => {
                   }}
                   className="float-end"
                 >
-                  Forgot password?
+                  Mot de passe oublié ?
+
                 </Link>
                 <label className="form-check">
                   <input
@@ -86,7 +87,7 @@ const Login = ({ history }) => {
                     className="form-check-input"
                     defaultChecked
                   />
-                  <span className="form-check-label">Remember</span>
+                  <span className="form-check-label">N'oubliez pas</span>
                 </label>
               </div>
               <div className="mb-4">
@@ -97,18 +98,19 @@ const Login = ({ history }) => {
                     clickSubmit(e);
                   }}
                 >
-                  Login
+                  Se Connecter
                 </button>
               </div>
             </form>
             <p className="text-center mb-4">
-              Don't have account?
+            Vous n'avez pas de compte ?
+
               <Link
                 to={{
                   pathname: `/signup`,
                 }}
               >
-                Sign up
+                S'inscrire
               </Link>
             </p>
           </div>

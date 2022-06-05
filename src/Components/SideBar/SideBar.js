@@ -30,7 +30,7 @@ const SideBar = () => {
             <li className="menu-item ">
               {" "}
               <i className="icon material-icons md-home" />
-              <span className="text">Dashboard</span>
+              <span className="text">Tableau de bord</span>
             </li>
           </NavLink>
           <li className="menu-item">
@@ -41,7 +41,7 @@ const SideBar = () => {
             >
               {" "}
               <i className="icon material-icons md-hotel " />
-              <span className="text">Hotels</span>
+              <span className="text">Hôtels</span>
             </NavLink>
           </li>
           <li className="menu-item ">
@@ -52,7 +52,7 @@ const SideBar = () => {
             >
               {" "}
               <i className="icon material-icons md-airplanemode_active " />
-              <span className="text">Trips</span>
+              <span className="text">Voyages</span>
             </NavLink>
           </li>
           <li className="menu-item ">
@@ -63,7 +63,7 @@ const SideBar = () => {
             >
               {" "}
               <i className="icon material-icons md-monetization_on" />
-              <span className="text">Vouchers</span>
+              <span className="text">Bons d'achat</span>
             </NavLink>
           </li>
           <li className="menu-item ">
@@ -75,7 +75,7 @@ const SideBar = () => {
             >
               {" "}
               <i className="icon material-icons md-person" />
-              <span className="text">Admin Requests</span>
+              <span className="text">Demandes de role admin</span>
             </NavLink>
           </li>
         </ul>

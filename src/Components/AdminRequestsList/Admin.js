@@ -18,10 +18,10 @@ const Admin = ({ admin, email }) => {
 
       <td className="text-end">
         <button className="btn  text-success" onClick={clickSubmit}>
-          Accept
+        Accepter
         </button>
         <button className="btn text-danger" onClick={clickDelete}>
-          Delete
+          Supprimer
         </button>
       </td>
     </tr>

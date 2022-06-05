@@ -106,7 +106,7 @@ const VoucherList = ({ history }) => {
                       signout();
                     }}
                   >
-                    Exit
+                    Se déconnecter
                   </button>
                 </div>
               </li>
@@ -115,14 +115,14 @@ const VoucherList = ({ history }) => {
         </header>
         <section className="content-main">
           <div className="content-header">
-            <h2 className="content-title">Voucher List </h2>
+            <h2 className="content-title">Liste des bons d'achat </h2>
 
             <div>
               <Link
                 to={{ pathname: `/add_voucher` }}
                 className="btn btn-primary"
               >
-                <i className="material-icons md-plus" /> Add new
+                <i className="material-icons md-plus" /> Ajouter
               </Link>
             </div>
           </div>
@@ -132,7 +132,7 @@ const VoucherList = ({ history }) => {
                 <div className="col-lg-4 col-md-6 me-auto">
                   <input
                     type="text"
-                    placeholder="Search..."
+                    placeholder="Chercher..."
                     className="form-control"
                     onChange={(e) => setCin(e.target.value)}
                   />
@@ -145,21 +145,21 @@ const VoucherList = ({ history }) => {
                       style={{ color: "white" }}
                       onClick={clickPaid}
                     >
-                      <i className="material-icons md-plus" /> Paid
+                      <i className="material-icons md-plus" /> Payé
                     </button>
                   </div>
                 </div>
                 <div className="col-lg-2 col-6 col-md-3">
                   <div>
                     <button onClick={clickUnpaid} className="btn btn-danger">
-                      <i className="material-icons md-plus" /> Unpaid
+                      <i className="material-icons md-plus" /> Impayé
                     </button>
                   </div>
                 </div>
                 <div className="col-lg-2 col-6 col-md-3">
                   <div>
                     <button className="btn btn-primary" onClick={clickAll}>
-                      <i className="material-icons md-plus" /> Show All
+                      <i className="material-icons md-plus" /> Afficher tout
                     </button>
                   </div>
                 </div>
@@ -172,10 +172,10 @@ const VoucherList = ({ history }) => {
                 <table className="table table-hover">
                   <thead>
                     <tr>
-                      <th>Name</th>
+                      <th>Nom</th>
                       <th>Cin</th>
                       <th>Tel</th>
-                      <th>paiement status</th>
+                      <th>Statut du paiement</th>
                       <th>Nom Hotel</th>
 
                       <th className="text-end"> Action </th>
@@ -196,7 +196,7 @@ const VoucherList = ({ history }) => {
                   </tbody>
                 </table>
                 {!loadVouchers && vouchers.length === 0 && (
-                  <b>There is No Vouchers </b>
+                  <b>Il n'y a pas de bons d'achat </b>
                 )}
               </div>{" "}
               {/* table-responsive end // */}
@@ -211,7 +211,7 @@ const VoucherList = ({ history }) => {
                             gotoPrevious();
                           }}
                         >
-                          Previous
+                          Précédent
                         </a>
                       </li>
                     )}
@@ -253,7 +253,7 @@ const VoucherList = ({ history }) => {
                             gotoNext();
                           }}
                         >
-                          next
+                          suivant
                         </a>
                       </li>
                     )}

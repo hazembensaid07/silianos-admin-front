@@ -43,12 +43,12 @@ const AdminRequest = () => {
           style={{ maxWidth: "380px", marginTop: "100px" }}
         >
           <div className="card-body">
-            <h4 className="card-title mb-4">Become Sylanos Admin </h4>
+            <h4 className="card-title mb-4">Devenir Admin Sylanos  </h4>
             <form>
               <div className="mb-3">
                 <input
                   className="form-control"
-                  placeholder="enter you account email"
+                  placeholder="écrire votre email"
                   onChange={handleChange}
                   value={email}
                   type="email"
@@ -56,11 +56,11 @@ const AdminRequest = () => {
               </div>
               <div className="mb-4">
                 <button
-                  type="submit"
+                  type="soumettre"
                   className="btn btn-primary w-100"
                   onClick={clickSubmit}
                 >
-                  Send Request
+                  Envoyer la demande
                 </button>
               </div>
             </form>

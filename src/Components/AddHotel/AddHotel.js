@@ -54,11 +54,11 @@ const AddHotel = () => {
   });
   const [file, setFile] = useState([]);
   let [logement2, setLog] = useState({
-    lpd: "false",
-    dp: "false",
-    pc: "false",
-    all_in_soft: "false",
-    all_in_hard: "false",
+    lpd: "faux",
+    dp: "faux",
+    pc: "faux",
+    all_in_soft: "faux",
+    all_in_hard: "faux",
   });
 
   const handleChangeFile = (e) => {
@@ -273,21 +273,21 @@ const AddHotel = () => {
         let arr = test.logement[0].split(",");
 
         let t = {
-          lpd: "false",
-          dp: "false",
-          pc: "false",
-          all_in_soft: "false",
-          all_in_hard: "false",
+          lpd: "faux",
+          dp: "faux",
+          pc: "faux",
+          all_in_soft: "faux",
+          all_in_hard: "faux",
         };
 
         if (arr.includes("lpd") || arr.includes(" lpd")) {
-          t.lpd = "true";
+          t.lpd = "vrai";
         }
         if (arr.includes("dp") || arr.includes(" dp")) {
-          t.dp = "true";
+          t.dp = "vrai";
         }
         if (arr.includes("pc") || arr.includes(" pc")) {
-          t.pc = "true";
+          t.pc = "vrai";
         }
         if (
           arr.includes("all_in_soft") ||
@@ -295,7 +295,7 @@ const AddHotel = () => {
           arr.includes("all in soft") ||
           arr.includes(" all in soft")
         ) {
-          t.all_in_soft = "true";
+          t.all_in_soft = "vrai";
         }
         if (
           arr.includes("all_in_hard") ||
@@ -303,7 +303,7 @@ const AddHotel = () => {
           arr.includes("all in hard") ||
           arr.includes(" all in hard")
         ) {
-          t.all_in_hard = "true";
+          t.all_in_hard = "vrai";
         }
         setLog(t);
       }
@@ -351,14 +351,14 @@ const AddHotel = () => {
         <HeaderAuth />
         <section className="content-main" style={{ maxWidth: "720px" }}>
           <div className="content-header">
-            <h2 className="content-title">Add Hotel </h2>
+            <h2 className="content-title">Ajouter Hotel </h2>
           </div>
           <div className="card mb-4">
             <div className="card-body">
               <form>
                 <div className="mb-4">
                   <label htmlFor="name" className="form-label">
-                    Name
+                    Nom
                   </label>
                   <input
                     type="text"
@@ -593,7 +593,7 @@ const AddHotel = () => {
                 </div>
                 <div className="mb-4">
                   <label htmlFor="localisation" className="form-label">
-                    discount
+                  remise
                   </label>
                   <input
                     type="text"
@@ -692,8 +692,8 @@ const AddHotel = () => {
                       onChange={handleChange3}
                       id="lpd"
                     >
-                      <option value={true}> true </option>
-                      <option value={false}> false </option>
+                      <option value={true}> vrai </option>
+                      <option value={false}> faux </option>
                     </select>
                   </div>
                 </div>
@@ -706,8 +706,8 @@ const AddHotel = () => {
                       onChange={handleChange3}
                       id="dp"
                     >
-                      <option value={true}> true </option>
-                      <option value={false}> false </option>
+                      <option value={true}> vrai </option>
+                      <option value={false}> faux </option>
                     </select>
                   </div>
                 </div>
@@ -720,8 +720,8 @@ const AddHotel = () => {
                       onChange={handleChange3}
                       id="pc"
                     >
-                      <option value={true}> true </option>
-                      <option value={false}> false </option>
+                      <option value={true}> vrai </option>
+                      <option value={false}> faux </option>
                     </select>
                   </div>
                 </div>
@@ -734,8 +734,8 @@ const AddHotel = () => {
                       onChange={handleChange3}
                       id="all_in_soft"
                     >
-                      <option value={true}> true </option>
-                      <option value={false}> false </option>
+                      <option value={true}> vrai </option>
+                      <option value={false}> faux </option>
                     </select>
                   </div>
                 </div>
@@ -748,36 +748,36 @@ const AddHotel = () => {
                       onChange={handleChange3}
                       id="all_in_hard"
                     >
-                      <option value={true}> true </option>
-                      <option value={false}> false </option>
+                      <option value={true}> vrai </option>
+                      <option value={false}> faux </option>
                     </select>
                   </div>
                 </div>
                 <div className="row gx-2">
                   <div className="col-sm-6 mb-3">
-                    <label className="form-label">best_hotel</label>
+                    <label className="form-label">meilleure hotel</label>
                     <select
                       className="form-select"
                       value={hotel.besthotel}
                       onChange={handleChange}
                       id="besthotel"
                     >
-                      <option value={true}> true </option>
-                      <option value={false}> false </option>
+                      <option value={true}> vrai </option>
+                      <option value={false}> faux </option>
                     </select>
                   </div>
                 </div>
                 <div className="row gx-2">
                   <div className="col-sm-6 mb-3">
-                    <label className="form-label">family_only</label>
+                    <label className="form-label">Seulement pour famille</label>
                     <select
                       className="form-select"
                       value={hotel.familyonly}
                       onChange={handleChange}
                       id="familyonly"
                     >
-                      <option value={true}> true </option>
-                      <option value={false}> false </option>
+                      <option value={true}> vrai </option>
+                      <option value={false}> faux </option>
                     </select>
                   </div>
                 </div>
@@ -872,7 +872,7 @@ const AddHotel = () => {
                       );
                     }}
                   >
-                    Deleted Selected image
+                    Supprimer les images selectionés
                   </button>
                 )}
                 <br />
@@ -883,7 +883,7 @@ const AddHotel = () => {
                   onClick={update}
                   disabled={hotel.disabled}
                 >
-                  {edit ? "Save Changes" : "Add Hotel"}{" "}
+                  {edit ? "Mise à jour" : "Ajouter Hotel"}{" "}
                 </button>
               </form>
             </div>
