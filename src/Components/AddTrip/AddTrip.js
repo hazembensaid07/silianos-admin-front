@@ -235,7 +235,7 @@ const AddTrip = () => {
                     type="text"
                     placeholder="Tapez ici"
                     className="form-control"
-                    id="prix"
+                    id="price"
                     value={trip.price}
                     onChange={handleChange}
                   />
