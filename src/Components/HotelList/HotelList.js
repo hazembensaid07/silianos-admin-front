@@ -68,7 +68,7 @@ const HotelList = ({ history }) => {
                   dispatch(toggleFlase());
                 }}
               >
-                <i className="material-icons md-plus" /> Ajouter 
+                <i className="material-icons md-plus" /> Ajouter
               </Link>
             </div>
           </div>
@@ -133,6 +133,7 @@ const HotelList = ({ history }) => {
                           key={el._id}
                           hotel={el}
                           name={name}
+                          totalchambre={el.totalchambre}
                           hotels={hotels.length}
                           page={pageNumber}
                         />
