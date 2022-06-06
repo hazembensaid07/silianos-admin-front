@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { DefaultEditor } from "react-simple-wysiwyg";
 import HeaderAuth from "../Header/HeaderAuth";
 import SideBar from "../SideBar/SideBar";
 import { useSelector, useDispatch } from "react-redux";
@@ -16,13 +17,19 @@ const AddHotel = () => {
   let counter = 0;
   let info = [];
 
+  const [description, setDescription] = React.useState('');
+
+  
+  function onChangeDescription(e) {
+    setDescription(e.target.value);
+  }
+
   const [deletei, setDeletei] = useState(1);
   const dispatch = useDispatch();
   const edit = useSelector((state) => state.editReducer.edit);
   const hotell = useSelector((state) => state.hotelReducer.hotel);
   const [hotel, setHotel] = useState({
     name: "",
-    description: "",
     ville: "",
     etoiles: "4",
     logement: [],
@@ -90,7 +97,6 @@ const AddHotel = () => {
     e.preventDefault();
     const {
       name,
-      description,
       ville,
       etoiles,
       logement,
@@ -136,6 +142,7 @@ const AddHotel = () => {
       loge += "all_in_hard,";
     }
     hotel.logement[0] = loge;
+    hotel.description = description;
 
     const token = getCookie("token");
 
@@ -161,7 +168,6 @@ const AddHotel = () => {
           setFile([]);
           setHotel({
             name: "",
-            description: "",
             ville: "",
             etoiles: "4",
             logement: [],
@@ -191,6 +197,7 @@ const AddHotel = () => {
             reductionenfantsingle: "",
             disabled: false,
           });
+          setDescription("");
 
           handleScroll(e);
         })
@@ -203,7 +210,6 @@ const AddHotel = () => {
       let hotelll = {};
       hotelll = {
         name,
-        description,
         ville,
         etoiles,
         logement,
@@ -233,6 +239,7 @@ const AddHotel = () => {
         reductionenfantsingle,
       };
       hotelll.id = hotell._id;
+      hotelll.description=description
 
       axios.defaults.headers.post["Content-Type"] =
         "application/x-www-form-urlencoded";
@@ -265,6 +272,7 @@ const AddHotel = () => {
   useEffect(() => {
     if (edit) {
       setHotel(hotell);
+      setDescription(hotell.description);
       if (hotell.logement) {
         let test = hotell;
 
@@ -308,7 +316,6 @@ const AddHotel = () => {
     } else {
       setHotel({
         name: "",
-        description: "",
         ville: "",
         etoiles: "4",
         logement: [],
@@ -337,6 +344,7 @@ const AddHotel = () => {
         maxchambre: "",
         reductionenfantsingle: "",
       });
+      setDescription("");
     }
   }, [edit, hotell, hotell.logement]);
   return (
@@ -372,13 +380,9 @@ const AddHotel = () => {
                     description
                   </label>
 
-                  <textarea
-                    placeholder="Type here"
-                    className="form-control"
-                    id="description"
-                    rows={4}
-                    value={hotel.description}
-                    onInput={handleChange}
+                  <DefaultEditor
+                    value={description}
+                    onChange={onChangeDescription}
                   />
                 </div>
                 <div className="mb-4">

@@ -5,6 +5,8 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import { useDispatch, useSelector } from "react-redux";
 import { getHotel } from "../../JS/actions/hotel";
+import { DefaultEditor } from "react-simple-wysiwyg";
+
 
 const HotelDetails = ({ location }) => {
   const id = location.state.id;
@@ -65,9 +67,8 @@ Nom hotel                    </label>
                   </div>
                   <div className="mb-4">
                     <label className="form-label">Description</label>
-                    <p className="form-control" rows={4}>
-                      {hotel.description}
-                    </p>
+                   
+                    <DefaultEditor value={hotel.description} />
                   </div>
                   <div className="row gx-2">
                     <div className="col-sm-6 mb-3">

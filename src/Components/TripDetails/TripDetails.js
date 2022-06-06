@@ -4,6 +4,8 @@ import SideBar from "../SideBar/SideBar";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import { useDispatch, useSelector } from "react-redux";
+import { DefaultEditor } from "react-simple-wysiwyg";
+
 import { getTrip } from "../../JS/actions/trip";
 
 const TripDetails = ({ location }) => {
@@ -70,15 +72,13 @@ const TripDetails = ({ location }) => {
                   </div>
                   <div className="mb-4">
                     <label className="form-label">Description</label>
-                    <p className="form-control" rows={4}>
-                      {trip.description}
-                    </p>
+                    <DefaultEditor value={trip.description} />
+
                   </div>
                   <div className="mb-4">
                     <label className="form-label">Programme</label>
-                    <p className="form-control" rows={4}>
-                      {trip.programme}
-                    </p>
+                  
+                    <DefaultEditor value={trip.programme} />
                   </div>
                   <div className="mb-4">
                     <label className="form-label">Dates</label>
