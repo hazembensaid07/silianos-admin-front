@@ -44,6 +44,8 @@ const AddVocuher = () => {
     nomHotel: "",
     pay: false,
     price: 0,
+    disabled: false,
+
   });
   const [formFields, setFormFields] = useState([
     { nombreAdulte: 0, nombreEnfants2ans: 0, nombreEnfants12ans: 0 },
@@ -95,6 +97,9 @@ const AddVocuher = () => {
 
       if (!isError) {
         e.preventDefault();
+        const updated = { ...voucher, disabled: true };
+        setVoucher(updated);
+
         const token = getCookie("token");
         const options = {
           headers: { authorization: token },
@@ -127,6 +132,7 @@ const AddVocuher = () => {
           nomHotel: "",
           pay: false,
           price: 0,
+          disabled: false,
         });
         setFormFields([
           { nombreAdulte: 0, nombreEnfants2ans: 0, nombreEnfants12ans: 0 },
@@ -134,6 +140,8 @@ const AddVocuher = () => {
         handleScroll(e);
       }
     } catch (error) {
+      const updated1 = { ...voucher, disabled: false};
+        setVoucher(updated1);
       toast.error(error.response.data.error);
     }
   };
@@ -372,6 +380,8 @@ const AddVocuher = () => {
                   className="btn btn-primary"
                   onClick={handleSubmit}
                   type="button"
+                  disabled={voucher.disabled}
+
                 >
                   ajouter
                 </button>
