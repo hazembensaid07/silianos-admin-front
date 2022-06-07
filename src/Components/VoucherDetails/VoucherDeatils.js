@@ -197,6 +197,12 @@ const VoucherDeatils = ({ location }) => {
                               {voucher.price}
                             </p>
                           </div>
+ <div className="col-sm-6 mb-3">
+                            <label className="form-label">Prix total </label>
+                            <p className="form-control" rows={4}>
+                              {!voucher.paidAgency && voucher.accompte}
+                            </p>
+                          </div>
                         </div>{" "}
                         <div className="mb-4">
                           <label
