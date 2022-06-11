@@ -33,7 +33,7 @@ const VoucherDeatils = ({ location }) => {
         toast.error("déjà validé");
       } else {
         dispatch(validateVoucher(id));
-        setShow(2);
+        setShow(3);
        toast.success("validé");}
         
      
@@ -80,7 +80,7 @@ const VoucherDeatils = ({ location }) => {
   };
   useEffect(() => {
     dispatch(getVoucher(id));
-  }, [show]);
+  }, [show,voucher]);
   return (
     <div>
       <ToastContainer />
