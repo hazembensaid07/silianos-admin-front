@@ -28,7 +28,7 @@ const VoucherDeatils = ({ location }) => {
   const validateAgencyPaymentt = (event, id) => {
     event.preventDefault();
     try {
-     if (voucher.paidHotel) {
+     if (voucher.paidAgency) {
         toast.error("déjà validé");
       } else {
         dispatch(validateVoucher(id));
@@ -43,11 +43,13 @@ const VoucherDeatils = ({ location }) => {
   const validateAgencyPaymenttAcoompte = (event, id, accompte) => {
     event.preventDefault();
     try {
-      if (voucher.paidHotel) {
-        toast.error("déjà validé");
-      } else {
-      
-        dispatch(validateVoucherAccompte(id, accompte));
+      if (voucher.paidAgency) {
+        toast.error("agence est validé");}
+      else if(voucher.accompte !== 0){
+        toast.error("accompte n'est 0")
+      }
+       else {
+         dispatch(validateVoucherAccompte(id, accompte));
         setShow(2);
          toast.success("validé");
       }
@@ -62,7 +64,11 @@ const VoucherDeatils = ({ location }) => {
     try {
       if (voucher.paidHotel) {
         toast.error("déjà validé");
-      } else {
+      } 
+      else if (!voucher.paidAgency){
+        toast.error("Agence non payé")
+      }
+      else {
         dispatch(validateVoucherHotel(id));
         setShow(1);
         toast.success("validé");
