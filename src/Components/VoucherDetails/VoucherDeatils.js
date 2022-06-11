@@ -18,6 +18,7 @@ const VoucherDeatils = ({ location }) => {
   const rooms = location.state.rooms;
   const dispatch = useDispatch();
   const voucher = useSelector((state) => state.voucherReducer.voucher);
+  console.log(voucher)
   const error = useSelector((state) => state.voucherReducer.error);
   const loadVouchers = useSelector(
     (state) => state.voucherReducer.loadVouchers
