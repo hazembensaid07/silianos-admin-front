@@ -80,7 +80,7 @@ const VoucherDeatils = ({ location }) => {
   };
   useEffect(() => {
     dispatch(getVoucher(id));
-  }, [show,voucher]);
+  }, [voucher]);
   return (
     <div>
       <ToastContainer />
