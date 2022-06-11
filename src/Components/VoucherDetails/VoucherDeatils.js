@@ -18,17 +18,23 @@ const VoucherDeatils = ({ location }) => {
   const rooms = location.state.rooms;
   const dispatch = useDispatch();
   const voucher = useSelector((state) => state.voucherReducer.voucher);
+  console.log(voucher)
   const error = useSelector((state) => state.voucherReducer.error);
   const loadVouchers = useSelector(
     (state) => state.voucherReducer.loadVouchers
   );
   const handleChange = (event) => {
+    event.preventDefault();
     setAccompte(event.target.value);
   };
   const validateAgencyPaymentt = (event, id) => {
     event.preventDefault();
     try {
-     if (voucher.paidAgency) {
+     if (voucher.accompte == 0)
+     {
+       toast.error("tu dois validé l'accompte")
+     }
+     else if (voucher.paidAgency) {
         toast.error("déjà validé");
       } else {
         dispatch(validateVoucher(id));
