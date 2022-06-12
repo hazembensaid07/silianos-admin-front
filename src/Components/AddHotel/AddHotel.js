@@ -61,11 +61,11 @@ const AddHotel = () => {
   });
   const [file, setFile] = useState([]);
   let [logement2, setLog] = useState({
-    lpd: "faux",
-    dp: "faux",
-    pc: "faux",
-    all_in_soft: "faux",
-    all_in_hard: "faux",
+    lpd: false,
+    dp: false,
+    pc: false,
+    all_in_soft: false,
+    all_in_hard: false,
   });
 
   const handleChangeFile = (e) => {
@@ -126,19 +126,19 @@ const AddHotel = () => {
       reductionenfantsingle,
     } = hotel;
     let loge = "";
-    if (logement2.lpd === "true") {
+    if (logement2.lpd === true) {
       loge += "lpd,";
     }
-    if (logement2.dp === "true") {
+    if (logement2.dp === true) {
       loge += "dp,";
     }
-    if (logement2.pc === "true") {
+    if (logement2.pc === true) {
       loge += "pc,";
     }
-    if (logement2.all_in_soft === "true") {
+    if (logement2.all_in_soft === true) {
       loge += "all_in_soft,";
     }
-    if (logement2.all_in_hard === "true") {
+    if (logement2.all_in_hard === true) {
       loge += "all_in_hard,";
     }
     hotel.logement[0] = loge;
@@ -279,21 +279,21 @@ const AddHotel = () => {
         let arr = test.logement[0].split(",");
 
         let t = {
-          lpd: "faux",
-          dp: "faux",
-          pc: "faux",
-          all_in_soft: "faux",
-          all_in_hard: "faux",
+          lpd: false,
+          dp: false,
+          pc: false,
+          all_in_soft: false,
+          all_in_hard: false,
         };
 
         if (arr.includes("lpd") || arr.includes(" lpd")) {
-          t.lpd = "vrai";
+          t.lpd = true;
         }
         if (arr.includes("dp") || arr.includes(" dp")) {
-          t.dp = "vrai";
+          t.dp = true;
         }
         if (arr.includes("pc") || arr.includes(" pc")) {
-          t.pc = "vrai";
+          t.pc = true;
         }
         if (
           arr.includes("all_in_soft") ||
@@ -301,7 +301,7 @@ const AddHotel = () => {
           arr.includes("all in soft") ||
           arr.includes(" all in soft")
         ) {
-          t.all_in_soft = "vrai";
+          t.all_in_soft = true;
         }
         if (
           arr.includes("all_in_hard") ||
@@ -309,7 +309,7 @@ const AddHotel = () => {
           arr.includes("all in hard") ||
           arr.includes(" all in hard")
         ) {
-          t.all_in_hard = "vrai";
+          t.all_in_hard = true;
         }
         setLog(t);
       }
