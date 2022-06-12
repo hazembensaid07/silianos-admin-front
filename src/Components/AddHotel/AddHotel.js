@@ -84,7 +84,11 @@ const AddHotel = () => {
   };
   const handleChange3 = (e) => {
     e.preventDefault();
-    setLog({ ...logement2, [e.target.id]: e.target.value });
+    if ((e.target.value) == "true")
+    setLog({ ...logement2, [e.target.id]: true });
+    else 
+    setLog({ ...logement2, [e.target.id]: false });
+
   };
   const handleChange2 = (e) => {
     e.preventDefault();
