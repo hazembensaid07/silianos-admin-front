@@ -19,7 +19,42 @@ const AddHotel = () => {
 
   const [description, setDescription] = React.useState('');
 
-  
+  const [formFields, setFormFields] = useState([
+    {
+      datedebut: "", datefin: "", pricelpdadulte: 0, pricedpadulte: 0, pricepcadulte: 0, priceallinsoftadulte: 0,
+      priceallinadulte: 0,
+    },
+  ]);
+
+  const addFields = (e) => {
+    e.preventDefault();
+    let object = {
+      pricelpdadulte: 0,
+      pricedpadulte: 0,
+      pricepcadulte: 0,
+      priceallinsoftadulte: 0,
+      priceallinadulte: 0,
+      datedebut: "",
+      datefin: "",
+
+    };
+
+    setFormFields([...formFields, object]);
+  };
+
+  const removeFields = (index, e) => {
+    e.preventDefault();
+    let data = [...formFields];
+    data.splice(index, 1);
+    setFormFields(data);
+  };
+
+  const handleFormChange = (event, index) => {
+    let data = [...formFields];
+    data[index][event.target.id] = event.target.value;
+    setFormFields(data);
+  };
+
   function onChangeDescription(e) {
     setDescription(e.target.value);
   }
@@ -38,11 +73,6 @@ const AddHotel = () => {
     meta_description: "",
     meta_keywords: [],
     meta_title: "",
-    price_lpd_adulte: 0,
-    price_dp_adulte: 0,
-    price_pc_adulte: 0,
-    price_all_in_soft_adulte: 0,
-    price_all_in_adulte: 0,
     reduction_enfant_2ans: 0,
     reduction_enfant_12ans: 0,
     reduction_enfant_adulte: 0,
@@ -85,9 +115,9 @@ const AddHotel = () => {
   const handleChange3 = (e) => {
     e.preventDefault();
     if ((e.target.value) == "true")
-    setLog({ ...logement2, [e.target.id]: true });
-    else 
-    setLog({ ...logement2, [e.target.id]: false });
+      setLog({ ...logement2, [e.target.id]: true });
+    else
+      setLog({ ...logement2, [e.target.id]: false });
 
   };
   const handleChange2 = (e) => {
@@ -97,186 +127,221 @@ const AddHotel = () => {
 
   const update = async (e) => {
     const updated = { ...hotel, disabled: true };
-    setHotel(updated);
-    e.preventDefault();
-    const {
-      name,
-      ville,
-      etoiles,
-      logement,
-      localisation,
-      besthotel,
-      metadescription,
-      metakeywords,
-      metatitle,
-      pricelpdadulte,
-      pricedpadulte,
-      pricepcadulte,
-      priceallinsoftadulte,
-      priceallinadulte,
-      reductionenfant2ans,
-      reductionenfant12ans,
-      reductionenfantadulte,
-      reduction3lit,
-      reduction4lit,
-      supsingle,
-      supsuite,
-      supvuesurmer,
-      discount,
-      familyonly,
-      totalchambre,
-      autres,
-      maxchambre,
-      reductionenfantsingle,
-    } = hotel;
-    let loge = "";
-    if (logement2.lpd === true) {
-      loge += "lpd,";
-    }
-    if (logement2.dp === true) {
-      loge += "dp,";
-    }
-    if (logement2.pc === true) {
-      loge += "pc,";
-    }
-    if (logement2.all_in_soft === true) {
-      loge += "all_in_soft,";
-    }
-    if (logement2.all_in_hard === true) {
-      loge += "all_in_hard,";
-    }
-    hotel.logement[0] = loge;
-    hotel.description = description;
 
     const token = getCookie("token");
-
     const data = new FormData();
     for (const key of Object.keys(file)) {
       data.append("image", file[key]);
     }
 
-    if (!edit) {
-      axios.defaults.headers.post["Content-Type"] =
-        "application/x-www-form-urlencoded";
-      axios({
-        method: "post",
-        url: `${apiUri()}/hotel/add`,
-        data: data,
-        headers: {
-          authorization: token,
-          ...hotel,
-        },
-      })
-        .then((response) => {
-          toast.success("new Hotel added");
-          setFile([]);
-          setHotel({
-            name: "",
-            ville: "",
-            etoiles: "4",
-            logement: [],
-            localisation: "",
-            besthotel: false,
-            metadescription: "",
-            metakeywords: [],
-            metatitle: "",
-            pricelpdadulte: "",
-            pricedpadulte: "",
-            pricepcadulte: "",
-            priceallinsoftadulte: "",
-            priceallinadulte: "",
-            reductionenfant2ans: "",
-            reductionenfant12ans: "",
-            reductionenfantadulte: "",
-            reduction3lit: "",
-            reduction4lit: "",
-            supsingle: "",
-            supsuite: "",
-            supvuesurmer: "",
-            discount: "",
-            familyonly: false,
-            totalchambre: "",
-            autres: "",
-            maxchambre: "",
-            reductionenfantsingle: "",
-            disabled: false,
-          });
-          setDescription("");
+    axios({
+      method: "post",
+      url: `${apiUri()}/hotel/add-files`,
+      data: data,
+      headers: {
+        authorization: token,
+      },
+    })
+      .then((response) => {
 
-          handleScroll(e);
-        })
-        .catch((error) => {
-          const updated1 = { ...hotel, disabled: false };
-          setHotel(updated1);
-          toast.error(error.response.data.error);
-        });
-    } else {
-      let hotelll = {};
-      hotelll = {
-        name,
-        ville,
-        etoiles,
-        logement,
-        localisation,
-        besthotel,
-        metadescription,
-        metakeywords,
-        metatitle,
-        pricelpdadulte,
-        pricedpadulte,
-        pricepcadulte,
-        priceallinsoftadulte,
-        priceallinadulte,
-        reductionenfant2ans,
-        reductionenfant12ans,
-        reductionenfantadulte,
-        reduction3lit,
-        reduction4lit,
-        supsingle,
-        supsuite,
-        supvuesurmer,
-        discount,
-        familyonly,
-        totalchambre,
-        autres,
-        maxchambre,
-        reductionenfantsingle,
-      };
-      hotelll.id = hotell._id;
-      hotelll.description=description
+        const cloudinary_ids = response.data.cloudinary_ids;
+        const pictures = response.data.pictures;
+        console.log(cloudinary_ids);
+        console.log(pictures);
 
-      axios.defaults.headers.post["Content-Type"] =
-        "application/x-www-form-urlencoded";
-      axios({
-        method: "post",
-        url: `${apiUri()}/hotel/update`,
-        data: data,
-        headers: {
-          authorization: token,
-          ...hotelll,
-        },
+        setHotel(updated);
+        e.preventDefault();
+        const {
+          name,
+          ville,
+          etoiles,
+          logement,
+          localisation,
+          besthotel,
+          metadescription,
+          metakeywords,
+          metatitle,
+          reductionenfant2ans,
+          reductionenfant12ans,
+          reductionenfantadulte,
+          reduction3lit,
+          reduction4lit,
+          supsingle,
+          supsuite,
+          supvuesurmer,
+          discount,
+          familyonly,
+          totalchambre,
+          autres,
+          maxchambre,
+          reductionenfantsingle,
+        } = hotel;
+        let loge = "";
+        if (logement2.lpd === true) {
+          loge += "lpd,";
+        }
+        if (logement2.dp === true) {
+          loge += "dp,";
+        }
+        if (logement2.pc === true) {
+          loge += "pc,";
+        }
+        if (logement2.all_in_soft === true) {
+          loge += "all_in_soft,";
+        }
+        if (logement2.all_in_hard === true) {
+          loge += "all_in_hard,";
+        }
+        console.log(loge)
+        hotel.logement[0] = loge;
+        hotel.description = description;
+        hotel.prices = formFields;
+        hotel.pictures = pictures;
+        hotel.cloudinary_ids = cloudinary_ids;
+
+        console.log(hotel);
+
+
+
+        if (!edit) {
+          axios.defaults.headers.post["Content-Type"] =
+            "application/x-www-form-urlencoded";
+          axios({
+            method: "post",
+            url: `${apiUri()}/hotel/add`,
+            data: hotel,
+            headers: {
+              authorization: token,
+            },
+          })
+            .then((response) => {
+              toast.success("new Hotel added");
+              setFile([]);
+              setHotel({
+                name: "",
+                ville: "",
+                etoiles: "4",
+                logement: [],
+                localisation: "",
+                besthotel: false,
+                metadescription: "",
+                metakeywords: [],
+                metatitle: "",
+                pricelpdadulte: "",
+                pricedpadulte: "",
+                pricepcadulte: "",
+                priceallinsoftadulte: "",
+                priceallinadulte: "",
+                reductionenfant2ans: "",
+                reductionenfant12ans: "",
+                reductionenfantadulte: "",
+                reduction3lit: "",
+                reduction4lit: "",
+                supsingle: "",
+                supsuite: "",
+                supvuesurmer: "",
+                discount: "",
+                familyonly: false,
+                totalchambre: "",
+                autres: "",
+                maxchambre: "",
+                reductionenfantsingle: "",
+                disabled: false,
+              });
+              setDescription("");
+              setFormFields([
+                {
+                  datedebut: "", datefin: "", pricelpdadulte: 0, pricedpadulte: 0, pricepcadulte: 0, priceallinsoftadulte: 0,
+                  priceallinadulte: 0,
+                },
+              ]);
+              handleScroll(e);
+            })
+            .catch((error) => {
+              const updated1 = { ...hotel, disabled: false };
+              setHotel(updated1);
+              toast.error(error.response.data.error);
+            });
+        } else {
+          let hotelll = {};
+          hotelll = {
+            name,
+            ville,
+            etoiles,
+            logement,
+            localisation,
+            besthotel,
+            metadescription,
+            metakeywords,
+            metatitle,
+            reductionenfant2ans,
+            reductionenfant12ans,
+            reductionenfantadulte,
+            reduction3lit,
+            reduction4lit,
+            supsingle,
+            supsuite,
+            supvuesurmer,
+            discount,
+            familyonly,
+            totalchambre,
+            autres,
+            maxchambre,
+            reductionenfantsingle,
+          };
+          hotelll.id = hotell._id;
+          hotelll.description = description
+          hotelll.prices = formFields;
+          hotelll.cloudinary_ids = cloudinary_ids;
+          hotelll.pictures = pictures;
+
+          axios.defaults.headers.post["Content-Type"] =
+            "application/x-www-form-urlencoded";
+          axios({
+            method: "post",
+            url: `${apiUri()}/hotel/update`,
+            data: hotelll,
+            headers: {
+              authorization: token,
+
+            },
+          })
+            .then((response) => {
+              toast.success("updated");
+              dispatch(getHotel(hotell._id));
+              handleScroll(e);
+              const updated6 = { ...hotel, disabled: false };
+              setHotel(updated6);
+            })
+            .catch((error) => {
+              const updated2 = { ...hotel, disabled: false };
+              setHotel(updated2);
+              if (error.response) {
+                toast.error(error.response.data.error);
+              } else {
+                toast.error("Server error");
+              }
+            });
+        }
+
       })
-        .then((response) => {
-          toast.success("updated");
-          dispatch(getHotel(hotell._id));
-          handleScroll(e);
-        })
-        .catch((error) => {
-          const updated2 = { ...hotel, disabled: false };
-          setHotel(updated2);
-          if (error.response) {
-            toast.error(error.response.data.error);
-          } else {
-            toast.error("Server error");
-          }
-        });
-    }
+      .catch((error) => {
+        const updated4 = { ...hotel, disabled: false };
+        setHotel(updated4);
+      });
+
+
+
+
   };
 
   useEffect(() => {
     if (edit) {
       setHotel(hotell);
+
       setDescription(hotell.description);
+      setFormFields(hotell.prices);
+      console.log(formFields)
       if (hotell.logement) {
         let test = hotell;
 
@@ -415,71 +480,7 @@ const AddHotel = () => {
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mb-4">
-                  <label htmlFor="localisation" className="form-label">
-                    price_lpd_adulte
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Type here"
-                    className="form-control"
-                    id="pricelpdadulte"
-                    value={hotel.pricelpdadulte}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="localisation" className="form-label">
-                    price_dp_adulte
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Type here"
-                    className="form-control"
-                    id="pricedpadulte"
-                    value={hotel.pricedpadulte}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="localisation" className="form-label">
-                    price_pc_adulte
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Type here"
-                    className="form-control"
-                    id="pricepcadulte"
-                    value={hotel.pricepcadulte}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="localisation" className="form-label">
-                    price_all_in_soft_adulte
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Type here"
-                    className="form-control"
-                    id="priceallinsoftadulte"
-                    value={hotel.priceallinsoftadulte}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="localisation" className="form-label">
-                    price_all_in_adulte
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Type here"
-                    className="form-control"
-                    id="priceallinadulte"
-                    value={hotel.priceallinadulte}
-                    onChange={handleChange}
-                  />
-                </div>
+
                 <div className="mb-4">
                   <label htmlFor="localisation" className="form-label">
                     reduction_enfant_2ans
@@ -599,7 +600,7 @@ const AddHotel = () => {
                 </div>
                 <div className="mb-4">
                   <label htmlFor="localisation" className="form-label">
-                  remise
+                    remise
                   </label>
                   <input
                     type="text"
@@ -804,6 +805,134 @@ const AddHotel = () => {
                     </select>
                   </div>
                 </div>
+                <br />
+                <br />
+                <br />
+
+                {
+                  formFields && formFields.map((form, index) => {
+                    return (
+                      <div key={index}>
+                        <div className="row gx-2">
+                          <div className="mb-4">
+                            <label htmlFor="localisation" className="form-label">
+                              datedebut
+                            </label>
+                            <input
+                              type="date"
+                              placeholder="Tapez ici"
+                              className="form-control"
+                              id="datedebut"
+                              value={form.datedebut}
+                              onChange={(event) => handleFormChange(event, index)}
+
+
+                            />
+                          </div>
+                          <div className="mb-4">
+                            <label htmlFor="localisation" className="form-label">
+                              datefin
+                            </label>
+                            <input
+                              type="date"
+                              placeholder="Tapez ici"
+                              className="form-control"
+                              id="datefin"
+                              value={form.datefin}
+                              onChange={(event) => handleFormChange(event, index)}
+
+                            />
+                          </div>
+                          <div className="mb-4">
+                            <label htmlFor="localisation" className="form-label">
+                              price_lpd_adulte
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="Type here"
+                              className="form-control"
+                              id="pricelpdadulte"
+                              value={form.pricelpdadulte}
+                              onChange={(event) => handleFormChange(event, index)}
+                            />
+                          </div>
+                          <div className="mb-4">
+                            <label htmlFor="localisation" className="form-label">
+                              price_dp_adulte
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="Type here"
+                              className="form-control"
+                              id="pricedpadulte"
+                              value={form.pricedpadulte}
+                              onChange={(event) => handleFormChange(event, index)}
+                            />
+                          </div>
+                          <div className="mb-4">
+                            <label htmlFor="localisation" className="form-label">
+                              price_pc_adulte
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="Type here"
+                              className="form-control"
+                              id="pricepcadulte"
+                              value={form.pricepcadulte}
+                              onChange={(event) => handleFormChange(event, index)}
+                            />
+                          </div>
+                          <div className="mb-4">
+                            <label htmlFor="localisation" className="form-label">
+                              price_all_in_soft_adulte
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="Type here"
+                              className="form-control"
+                              id="priceallinsoftadulte"
+                              value={form.priceallinsoftadulte}
+                              onChange={(event) => handleFormChange(event, index)}
+                            />
+
+                          </div>
+                          <div className="mb-4">
+                            <label htmlFor="localisation" className="form-label">
+                              price_all_in_adulte
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="Type here"
+                              className="form-control"
+                              id="priceallinadulte"
+                              value={form.priceallinadulte}
+                              onChange={(event) => handleFormChange(event, index)}
+                            />
+                          </div>
+
+                        </div>{" "}
+                        <button
+                          className="btn btn-primary"
+                          onClick={(e) => removeFields(index, e)}
+                        >
+                          supprimer
+                        </button>
+                        <br />
+                        <br />
+                      </div>
+
+                    );
+                  })
+                }
+                <button className="btn btn-primary" onClick={addFields}>
+                  ajouter un autre date
+                </button>
+                <br />
+                <br />
+                <br />
+
+
+
                 <div className="mb-4">
                   <label className="form-label">Images</label>
                   <input
