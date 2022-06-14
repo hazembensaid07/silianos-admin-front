@@ -37,8 +37,7 @@ const HotelDetails = ({ location }) => {
                       htmlFor="product_name"
                       disabled="disabled"
                       className="form-label"
-                    >
-Nom hotel                    </label>
+                    >  Nom Hotel                </label>
                     <p className="form-control" id="product_name">
                       {" "}
                       {hotel.name}
@@ -85,7 +84,7 @@ Nom hotel                    </label>
                     </div>
                   </div>{" "}
                   {/* row.// */}
-                  <div className="row gx-2">
+          { hotel.prices.map ((hotel) => ( <div> <div className="row gx-2">
                     <div className="col-sm-6 mb-3">
                       <label className="form-label">prix_lpd_adulte</label>
                       <p className="form-control" rows={4}>
@@ -98,8 +97,8 @@ Nom hotel                    </label>
                         {hotel.pricedpadulte}
                       </p>
                     </div>
-                  </div>{" "}
-                  <div className="row gx-2">
+                  </div>
+                    <div className="row gx-2">
                     <div className="col-sm-6 mb-3">
                       <label className="form-label">prix_pc_adulte</label>
                       <p className="form-control" rows={4}>
@@ -123,7 +122,10 @@ Nom hotel                    </label>
                         {hotel.priceallinadulte}
                       </p>
                     </div>
-                    <div className="col-sm-6 mb-3">
+                  
+                  </div>
+                  </div> ))}
+                  <div className="col-sm-6 mb-3">
                       <label className="form-label">
                         réduction_enfant_2ans
                       </label>
@@ -131,7 +133,6 @@ Nom hotel                    </label>
                         {hotel.reductionenfant2ans}
                       </p>
                     </div>
-                  </div>{" "}
                   <div className="row gx-2">
                     <div className="col-sm-6 mb-3">
                       <label className="form-label">

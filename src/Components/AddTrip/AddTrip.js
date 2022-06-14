@@ -28,7 +28,7 @@ const AddTrip = () => {
     destination: "",
     price: "",
     dates: "",
-    bestorg: false,
+    bestorg: true,
     metadescription: "",
     metakeywords: "",
     metatitle: "",
