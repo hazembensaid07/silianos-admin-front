@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getHotel } from "../../JS/actions/hotel";
 import { DefaultEditor } from "react-simple-wysiwyg";
 
-
 const HotelDetails = ({ location }) => {
   const id = location.state.id;
   const pics = location.state.pictures;
@@ -37,7 +36,10 @@ const HotelDetails = ({ location }) => {
                       htmlFor="product_name"
                       disabled="disabled"
                       className="form-label"
-                    >  Nom Hotel                </label>
+                    >
+                      {" "}
+                      Nom Hotel{" "}
+                    </label>
                     <p className="form-control" id="product_name">
                       {" "}
                       {hotel.name}
@@ -66,7 +68,7 @@ const HotelDetails = ({ location }) => {
                   </div>
                   <div className="mb-4">
                     <label className="form-label">Description</label>
-                   
+
                     <DefaultEditor value={hotel.description} />
                   </div>
                   <div className="row gx-2">
@@ -84,55 +86,72 @@ const HotelDetails = ({ location }) => {
                     </div>
                   </div>{" "}
                   {/* row.// */}
-          { hotel.prices.map ((hotel) => ( <div> <div className="row gx-2">
-                    <div className="col-sm-6 mb-3">
-                      <label className="form-label">prix_lpd_adulte</label>
-                      <p className="form-control" rows={4}>
-                        {hotel.pricelpdadulte}
-                      </p>
+                  {hotel.prices.map((hotel) => (
+                    <div>
+                      {" "}
+                      <div className="row gx-2">
+                        <div className="col-sm-6 mb-3">
+                          <label className="form-label">date début</label>
+                          <p className="form-control" rows={4}>
+                            {hotel.datedebut}
+                          </p>
+                        </div>
+                        <div className="col-sm-6 mb-3">
+                          <label className="form-label">date fin </label>
+                          <p className="form-control" rows={4}>
+                            {hotel.datefin}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="row gx-2">
+                        <div className="col-sm-6 mb-3">
+                          <label className="form-label">prix_lpd_adulte</label>
+                          <p className="form-control" rows={4}>
+                            {hotel.pricelpdadulte}
+                          </p>
+                        </div>
+                        <div className="col-sm-6 mb-3">
+                          <label className="form-label"> prix_dp_adulte</label>
+                          <p className="form-control" rows={4}>
+                            {hotel.pricedpadulte}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="row gx-2">
+                        <div className="col-sm-6 mb-3">
+                          <label className="form-label">prix_pc_adulte</label>
+                          <p className="form-control" rows={4}>
+                            {hotel.pricepcadulte}
+                          </p>
+                        </div>
+                        <div className="col-sm-6 mb-3">
+                          <label className="form-label">
+                            {" "}
+                            prix_all_in_soft_adulte
+                          </label>
+                          <p className="form-control" rows={4}>
+                            {hotel.priceallinsoftadulte}
+                          </p>
+                        </div>
+                      </div>{" "}
+                      <div className="row gx-2">
+                        <div className="col-sm-6 mb-3">
+                          <label className="form-label">
+                            prix_all_in_adulte
+                          </label>
+                          <p className="form-control" rows={4}>
+                            {hotel.priceallinadulte}
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                    <div className="col-sm-6 mb-3">
-                      <label className="form-label"> prix_dp_adulte</label>
-                      <p className="form-control" rows={4}>
-                        {hotel.pricedpadulte}
-                      </p>
-                    </div>
-                  </div>
-                    <div className="row gx-2">
-                    <div className="col-sm-6 mb-3">
-                      <label className="form-label">prix_pc_adulte</label>
-                      <p className="form-control" rows={4}>
-                        {hotel.pricepcadulte}
-                      </p>
-                    </div>
-                    <div className="col-sm-6 mb-3">
-                      <label className="form-label">
-                        {" "}
-                        prix_all_in_soft_adulte
-                      </label>
-                      <p className="form-control" rows={4}>
-                        {hotel.priceallinsoftadulte}
-                      </p>
-                    </div>
-                  </div>{" "}
-                  <div className="row gx-2">
-                    <div className="col-sm-6 mb-3">
-                      <label className="form-label">prix_all_in_adulte</label>
-                      <p className="form-control" rows={4}>
-                        {hotel.priceallinadulte}
-                      </p>
-                    </div>
-                  
-                  </div>
-                  </div> ))}
+                  ))}
                   <div className="col-sm-6 mb-3">
-                      <label className="form-label">
-                        réduction_enfant_2ans
-                      </label>
-                      <p className="form-control" rows={4}>
-                        {hotel.reductionenfant2ans}
-                      </p>
-                    </div>
+                    <label className="form-label">réduction_enfant_2ans</label>
+                    <p className="form-control" rows={4}>
+                      {hotel.reductionenfant2ans}
+                    </p>
+                  </div>
                   <div className="row gx-2">
                     <div className="col-sm-6 mb-3">
                       <label className="form-label">
@@ -203,7 +222,9 @@ const HotelDetails = ({ location }) => {
                       </p>
                     </div>
                     <div className="col-sm-6 mb-3">
-                      <label className="form-label">Seulement pour famille</label>
+                      <label className="form-label">
+                        Seulement pour famille
+                      </label>
                       <p className="form-control" rows={4}>
                         {hotel.familyonly ? "true" : "false"}
                       </p>

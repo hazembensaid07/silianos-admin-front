@@ -18,7 +18,7 @@ const VoucherDeatils = ({ location }) => {
   const rooms = location.state.rooms;
   const dispatch = useDispatch();
   const voucher = useSelector((state) => state.voucherReducer.voucher);
-  console.log(voucher)
+  console.log(voucher);
   const error = useSelector((state) => state.voucherReducer.error);
   const loadVouchers = useSelector(
     (state) => state.voucherReducer.loadVouchers
@@ -30,25 +30,15 @@ const VoucherDeatils = ({ location }) => {
   const validateAgencyPaymentt = (event, id) => {
     event.preventDefault();
     try {
-     if (voucher.accompte == 0)
-     {
-       toast.error("tu dois validé l'accompte")
-     }
-     else if (voucher.paidAgency) {
+      if (voucher.accompte == 0) {
+        toast.error("tu dois validé l'accompte");
+      } else if (voucher.paidAgency) {
         toast.error("déjà validé");
       } else {
         dispatch(validateVoucher(id));
-<<<<<<< HEAD
-        setShow(2);
-        window.location.reload();
+        setShow(3);
         toast.success("validé");
       }
-=======
-        setShow(3);
-       toast.success("validé");}
-        
-     
->>>>>>> af679c8ac680d3fe1fa8a53176149f72fbfca50c
     } catch (err) {
       toast.error(error);
     }
@@ -57,16 +47,14 @@ const VoucherDeatils = ({ location }) => {
     event.preventDefault();
     try {
       if (voucher.paidAgency) {
-        toast.error("agence est validé");}
-      else if(voucher.accompte !== 0){
-        toast.error("accompte n'est 0")
-      }
-       else {
-         dispatch(validateVoucherAccompte(id, accompte));
+        toast.error("agence est validé");
+      } else if (voucher.accompte !== 0) {
+        toast.error("accompte n'est 0");
+      } else {
+        dispatch(validateVoucherAccompte(id, accompte));
         setShow(2);
-         toast.success("validé");
+        toast.success("validé");
       }
-    
     } catch (err) {
       toast.error(error);
     }
@@ -77,11 +65,9 @@ const VoucherDeatils = ({ location }) => {
     try {
       if (voucher.paidHotel) {
         toast.error("déjà validé");
-      } 
-      else if (!voucher.paidAgency){
-        toast.error("Agence non payé")
-      }
-      else {
+      } else if (!voucher.paidAgency) {
+        toast.error("Agence non payé");
+      } else {
         dispatch(validateVoucherHotel(id));
         setShow(1);
         toast.success("validé");
@@ -219,10 +205,10 @@ const VoucherDeatils = ({ location }) => {
                               {voucher.price}
                             </p>
                           </div>
- <div className="col-sm-6 mb-3">
+                          <div className="col-sm-6 mb-3">
                             <label className="form-label">Accompte</label>
                             <p className="form-control" rows={4}>
-                              { voucher.accompte}
+                              {voucher.accompte}
                             </p>
                           </div>
                         </div>{" "}
