@@ -41,6 +41,8 @@ const Hotel = ({ hotel, name, page, totalchambre, hotels }) => {
               id: hotel._id,
               pictures: hotel.pictures,
               logement: hotel.logement[0],
+              prices: hotel.prices,
+              hotell: hotel,
             },
           }}
         >

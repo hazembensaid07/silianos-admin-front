@@ -7,16 +7,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { getHotel } from "../../JS/actions/hotel";
 import { DefaultEditor } from "react-simple-wysiwyg";
 
-const HotelDetails = ({ location }) => {
+const HotelDetails = ({ location, prices, hotell }) => {
   const id = location.state.id;
   const pics = location.state.pictures;
+  const hotel = location.state.hotell;
   const dispatch = useDispatch();
-  const hotel = useSelector((state) => state.hotelReducer.hotel);
+
   const loadHotels = useSelector((state) => state.hotelReducer.loadHotels);
   const logement = location.state.logement;
-  useEffect(() => {
-    dispatch(getHotel(id));
-  }, []);
+  useEffect(() => {}, []);
   return (
     <div>
       <b className="screen-overlay" />
