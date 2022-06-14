@@ -33,6 +33,7 @@ const VoucherDeatils = ({ location }) => {
       } else {
         dispatch(validateVoucher(id));
         setShow(2);
+        window.location.reload();
         toast.success("validé");
       }
     } catch (err) {
@@ -47,6 +48,7 @@ const VoucherDeatils = ({ location }) => {
       } else {
         dispatch(validateVoucherAccompte(id, accompte));
         setShow(2);
+        window.location.reload();
         toast.success("validé");
       }
     } catch (err) {
