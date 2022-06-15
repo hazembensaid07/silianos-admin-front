@@ -14,11 +14,11 @@ import Room from "./room";
 const VoucherDeatils = ({ location }) => {
   const [show, setShow] = useState(0);
   const [accompte, setAccompte] = useState(0);
+
   const id = location.state.id;
   const rooms = location.state.rooms;
   const dispatch = useDispatch();
   const voucher = useSelector((state) => state.voucherReducer.voucher);
-  console.log(voucher);
   const error = useSelector((state) => state.voucherReducer.error);
   const loadVouchers = useSelector(
     (state) => state.voucherReducer.loadVouchers
@@ -121,6 +121,7 @@ const VoucherDeatils = ({ location }) => {
                       className="btn btn-secondary ms-2"
                       target="_blank"
                       href={voucher.pdfUrl}
+                      rel="noreferrer"
                     >
                       <i className="icon material-icons md-print" />
                     </a>
@@ -239,6 +240,41 @@ const VoucherDeatils = ({ location }) => {
                                     room={el}
                                     index={index}
                                   />
+                                ))}
+                            </tbody>
+                          </table>
+                        </div>
+                        {/*occupation details*/}
+
+                        <div className="table-responsive">
+                          <table className="table border table-hover table-lg">
+                            <thead>
+                              <tr>
+                                <th width="20%">Chambre</th>
+                                <th width="20%">Nom</th>
+                                <th width="20%">Prénom</th>
+                                <th width="20%">Civilité</th>
+                                <th width="20%">Type</th>
+
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {voucher.occupation.length !== 0 &&
+                                voucher.occupation.map((el, index) => (
+                                  <>
+                                  {el.map(ok=>{
+                                    return(
+                                      <tr>
+                                      <td>{ok.chambre}</td>
+                                      <td>{ok.lastname}</td>
+                                      <td>{ok.firstname}</td>
+                                      <td>{ok.civ}</td>
+                                      <td>{ok.type}</td>
+                                      </tr>
+                                    )
+                                  })}
+                                  </>
+                                  
                                 ))}
                             </tbody>
                           </table>
