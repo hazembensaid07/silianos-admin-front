@@ -30,9 +30,7 @@ const VoucherDeatils = ({ location }) => {
   const validateAgencyPaymentt = (event, id) => {
     event.preventDefault();
     try {
-      if (voucher.accompte == 0) {
-        toast.error("tu dois validé l'accompte");
-      } else if (voucher.paidAgency) {
+      if (voucher.paidAgency) {
         toast.error("déjà validé");
       } else {
         dispatch(validateVoucher(id));
@@ -46,9 +44,7 @@ const VoucherDeatils = ({ location }) => {
   const validateAgencyPaymenttAcoompte = (event, id, accompte) => {
     event.preventDefault();
     try {
-      if (voucher.paidAgency) {
-        toast.error("agence est validé");
-      } else if (voucher.accompte !== 0) {
+      if (voucher.accompte !== 0) {
         toast.error("accompte n'est 0");
       } else {
         dispatch(validateVoucherAccompte(id, accompte));
