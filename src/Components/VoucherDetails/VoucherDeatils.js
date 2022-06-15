@@ -19,6 +19,7 @@ const VoucherDeatils = ({ location }) => {
   const rooms = location.state.rooms;
   const dispatch = useDispatch();
   const voucher = useSelector((state) => state.voucherReducer.voucher);
+  console.log(voucher)
   const error = useSelector((state) => state.voucherReducer.error);
   const loadVouchers = useSelector(
     (state) => state.voucherReducer.loadVouchers
@@ -246,7 +247,7 @@ const VoucherDeatils = ({ location }) => {
                         </div>
                         {/*occupation details*/}
 
-                        <div className="table-responsive">
+                        {voucher.occupation!==undefined && <div className="table-responsive">
                           <table className="table border table-hover table-lg">
                             <thead>
                               <tr>
@@ -278,7 +279,9 @@ const VoucherDeatils = ({ location }) => {
                                 ))}
                             </tbody>
                           </table>
-                        </div>
+                        </div>}
+                        <h4>Message</h4>
+                        <p>{voucher.message}</p>
                       </form>
                     </div>
                   </div>
