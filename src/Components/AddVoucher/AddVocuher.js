@@ -8,6 +8,7 @@ import apiUri from "../apiUri";
 import handleScroll from "../scroll.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import { v4 as uuidv4 } from "uuid";
 const schema = {
   name: Joi.string().required().min(4),
   email: Joi.string().required().email(),
@@ -50,10 +51,25 @@ const AddVocuher = () => {
   const [formFields, setFormFields] = useState([
     { nombreAdulte: 0, nombreEnfants2ans: 0, nombreEnfants12ans: 0 },
   ]);
+  const [occupation,setOccuation]=useState([])
+  const handleChangeInput = (id, event) => {
+    const inputs=occupation.map((el, i) => {
+        el.map((ek, k) => {
+          if (ek.id === id) {
+            ek[event.target.name] = event.target.value;
+          }
+          return ek;
+        });
+        return el;
+      });
+      setOccuation(inputs);
+  }
+  
   const handleFormChange = (event, index) => {
     let data = [...formFields];
     data[index][event.target.name] = event.target.value;
     setFormFields(data);
+
   };
 
   const addFields = (e) => {
@@ -90,7 +106,27 @@ const AddVocuher = () => {
     },
     translator
   );
+    const generateOccupation=()=>{
+      let occupa=[];
+      formFields.map((el,chambre)=>{
+        let occup=[]
+        for(let i=0;i<parseInt(el.nombreAdulte);i++){
+          let obj={id:uuidv4(),firstname:"",lastname:"",civ:"Mr",type:"adulte",chambre:chambre+1}
+          occup.push(obj)
+        }
+        for(let i=0;i<parseInt(el.nombreEnfants2ans);i++){
+          let obj={id:uuidv4(),firstname:"",lastname:"",civ:"Mr",type:"enfant -2ans",chambre:chambre+1}
+          occup.push(obj)
+        }
 
+        for(let i=0;i<parseInt(el.nombreEnfants12ans);i++){
+          let obj={id:uuidv4(),firstname:"",lastname:"",civ:"Mr",type:"enfant -12ans",chambre:chambre+1}
+          occup.push(obj)
+        }        occupa.push(occup);
+        return null;
+      })
+      setOccuation(occupa)
+    }
   const handleSubmit = async (e) => {
     try {
       const isError = checkErrors();
@@ -117,6 +153,7 @@ const AddVocuher = () => {
           dateD: voucher.dateD,
           rooms: formFields,
           price: voucher.price,
+          occupation
         };
         await axios.post(`${apiUri()}/voucher/add`, data, options);
         toast.success("Le voucher est ajouté");
@@ -358,6 +395,7 @@ const AddVocuher = () => {
                             className="form-control"
                           />
                         </div>
+                        
                       </div>{" "}
                       <button
                         className="btn btn-primary"
@@ -376,6 +414,60 @@ const AddVocuher = () => {
 
                 <br />
                 <br />
+                <button
+                  className="btn btn-primary"
+                  type="button"
+                  onClick={generateOccupation}
+                >
+                  générer occupation
+                </button>
+                <br />
+                <br />
+                <div>
+                          {occupation.map((el,i)=>{
+                            return(
+                            <div key={i}>
+                            <h5>Chambre {i+1}</h5>
+                              {el.map((ok,j)=>{
+                                return(
+                                  <div className="occupation-chambre-inp">
+                                    <input
+                                name="lastname"
+                                placeholder="Nom"
+                                onChange={(event) => handleChangeInput(ok.id,event)}
+                                value={ok.lastname}
+                                type="text"
+                                className="form-control"
+                              />
+                              <input
+                                name="firstname"
+                                placeholder="Prénom"
+                                onChange={(event) => handleChangeInput(ok.id,event)}
+                                value={ok.firstname}
+                                type="text"
+                                className="form-control"
+                              />
+                              <select onChange={(event) => handleChangeInput(ok.id,event)} name="civ" value={ok.civ}>
+                                <option>Mr</option>
+                                <option>Mme</option>
+                              </select>
+                              <input
+                                name="type"
+                                onChange={(event) => handleChangeInput(ok.id,event)}
+                                value={ok.type}
+                                type="text"
+                                className="form-control"
+                                disabled
+                              />
+                                  </div>
+                                )
+                              })}
+                              </div>
+                            )
+
+                          })}
+                        </div>
+                        
                 <button
                   className="btn btn-primary"
                   onClick={handleSubmit}

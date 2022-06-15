@@ -1,3 +1,11 @@
 .active {
   color: green;
 }
+.occupation-chambre-inp{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.occupation-chambre-inp input{
+  margin: 10px 7px;
+}
