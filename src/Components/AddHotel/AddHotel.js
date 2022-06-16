@@ -22,8 +22,12 @@ const AddHotel = () => {
   const [formFields, setFormFields] = useState([
     {
       datedebut: "", datefin: "", pricelpdadulte: 0, pricedpadulte: 0, pricepcadulte: 0, priceallinsoftadulte: 0,
-      priceallinadulte: 0,
+      priceallinadulte: 0, reductionenfant2ans: 0, reductionenfant12ans: 0, reductionenfantadulte: 0,
+      reductionenfantsingle: 0, reduction3lit: 0,
+      reduction4lit: 0, supsingle: 0,
+      discount: 0,
     },
+
   ]);
 
   const addFields = (e) => {
@@ -36,6 +40,10 @@ const AddHotel = () => {
       priceallinadulte: 0,
       datedebut: "",
       datefin: "",
+      reductionenfant2ans: 0, reductionenfant12ans: 0, reductionenfantadulte: 0,
+      reductionenfantsingle: 0, reduction3lit: 0,
+      reduction4lit: 0, supsingle: 0,
+      discount: 0,
 
     };
 
@@ -73,15 +81,8 @@ const AddHotel = () => {
     meta_description: "",
     meta_keywords: [],
     meta_title: "",
-    reduction_enfant_2ans: 0,
-    reduction_enfant_12ans: 0,
-    reduction_enfant_adulte: 0,
-    reduction_3_lit: 0,
-    reduction_4_lit: 0,
-    sup_single: 0,
     sup_suite: 0,
     sup_vue_sur_mer: 0,
-    discount: 0,
     family_only: true,
     total_chambre: 0,
     autres: 0,
@@ -161,15 +162,10 @@ const AddHotel = () => {
           metadescription,
           metakeywords,
           metatitle,
-          reductionenfant2ans,
-          reductionenfant12ans,
-          reductionenfantadulte,
-          reduction3lit,
-          reduction4lit,
-          supsingle,
+
           supsuite,
           supvuesurmer,
-          discount,
+
           familyonly,
           totalchambre,
           autres,
@@ -232,12 +228,7 @@ const AddHotel = () => {
                 pricepcadulte: "",
                 priceallinsoftadulte: "",
                 priceallinadulte: "",
-                reductionenfant2ans: "",
-                reductionenfant12ans: "",
-                reductionenfantadulte: "",
-                reduction3lit: "",
-                reduction4lit: "",
-                supsingle: "",
+
                 supsuite: "",
                 supvuesurmer: "",
                 discount: "",
@@ -252,7 +243,10 @@ const AddHotel = () => {
               setFormFields([
                 {
                   datedebut: "", datefin: "", pricelpdadulte: 0, pricedpadulte: 0, pricepcadulte: 0, priceallinsoftadulte: 0,
-                  priceallinadulte: 0,
+                  priceallinadulte: 0, reductionenfant2ans: 0, reductionenfant12ans: 0, reductionenfantadulte: 0,
+                  reductionenfantsingle: 0, reduction3lit: 0,
+                  reduction4lit: 0, supsingle: 0,
+                  discount: 0,
                 },
               ]);
               handleScroll(e);
@@ -274,15 +268,9 @@ const AddHotel = () => {
             metadescription,
             metakeywords,
             metatitle,
-            reductionenfant2ans,
-            reductionenfant12ans,
-            reductionenfantadulte,
-            reduction3lit,
-            reduction4lit,
-            supsingle,
+
             supsuite,
             supvuesurmer,
-            discount,
             familyonly,
             totalchambre,
             autres,
@@ -481,97 +469,7 @@ const AddHotel = () => {
                   />
                 </div>
 
-                <div className="mb-4">
-                  <label htmlFor="localisation" className="form-label">
-                    reduction_enfant_2ans
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Type here"
-                    className="form-control"
-                    id="reductionenfant2ans"
-                    value={hotel.reductionenfant2ans}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="localisation" className="form-label">
-                    reduction_enfant_12ans
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Type here"
-                    className="form-control"
-                    id="reductionenfant12ans"
-                    value={hotel.reductionenfant12ans}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="localisation" className="form-label">
-                    reduction_enfant_adulte
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Type here"
-                    className="form-control"
-                    id="reductionenfantadulte"
-                    value={hotel.reductionenfantadulte}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="localisation" className="form-label">
-                    reduction_enfant_single
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Type here"
-                    className="form-control"
-                    id="reductionenfantsingle"
-                    value={hotel.reductionenfantsingle}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="localisation" className="form-label">
-                    reduction_3_lit
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Type here"
-                    className="form-control"
-                    id="reduction3lit"
-                    value={hotel.reduction3lit}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="localisation" className="form-label">
-                    reduction_4_lit
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Type here"
-                    className="form-control"
-                    id="reduction4lit"
-                    value={hotel.reduction4lit}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="localisation" className="form-label">
-                    sup_single
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Type here"
-                    className="form-control"
-                    id="supsingle"
-                    value={hotel.supsingle}
-                    onChange={handleChange}
-                  />
-                </div>
+
                 <div className="mb-4">
                   <label htmlFor="localisation" className="form-label">
                     sup_suite
@@ -598,19 +496,7 @@ const AddHotel = () => {
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mb-4">
-                  <label htmlFor="localisation" className="form-label">
-                    remise
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Type here"
-                    className="form-control"
-                    id="discount"
-                    value={hotel.discount}
-                    onChange={handleChange}
-                  />
-                </div>
+
                 <div className="mb-4">
                   <label htmlFor="localisation" className="form-label">
                     total_chambre
@@ -909,6 +795,112 @@ const AddHotel = () => {
                               onChange={(event) => handleFormChange(event, index)}
                             />
                           </div>
+                          <div className="mb-4">
+                            <label htmlFor="localisation" className="form-label">
+                              reduction_enfant_2ans
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="Type here"
+                              className="form-control"
+                              id="reductionenfant2ans"
+                              value={form.reductionenfant2ans}
+                              onChange={(event) => handleFormChange(event, index)}
+                            />
+                          </div>
+                          <div className="mb-4">
+                            <label htmlFor="localisation" className="form-label">
+                              reduction_enfant_12ans
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="Type here"
+                              className="form-control"
+                              id="reductionenfant12ans"
+                              value={form.reductionenfant12ans}
+                              onChange={(event) => handleFormChange(event, index)}
+                            />
+                          </div>
+                          <div className="mb-4">
+                            <label htmlFor="localisation" className="form-label">
+                              reduction_enfant_adulte
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="Type here"
+                              className="form-control"
+                              id="reductionenfantadulte"
+                              value={form.reductionenfantadulte}
+                              onChange={(event) => handleFormChange(event, index)}
+                            />
+                          </div>
+                          <div className="mb-4">
+                            <label htmlFor="localisation" className="form-label">
+                              reduction_enfant_single
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="Type here"
+                              className="form-control"
+                              id="reductionenfantsingle"
+                              value={form.reductionenfantsingle}
+                              onChange={(event) => handleFormChange(event, index)}
+                            />
+                          </div>
+                          <div className="mb-4">
+                            <label htmlFor="localisation" className="form-label">
+                              reduction_3_lit
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="Type here"
+                              className="form-control"
+                              id="reduction3lit"
+                              value={form.reduction3lit}
+                              onChange={(event) => handleFormChange(event, index)}
+                            />
+                          </div>
+                          <div className="mb-4">
+                            <label htmlFor="localisation" className="form-label">
+                              reduction_4_lit
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="Type here"
+                              className="form-control"
+                              id="reduction4lit"
+                              value={form.reduction4lit}
+                              onChange={(event) => handleFormChange(event, index)}
+                            />
+                          </div>
+                          <div className="mb-4">
+                            <label htmlFor="localisation" className="form-label">
+                              sup_single
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="Type here"
+                              className="form-control"
+                              id="supsingle"
+                              value={form.supsingle}
+                              onChange={(event) => handleFormChange(event, index)}
+                            />
+                          </div>
+
+                          <div className="mb-4">
+                            <label htmlFor="localisation" className="form-label">
+                              remise
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="Type here"
+                              className="form-control"
+                              id="discount"
+                              value={form.discount}
+                              onChange={(event) => handleFormChange(event, index)}
+                            />
+                          </div>
+
 
                         </div>{" "}
                         <button
