@@ -40,36 +40,33 @@ const AddVocuher = () => {
     Tel: "",
     dateD: "",
     arrive: "",
-    logement: "Lpd",
     nuits: 1,
     nomHotel: "",
     pay: false,
     price: 0,
     disabled: false,
-
   });
   const [formFields, setFormFields] = useState([
     { nombreAdulte: 0, nombreEnfants2ans: 0, nombreEnfants12ans: 0 },
   ]);
-  const [occupation,setOccuation]=useState([])
+  const [occupation, setOccuation] = useState([]);
   const handleChangeInput = (id, event) => {
-    const inputs=occupation.map((el, i) => {
-        el.map((ek, k) => {
-          if (ek.id === id) {
-            ek[event.target.name] = event.target.value;
-          }
-          return ek;
-        });
-        return el;
+    const inputs = occupation.map((el, i) => {
+      el.map((ek, k) => {
+        if (ek.id === id) {
+          ek[event.target.name] = event.target.value;
+        }
+        return ek;
       });
-      setOccuation(inputs);
-  }
-  
+      return el;
+    });
+    setOccuation(inputs);
+  };
+
   const handleFormChange = (event, index) => {
     let data = [...formFields];
     data[index][event.target.name] = event.target.value;
     setFormFields(data);
-
   };
 
   const addFields = (e) => {
@@ -78,6 +75,7 @@ const AddVocuher = () => {
       nombreAdulte: 0,
       nombreEnfants2ans: 0,
       nombreEnfants12ans: 0,
+      logement: "Lpd",
     };
 
     setFormFields([...formFields, object]);
@@ -106,27 +104,49 @@ const AddVocuher = () => {
     },
     translator
   );
-    const generateOccupation=()=>{
-      let occupa=[];
-      formFields.map((el,chambre)=>{
-        let occup=[]
-        for(let i=0;i<parseInt(el.nombreAdulte);i++){
-          let obj={id:uuidv4(),firstname:"",lastname:"",civ:"Mr",type:"adulte",chambre:chambre+1}
-          occup.push(obj)
-        }
-        for(let i=0;i<parseInt(el.nombreEnfants2ans);i++){
-          let obj={id:uuidv4(),firstname:"",lastname:"",civ:"Mr",type:"enfant -2ans",chambre:chambre+1}
-          occup.push(obj)
-        }
+  const generateOccupation = () => {
+    let occupa = [];
+    formFields.map((el, chambre) => {
+      let occup = [];
+      for (let i = 0; i < parseInt(el.nombreAdulte); i++) {
+        let obj = {
+          id: uuidv4(),
+          firstname: "",
+          lastname: "",
+          civ: "Mr",
+          type: "adulte",
+          chambre: chambre + 1,
+        };
+        occup.push(obj);
+      }
+      for (let i = 0; i < parseInt(el.nombreEnfants2ans); i++) {
+        let obj = {
+          id: uuidv4(),
+          firstname: "",
+          lastname: "",
+          civ: "Mr",
+          type: "enfant -2ans",
+          chambre: chambre + 1,
+        };
+        occup.push(obj);
+      }
 
-        for(let i=0;i<parseInt(el.nombreEnfants12ans);i++){
-          let obj={id:uuidv4(),firstname:"",lastname:"",civ:"Mr",type:"enfant -12ans",chambre:chambre+1}
-          occup.push(obj)
-        }        occupa.push(occup);
-        return null;
-      })
-      setOccuation(occupa)
-    }
+      for (let i = 0; i < parseInt(el.nombreEnfants12ans); i++) {
+        let obj = {
+          id: uuidv4(),
+          firstname: "",
+          lastname: "",
+          civ: "Mr",
+          type: "enfant -12ans",
+          chambre: chambre + 1,
+        };
+        occup.push(obj);
+      }
+      occupa.push(occup);
+      return null;
+    });
+    setOccuation(occupa);
+  };
   const handleSubmit = async (e) => {
     try {
       const isError = checkErrors();
@@ -147,13 +167,12 @@ const AddVocuher = () => {
           nuits: voucher.nuits,
           arrive: voucher.arrive,
           nomHotel: voucher.nomHotel,
-          logement: voucher.logement,
           paidAgency: voucher.pay,
           tel: voucher.Tel,
           dateD: voucher.dateD,
           rooms: formFields,
           price: voucher.price,
-          occupation
+          occupation,
         };
         await axios.post(`${apiUri()}/voucher/add`, data, options);
         toast.success("Le voucher est ajouté");
@@ -164,7 +183,6 @@ const AddVocuher = () => {
           Tel: "",
           dateD: "",
           arrive: "",
-          logement: "Lpd",
           nuits: 1,
           nomHotel: "",
           pay: false,
@@ -172,13 +190,18 @@ const AddVocuher = () => {
           disabled: false,
         });
         setFormFields([
-          { nombreAdulte: 0, nombreEnfants2ans: 0, nombreEnfants12ans: 0 },
+          {
+            nombreAdulte: 0,
+            nombreEnfants2ans: 0,
+            nombreEnfants12ans: 0,
+            logement: "lpd",
+          },
         ]);
         handleScroll(e);
       }
     } catch (error) {
-      const updated1 = { ...voucher, disabled: false};
-        setVoucher(updated1);
+      const updated1 = { ...voucher, disabled: false };
+      setVoucher(updated1);
       toast.error(error.response.data.error);
     }
   };
@@ -306,21 +329,7 @@ const AddVocuher = () => {
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mb-4">
-                  <label className="form-label">Type de Logement </label>
-                  <select
-                    className="form-select"
-                    value={voucher.logement}
-                    onChange={handleChange}
-                    id="logement"
-                  >
-                    <option value={"Lpd"}> Lpd </option>
-                    <option value={"Dp"}> Dp </option>
-                    <option value={"Pc"}> Pc </option>
-                    <option value={"All_In_Soft"}> All_In_Soft </option>
-                    <option value={"All_In"}> All_In </option>
-                  </select>
-                </div>
+
                 <div className="mb-4">
                   <label className="form-label">Voucher payé (agence) </label>
                   <select
@@ -395,8 +404,23 @@ const AddVocuher = () => {
                             className="form-control"
                           />
                         </div>
-                        
                       </div>{" "}
+                      <div className="mb-4">
+                        <label className="form-label">Type de Logement </label>
+                        <select
+                          name="logement"
+                          className="form-select"
+                          onChange={(event) => handleFormChange(event, index)}
+                          value={form.logement}
+                          id="logement"
+                        >
+                          <option value={"Lpd"}> Lpd </option>
+                          <option value={"Dp"}> Dp </option>
+                          <option value={"Pc"}> Pc </option>
+                          <option value={"All_In_Soft"}> All_In_Soft </option>
+                          <option value={"All_In"}> All_In </option>
+                        </select>
+                      </div>
                       <button
                         className="btn btn-primary"
                         onClick={(e) => removeFields(index, e)}
@@ -424,17 +448,19 @@ const AddVocuher = () => {
                 <br />
                 <br />
                 <div>
-                          {occupation.map((el,i)=>{
-                            return(
-                            <div key={i}>
-                            <h5>Chambre {i+1}</h5>
-                              {el.map((ok,j)=>{
-                                return(
-                                  <div className="occupation-chambre-inp">
-                                    <input
+                  {occupation.map((el, i) => {
+                    return (
+                      <div key={i}>
+                        <h5>Chambre {i + 1}</h5>
+                        {el.map((ok, j) => {
+                          return (
+                            <div className="occupation-chambre-inp">
+                              <input
                                 name="lastname"
                                 placeholder="Nom"
-                                onChange={(event) => handleChangeInput(ok.id,event)}
+                                onChange={(event) =>
+                                  handleChangeInput(ok.id, event)
+                                }
                                 value={ok.lastname}
                                 type="text"
                                 className="form-control"
@@ -442,38 +468,46 @@ const AddVocuher = () => {
                               <input
                                 name="firstname"
                                 placeholder="Prénom"
-                                onChange={(event) => handleChangeInput(ok.id,event)}
+                                onChange={(event) =>
+                                  handleChangeInput(ok.id, event)
+                                }
                                 value={ok.firstname}
                                 type="text"
                                 className="form-control"
                               />
-                              <select onChange={(event) => handleChangeInput(ok.id,event)} name="civ" value={ok.civ}>
+                              <select
+                                onChange={(event) =>
+                                  handleChangeInput(ok.id, event)
+                                }
+                                name="civ"
+                                value={ok.civ}
+                              >
                                 <option>Mr</option>
                                 <option>Mme</option>
                               </select>
                               <input
                                 name="type"
-                                onChange={(event) => handleChangeInput(ok.id,event)}
+                                onChange={(event) =>
+                                  handleChangeInput(ok.id, event)
+                                }
                                 value={ok.type}
                                 type="text"
                                 className="form-control"
                                 disabled
                               />
-                                  </div>
-                                )
-                              })}
-                              </div>
-                            )
+                            </div>
+                          );
+                        })}
+                      </div>
+                    );
+                  })}
+                </div>
 
-                          })}
-                        </div>
-                        
                 <button
                   className="btn btn-primary"
                   onClick={handleSubmit}
                   type="button"
                   disabled={voucher.disabled}
-
                 >
                   ajouter
                 </button>
