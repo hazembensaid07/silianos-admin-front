@@ -19,7 +19,7 @@ const VoucherDeatils = ({ location }) => {
   const rooms = location.state.rooms;
   const dispatch = useDispatch();
   const voucher = useSelector((state) => state.voucherReducer.voucher);
-  console.log(voucher)
+  console.log(voucher);
   const error = useSelector((state) => state.voucherReducer.error);
   const loadVouchers = useSelector(
     (state) => state.voucherReducer.loadVouchers
@@ -45,8 +45,8 @@ const VoucherDeatils = ({ location }) => {
   const validateAgencyPaymenttAcoompte = (event, id, accompte) => {
     event.preventDefault();
     try {
-      if (voucher.accompte !== 0) {
-        toast.error("accompte n'est 0");
+      if (voucher.accompte > 0 || voucher.paidAgency) {
+        toast.error("déjà validé");
       } else {
         dispatch(validateVoucherAccompte(id, accompte));
         setShow(2);
@@ -191,12 +191,7 @@ const VoucherDeatils = ({ location }) => {
                               {voucher.nomHotel}
                             </p>
                           </div>
-                          <div className="col-sm-6 mb-3">
-                            <label className="form-label">Logement </label>
-                            <p className="form-control" rows={4}>
-                              {voucher.logement}
-                            </p>
-                          </div>
+
                           <div className="col-sm-6 mb-3">
                             <label className="form-label">Prix total </label>
                             <p className="form-control" rows={4}>
@@ -245,41 +240,39 @@ const VoucherDeatils = ({ location }) => {
                             </tbody>
                           </table>
                         </div>
-                        {/*occupation details*/}
-
-                        {voucher.occupation!==undefined && <div className="table-responsive">
-                          <table className="table border table-hover table-lg">
-                            <thead>
-                              <tr>
-                                <th width="20%">Chambre</th>
-                                <th width="20%">Nom</th>
-                                <th width="20%">Prénom</th>
-                                <th width="20%">Civilité</th>
-                                <th width="20%">Type</th>
-
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {voucher.occupation.length !== 0 &&
-                                voucher.occupation.map((el, index) => (
-                                  <>
-                                  {el.map(ok=>{
-                                    return(
-                                      <tr>
-                                      <td>{ok.chambre}</td>
-                                      <td>{ok.lastname}</td>
-                                      <td>{ok.firstname}</td>
-                                      <td>{ok.civ}</td>
-                                      <td>{ok.type}</td>
-                                      </tr>
-                                    )
-                                  })}
-                                  </>
-                                  
-                                ))}
-                            </tbody>
-                          </table>
-                        </div>}
+                        {voucher.occupation !== undefined && (
+                          <div className="table-responsive">
+                            <table className="table border table-hover table-lg">
+                              <thead>
+                                <tr>
+                                  <th width="20%">Chambre</th>
+                                  <th width="20%">Nom</th>
+                                  <th width="20%">Prénom</th>
+                                  <th width="20%">Civilité</th>
+                                  <th width="20%">Type</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {voucher.occupation.length !== 0 &&
+                                  voucher.occupation.map((el, index) => (
+                                    <>
+                                      {el.map((ok) => {
+                                        return (
+                                          <tr>
+                                            <td>{ok.chambre}</td>
+                                            <td>{ok.lastname}</td>
+                                            <td>{ok.firstname}</td>
+                                            <td>{ok.civ}</td>
+                                            <td>{ok.type}</td>
+                                          </tr>
+                                        );
+                                      })}
+                                    </>
+                                  ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        )}
                         <h4>Message</h4>
                         <p>{voucher.message}</p>
                       </form>
