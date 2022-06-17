@@ -229,6 +229,7 @@ const VoucherDeatils = ({ location }) => {
                                 <th width="20%">Nombres Adultes </th>
                                 <th width="20%">Nombre Enfants -12 ans</th>
                                 <th width="20%">Nombre Enfants -2ans</th>
+                                <th width="20%">logement</th>
                               </tr>
                             </thead>
                             <tbody>
