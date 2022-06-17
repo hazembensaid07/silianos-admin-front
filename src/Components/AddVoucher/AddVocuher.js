@@ -17,11 +17,14 @@ const schema = {
   nuits: Joi.number().integer().min(1),
   nomHotel: Joi.string().required().min(2),
   price: Joi.number().integer().min(1),
+  message: Joi.string().required().min(4),
 };
 const translator = (error) => {
   if (error === '"email" is not allowed to be empty')
     return "ajouter une adresse email valide";
   if (error === '"name" is not allowed to be empty') return "ajouter un nom";
+  if (error === '"message" is not allowed to be empty')
+    return "ajouter un message";
   if (error === '"Cin" is not allowed to be empty')
     return "ajouter un Cin valide";
   if (error === '"Tel" is not allowed to be empty')
@@ -45,6 +48,7 @@ const AddVocuher = () => {
     pay: false,
     price: 0,
     disabled: false,
+    message: "",
   });
   const [formFields, setFormFields] = useState([
     { nombreAdulte: 0, nombreEnfants2ans: 0, nombreEnfants12ans: 0 },
@@ -172,6 +176,7 @@ const AddVocuher = () => {
           dateD: voucher.dateD,
           rooms: formFields,
           price: voucher.price,
+          message: voucher.message,
           occupation,
         };
         await axios.post(`${apiUri()}/voucher/add`, data, options);
@@ -188,6 +193,7 @@ const AddVocuher = () => {
           pay: false,
           price: 0,
           disabled: false,
+          message: "",
         });
         setFormFields([
           {
@@ -326,6 +332,19 @@ const AddVocuher = () => {
                     className="form-control"
                     id="price"
                     value={voucher.price}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="localisation" className="form-label">
+                    Message
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="entrer une remarque sur votre séjour"
+                    className="form-control"
+                    id="message"
+                    value={voucher.message}
                     onChange={handleChange}
                   />
                 </div>
