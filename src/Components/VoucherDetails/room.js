@@ -7,7 +7,6 @@ const Room = ({ room, index }) => {
       <td> {room.nombreAdulte}</td>
       <td> {room.nombreEnfants2ans}</td>
       <td className="text-end"> {room.nombreEnfants12ans}</td>
-      <td className="text-end"> {room.logement}</td>
     </tr>
   );
 };

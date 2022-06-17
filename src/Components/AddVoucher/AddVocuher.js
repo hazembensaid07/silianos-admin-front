@@ -49,6 +49,7 @@ const AddVocuher = () => {
     price: 0,
     disabled: false,
     message: "",
+    logement: "",
   });
   const [formFields, setFormFields] = useState([
     { nombreAdulte: 0, nombreEnfants2ans: 0, nombreEnfants12ans: 0 },
@@ -79,7 +80,6 @@ const AddVocuher = () => {
       nombreAdulte: 0,
       nombreEnfants2ans: 0,
       nombreEnfants12ans: 0,
-      logement: "Lpd",
     };
 
     setFormFields([...formFields, object]);
@@ -177,6 +177,7 @@ const AddVocuher = () => {
           rooms: formFields,
           price: voucher.price,
           message: voucher.message,
+          logement: voucher.logement,
           occupation,
         };
         await axios.post(`${apiUri()}/voucher/add`, data, options);
@@ -194,13 +195,13 @@ const AddVocuher = () => {
           price: 0,
           disabled: false,
           message: "",
+          logement: "",
         });
         setFormFields([
           {
             nombreAdulte: 0,
             nombreEnfants2ans: 0,
             nombreEnfants12ans: 0,
-            logement: "lpd",
           },
         ]);
         handleScroll(e);
@@ -376,6 +377,23 @@ const AddVocuher = () => {
                   <Error name="nuits" withStyle />
                 </div>
                 <div className="mb-4">
+                  <label className="form-label">Type de Logement </label>
+                  <select
+                    name="logement"
+                    className="form-select"
+                    id="logement"
+                    value={voucher.logement}
+                    onChange={handleChange}
+                  >
+                    <option value={"choose"}> choisir </option>
+                    <option value={"Lpd"}> Lpd </option>
+                    <option value={"Dp"}> Dp </option>
+                    <option value={"Pc"}> Pc </option>
+                    <option value={"All_In_Soft"}> All_In_Soft </option>
+                    <option value={"All_In"}> All_In </option>
+                  </select>
+                </div>
+                <div className="mb-4">
                   <label htmlFor="localisation" className="form-label">
                     Chambres:
                   </label>
@@ -424,22 +442,6 @@ const AddVocuher = () => {
                           />
                         </div>
                       </div>{" "}
-                      <div className="mb-4">
-                        <label className="form-label">Type de Logement </label>
-                        <select
-                          name="logement"
-                          className="form-select"
-                          onChange={(event) => handleFormChange(event, index)}
-                          value={form.logement}
-                          id="logement"
-                        >
-                          <option value={"Lpd"}> Lpd </option>
-                          <option value={"Dp"}> Dp </option>
-                          <option value={"Pc"}> Pc </option>
-                          <option value={"All_In_Soft"}> All_In_Soft </option>
-                          <option value={"All_In"}> All_In </option>
-                        </select>
-                      </div>
                       <button
                         className="btn btn-primary"
                         onClick={(e) => removeFields(index, e)}

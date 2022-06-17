@@ -207,6 +207,12 @@ const VoucherDeatils = ({ location }) => {
                               {voucher.accompte}
                             </p>
                           </div>
+                          <div className="col-sm-6 mb-3">
+                            <label className="form-label">logement</label>
+                            <p className="form-control" rows={4}>
+                              {voucher.logement}
+                            </p>
+                          </div>
                         </div>{" "}
                         <div className="mb-4">
                           <label
@@ -229,7 +235,6 @@ const VoucherDeatils = ({ location }) => {
                                 <th width="20%">Nombres Adultes </th>
                                 <th width="20%">Nombre Enfants -12 ans</th>
                                 <th width="20%">Nombre Enfants -2ans</th>
-                                <th width="20%">logement</th>
                               </tr>
                             </thead>
                             <tbody>
