@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import HeaderAuth from "../Header/HeaderAuth";
 import SideBar from "../SideBar/SideBar";
 import { DefaultEditor } from "react-simple-wysiwyg";
+import sanitizeHtml from "sanitize-html";
 
 import { deletePhoto, getTrip } from "../../JS/actions/trip";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,7 +24,6 @@ const AddTrip = () => {
   const edit = useSelector((state) => state.editReducer.edit);
   const tripp = useSelector((state) => state.tripReducer.trip);
 
-
   const [trip, setTrip] = React.useState({
     destination: "",
     price: "",
@@ -36,22 +36,20 @@ const AddTrip = () => {
   });
 
   const [file, setFile] = useState([]);
-  const [description, setDescription] = React.useState('');
-  const [programme, setProgramme] = React.useState('');
+  const [description, setDescription] = React.useState("");
+  const [programme, setProgramme] = React.useState("");
 
-  
   function onChangeDescription(e) {
-    setDescription(e.target.value);
+    setDescription(sanitizeHtml(e.target.value));
   }
   function onChangeProgramme(e) {
-    setProgramme(e.target.value);
+    setProgramme(sanitizeHtml(e.target.value));
   }
   const handleChangeFile = (e) => {
     e.preventDefault();
     setFile(e.target.files);
   };
 
-  
   const handleChangeArray = (e) => {
     e.preventDefault();
     setTrip({ ...trip, [e.target.id]: e.target.value.split(",") });
@@ -79,9 +77,9 @@ const AddTrip = () => {
       metakeywords,
       metatitle,
     } = trip;
-    trip.description=description;
-    trip.programme=programme;
-    console.log(trip)
+    trip.description = description;
+    trip.programme = programme;
+    console.log(trip);
     const token = getCookie("token");
 
     const data = new FormData();
@@ -140,9 +138,9 @@ const AddTrip = () => {
         metatitle,
       };
       trippp.id = tripp._id;
-      trippp.description=description;
-      trippp.programme=programme;
-      console.log(trippp)
+      trippp.description = description;
+      trippp.programme = programme;
+      console.log(trippp);
 
       axios.defaults.headers.post["Content-Type"] =
         "application/x-www-form-urlencoded";
@@ -169,27 +167,27 @@ const AddTrip = () => {
     }
   };
 
-  useEffect(() => {if (edit){
-    setTrip(tripp);setDescription(tripp.description);setProgramme(tripp.programme);
-
-  }
-  else {
-    setTrip({
-      destination: "",
-      description: "",
-      programme: "",
-      price: "",
-      dates: "",
-      bestorg: false,
-      metadescription: "",
-      metakeywords: "",
-      metatitle: "",
-      disabled: false,
-    });
-    setProgramme("");
-    setDescription("");
-  }
-      
+  useEffect(() => {
+    if (edit) {
+      setTrip(tripp);
+      setDescription(tripp.description);
+      setProgramme(tripp.programme);
+    } else {
+      setTrip({
+        destination: "",
+        description: "",
+        programme: "",
+        price: "",
+        dates: "",
+        bestorg: false,
+        metadescription: "",
+        metakeywords: "",
+        metatitle: "",
+        disabled: false,
+      });
+      setProgramme("");
+      setDescription("");
+    }
   }, [edit, tripp]);
   return (
     <div>
@@ -235,10 +233,8 @@ const AddTrip = () => {
                   </label>
 
                   <DefaultEditor
-              
-              value={programme}
+                    value={programme}
                     onChange={onChangeProgramme}
-                    
                   />
                 </div>
                 <div className="mb-4">
@@ -393,7 +389,8 @@ const AddTrip = () => {
                       );
                     }}
                   >
-Supprmier les images selectionés                  </button>
+                    Supprmier les images selectionés{" "}
+                  </button>
                 )}
                 <br />
                 <br />

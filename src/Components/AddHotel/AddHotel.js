@@ -13,21 +13,31 @@ import apiUri from "../apiUri";
 import { deletePhoto, getHotel } from "../../JS/actions/hotel";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import sanitizeHtml from "sanitize-html";
 const AddHotel = () => {
   let counter = 0;
   let info = [];
 
-  const [description, setDescription] = React.useState('');
+  const [description, setDescription] = React.useState("");
 
   const [formFields, setFormFields] = useState([
     {
-      datedebut: "", datefin: "", pricelpdadulte: 0, pricedpadulte: 0, pricepcadulte: 0, priceallinsoftadulte: 0,
-      priceallinadulte: 0, reductionenfant2ans: 0, reductionenfant12ans: 0, reductionenfantadulte: 0,
-      reductionenfantsingle: 0, reduction3lit: 0,
-      reduction4lit: 0, supsingle: 0,
+      datedebut: "",
+      datefin: "",
+      pricelpdadulte: 0,
+      pricedpadulte: 0,
+      pricepcadulte: 0,
+      priceallinsoftadulte: 0,
+      priceallinadulte: 0,
+      reductionenfant2ans: 0,
+      reductionenfant12ans: 0,
+      reductionenfantadulte: 0,
+      reductionenfantsingle: 0,
+      reduction3lit: 0,
+      reduction4lit: 0,
+      supsingle: 0,
       discount: 0,
     },
-
   ]);
 
   const addFields = (e) => {
@@ -40,11 +50,14 @@ const AddHotel = () => {
       priceallinadulte: 0,
       datedebut: "",
       datefin: "",
-      reductionenfant2ans: 0, reductionenfant12ans: 0, reductionenfantadulte: 0,
-      reductionenfantsingle: 0, reduction3lit: 0,
-      reduction4lit: 0, supsingle: 0,
+      reductionenfant2ans: 0,
+      reductionenfant12ans: 0,
+      reductionenfantadulte: 0,
+      reductionenfantsingle: 0,
+      reduction3lit: 0,
+      reduction4lit: 0,
+      supsingle: 0,
       discount: 0,
-
     };
 
     setFormFields([...formFields, object]);
@@ -64,7 +77,7 @@ const AddHotel = () => {
   };
 
   function onChangeDescription(e) {
-    setDescription(e.target.value);
+    setDescription(sanitizeHtml(e.target.value));
   }
 
   const [deletei, setDeletei] = useState(1);
@@ -115,11 +128,8 @@ const AddHotel = () => {
   };
   const handleChange3 = (e) => {
     e.preventDefault();
-    if ((e.target.value) == "true")
-      setLog({ ...logement2, [e.target.id]: true });
-    else
-      setLog({ ...logement2, [e.target.id]: false });
-
+    if (e.target.value == "true") setLog({ ...logement2, [e.target.id]: true });
+    else setLog({ ...logement2, [e.target.id]: false });
   };
   const handleChange2 = (e) => {
     e.preventDefault();
@@ -144,7 +154,6 @@ const AddHotel = () => {
       },
     })
       .then((response) => {
-
         const cloudinary_ids = response.data.cloudinary_ids;
         const pictures = response.data.pictures;
         console.log(cloudinary_ids);
@@ -188,7 +197,7 @@ const AddHotel = () => {
         if (logement2.all_in_hard === true) {
           loge += "all_in_hard,";
         }
-        console.log(loge)
+        console.log(loge);
         hotel.logement[0] = loge;
         hotel.description = description;
         hotel.prices = formFields;
@@ -196,8 +205,6 @@ const AddHotel = () => {
         hotel.cloudinary_ids = cloudinary_ids;
 
         console.log(hotel);
-
-
 
         if (!edit) {
           axios.defaults.headers.post["Content-Type"] =
@@ -242,10 +249,20 @@ const AddHotel = () => {
               setDescription("");
               setFormFields([
                 {
-                  datedebut: "", datefin: "", pricelpdadulte: 0, pricedpadulte: 0, pricepcadulte: 0, priceallinsoftadulte: 0,
-                  priceallinadulte: 0, reductionenfant2ans: 0, reductionenfant12ans: 0, reductionenfantadulte: 0,
-                  reductionenfantsingle: 0, reduction3lit: 0,
-                  reduction4lit: 0, supsingle: 0,
+                  datedebut: "",
+                  datefin: "",
+                  pricelpdadulte: 0,
+                  pricedpadulte: 0,
+                  pricepcadulte: 0,
+                  priceallinsoftadulte: 0,
+                  priceallinadulte: 0,
+                  reductionenfant2ans: 0,
+                  reductionenfant12ans: 0,
+                  reductionenfantadulte: 0,
+                  reductionenfantsingle: 0,
+                  reduction3lit: 0,
+                  reduction4lit: 0,
+                  supsingle: 0,
                   discount: 0,
                 },
               ]);
@@ -278,7 +295,7 @@ const AddHotel = () => {
             reductionenfantsingle,
           };
           hotelll.id = hotell._id;
-          hotelll.description = description
+          hotelll.description = description;
           hotelll.prices = formFields;
           hotelll.cloudinary_ids = cloudinary_ids;
           hotelll.pictures = pictures;
@@ -291,7 +308,6 @@ const AddHotel = () => {
             data: hotelll,
             headers: {
               authorization: token,
-
             },
           })
             .then((response) => {
@@ -311,16 +327,11 @@ const AddHotel = () => {
               }
             });
         }
-
       })
       .catch((error) => {
         const updated4 = { ...hotel, disabled: false };
         setHotel(updated4);
       });
-
-
-
-
   };
 
   useEffect(() => {
@@ -329,7 +340,7 @@ const AddHotel = () => {
 
       setDescription(hotell.description);
       setFormFields(hotell.prices);
-      console.log(formFields)
+      console.log(formFields);
       if (hotell.logement) {
         let test = hotell;
 
@@ -468,7 +479,6 @@ const AddHotel = () => {
                     onChange={handleChange}
                   />
                 </div>
-
 
                 <div className="mb-4">
                   <label htmlFor="localisation" className="form-label">
@@ -695,13 +705,16 @@ const AddHotel = () => {
                 <br />
                 <br />
 
-                {
-                  formFields && formFields.map((form, index) => {
+                {formFields &&
+                  formFields.map((form, index) => {
                     return (
                       <div key={index}>
                         <div className="row gx-2">
                           <div className="mb-4">
-                            <label htmlFor="localisation" className="form-label">
+                            <label
+                              htmlFor="localisation"
+                              className="form-label"
+                            >
                               datedebut
                             </label>
                             <input
@@ -710,13 +723,16 @@ const AddHotel = () => {
                               className="form-control"
                               id="datedebut"
                               value={form.datedebut}
-                              onChange={(event) => handleFormChange(event, index)}
-
-
+                              onChange={(event) =>
+                                handleFormChange(event, index)
+                              }
                             />
                           </div>
                           <div className="mb-4">
-                            <label htmlFor="localisation" className="form-label">
+                            <label
+                              htmlFor="localisation"
+                              className="form-label"
+                            >
                               datefin
                             </label>
                             <input
@@ -725,12 +741,16 @@ const AddHotel = () => {
                               className="form-control"
                               id="datefin"
                               value={form.datefin}
-                              onChange={(event) => handleFormChange(event, index)}
-
+                              onChange={(event) =>
+                                handleFormChange(event, index)
+                              }
                             />
                           </div>
                           <div className="mb-4">
-                            <label htmlFor="localisation" className="form-label">
+                            <label
+                              htmlFor="localisation"
+                              className="form-label"
+                            >
                               price_lpd_adulte
                             </label>
                             <input
@@ -739,11 +759,16 @@ const AddHotel = () => {
                               className="form-control"
                               id="pricelpdadulte"
                               value={form.pricelpdadulte}
-                              onChange={(event) => handleFormChange(event, index)}
+                              onChange={(event) =>
+                                handleFormChange(event, index)
+                              }
                             />
                           </div>
                           <div className="mb-4">
-                            <label htmlFor="localisation" className="form-label">
+                            <label
+                              htmlFor="localisation"
+                              className="form-label"
+                            >
                               price_dp_adulte
                             </label>
                             <input
@@ -752,11 +777,16 @@ const AddHotel = () => {
                               className="form-control"
                               id="pricedpadulte"
                               value={form.pricedpadulte}
-                              onChange={(event) => handleFormChange(event, index)}
+                              onChange={(event) =>
+                                handleFormChange(event, index)
+                              }
                             />
                           </div>
                           <div className="mb-4">
-                            <label htmlFor="localisation" className="form-label">
+                            <label
+                              htmlFor="localisation"
+                              className="form-label"
+                            >
                               price_pc_adulte
                             </label>
                             <input
@@ -765,11 +795,16 @@ const AddHotel = () => {
                               className="form-control"
                               id="pricepcadulte"
                               value={form.pricepcadulte}
-                              onChange={(event) => handleFormChange(event, index)}
+                              onChange={(event) =>
+                                handleFormChange(event, index)
+                              }
                             />
                           </div>
                           <div className="mb-4">
-                            <label htmlFor="localisation" className="form-label">
+                            <label
+                              htmlFor="localisation"
+                              className="form-label"
+                            >
                               price_all_in_soft_adulte
                             </label>
                             <input
@@ -778,12 +813,16 @@ const AddHotel = () => {
                               className="form-control"
                               id="priceallinsoftadulte"
                               value={form.priceallinsoftadulte}
-                              onChange={(event) => handleFormChange(event, index)}
+                              onChange={(event) =>
+                                handleFormChange(event, index)
+                              }
                             />
-
                           </div>
                           <div className="mb-4">
-                            <label htmlFor="localisation" className="form-label">
+                            <label
+                              htmlFor="localisation"
+                              className="form-label"
+                            >
                               price_all_in_adulte
                             </label>
                             <input
@@ -792,11 +831,16 @@ const AddHotel = () => {
                               className="form-control"
                               id="priceallinadulte"
                               value={form.priceallinadulte}
-                              onChange={(event) => handleFormChange(event, index)}
+                              onChange={(event) =>
+                                handleFormChange(event, index)
+                              }
                             />
                           </div>
                           <div className="mb-4">
-                            <label htmlFor="localisation" className="form-label">
+                            <label
+                              htmlFor="localisation"
+                              className="form-label"
+                            >
                               reduction_enfant_2ans
                             </label>
                             <input
@@ -805,11 +849,16 @@ const AddHotel = () => {
                               className="form-control"
                               id="reductionenfant2ans"
                               value={form.reductionenfant2ans}
-                              onChange={(event) => handleFormChange(event, index)}
+                              onChange={(event) =>
+                                handleFormChange(event, index)
+                              }
                             />
                           </div>
                           <div className="mb-4">
-                            <label htmlFor="localisation" className="form-label">
+                            <label
+                              htmlFor="localisation"
+                              className="form-label"
+                            >
                               reduction_enfant_12ans
                             </label>
                             <input
@@ -818,11 +867,16 @@ const AddHotel = () => {
                               className="form-control"
                               id="reductionenfant12ans"
                               value={form.reductionenfant12ans}
-                              onChange={(event) => handleFormChange(event, index)}
+                              onChange={(event) =>
+                                handleFormChange(event, index)
+                              }
                             />
                           </div>
                           <div className="mb-4">
-                            <label htmlFor="localisation" className="form-label">
+                            <label
+                              htmlFor="localisation"
+                              className="form-label"
+                            >
                               reduction_enfant_adulte
                             </label>
                             <input
@@ -831,11 +885,16 @@ const AddHotel = () => {
                               className="form-control"
                               id="reductionenfantadulte"
                               value={form.reductionenfantadulte}
-                              onChange={(event) => handleFormChange(event, index)}
+                              onChange={(event) =>
+                                handleFormChange(event, index)
+                              }
                             />
                           </div>
                           <div className="mb-4">
-                            <label htmlFor="localisation" className="form-label">
+                            <label
+                              htmlFor="localisation"
+                              className="form-label"
+                            >
                               reduction_enfant_single
                             </label>
                             <input
@@ -844,11 +903,16 @@ const AddHotel = () => {
                               className="form-control"
                               id="reductionenfantsingle"
                               value={form.reductionenfantsingle}
-                              onChange={(event) => handleFormChange(event, index)}
+                              onChange={(event) =>
+                                handleFormChange(event, index)
+                              }
                             />
                           </div>
                           <div className="mb-4">
-                            <label htmlFor="localisation" className="form-label">
+                            <label
+                              htmlFor="localisation"
+                              className="form-label"
+                            >
                               reduction_3_lit
                             </label>
                             <input
@@ -857,11 +921,16 @@ const AddHotel = () => {
                               className="form-control"
                               id="reduction3lit"
                               value={form.reduction3lit}
-                              onChange={(event) => handleFormChange(event, index)}
+                              onChange={(event) =>
+                                handleFormChange(event, index)
+                              }
                             />
                           </div>
                           <div className="mb-4">
-                            <label htmlFor="localisation" className="form-label">
+                            <label
+                              htmlFor="localisation"
+                              className="form-label"
+                            >
                               reduction_4_lit
                             </label>
                             <input
@@ -870,11 +939,16 @@ const AddHotel = () => {
                               className="form-control"
                               id="reduction4lit"
                               value={form.reduction4lit}
-                              onChange={(event) => handleFormChange(event, index)}
+                              onChange={(event) =>
+                                handleFormChange(event, index)
+                              }
                             />
                           </div>
                           <div className="mb-4">
-                            <label htmlFor="localisation" className="form-label">
+                            <label
+                              htmlFor="localisation"
+                              className="form-label"
+                            >
                               sup_single
                             </label>
                             <input
@@ -883,12 +957,17 @@ const AddHotel = () => {
                               className="form-control"
                               id="supsingle"
                               value={form.supsingle}
-                              onChange={(event) => handleFormChange(event, index)}
+                              onChange={(event) =>
+                                handleFormChange(event, index)
+                              }
                             />
                           </div>
 
                           <div className="mb-4">
-                            <label htmlFor="localisation" className="form-label">
+                            <label
+                              htmlFor="localisation"
+                              className="form-label"
+                            >
                               remise
                             </label>
                             <input
@@ -897,11 +976,11 @@ const AddHotel = () => {
                               className="form-control"
                               id="discount"
                               value={form.discount}
-                              onChange={(event) => handleFormChange(event, index)}
+                              onChange={(event) =>
+                                handleFormChange(event, index)
+                              }
                             />
                           </div>
-
-
                         </div>{" "}
                         <button
                           className="btn btn-primary"
@@ -912,18 +991,14 @@ const AddHotel = () => {
                         <br />
                         <br />
                       </div>
-
                     );
-                  })
-                }
+                  })}
                 <button className="btn btn-primary" onClick={addFields}>
                   ajouter un autre date
                 </button>
                 <br />
                 <br />
                 <br />
-
-
 
                 <div className="mb-4">
                   <label className="form-label">Images</label>
