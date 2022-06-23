@@ -138,6 +138,7 @@ const AddHotel = () => {
 
   const update = async (e) => {
     const updated = { ...hotel, disabled: true };
+    setHotel(updated);
 
     const token = getCookie("token");
     const data = new FormData();
@@ -159,7 +160,6 @@ const AddHotel = () => {
         console.log(cloudinary_ids);
         console.log(pictures);
 
-        setHotel(updated);
         e.preventDefault();
         const {
           name,

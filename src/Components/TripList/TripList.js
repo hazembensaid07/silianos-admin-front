@@ -51,7 +51,8 @@ const TripList = ({ history }) => {
               <div className="row gx-3">
                 <div className="col-lg-4 col-md-6 me-auto">
                   <input
-                    type="text"Se
+                    type="text"
+                    Se
                     placeholder="chercher par destination.. "
                     className="form-control"
                     onChange={(e) => setName(e.target.value)}

@@ -23,8 +23,6 @@ const Trip = ({ trip, name, page, trips }) => {
       <td>
         <b>{trip.destination}</b>
       </td>
-      <td>{trip.price}</td>
-      <td>{trip.dates}</td>
 
       <td className="text-end">
         <Link

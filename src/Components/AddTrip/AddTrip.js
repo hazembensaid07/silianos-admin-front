@@ -153,10 +153,12 @@ const AddTrip = () => {
                 disabled: false,
               });
               setFile([]);
-              setFormFields({
-                date: "",
-                price: 0,
-              });
+              setFormFields([
+                {
+                  date: "",
+                  price: 0,
+                },
+              ]);
               handleScroll(e);
             })
             .catch((error) => {
@@ -234,10 +236,12 @@ const AddTrip = () => {
       });
       setProgramme("");
       setDescription("");
-      setFormFields({
-        date: "",
-        price: 0,
-      });
+      setFormFields([
+        {
+          date: "",
+          price: 0,
+        },
+      ]);
     }
   }, [edit, tripp]);
   return (
@@ -342,7 +346,6 @@ const AddTrip = () => {
                     </select>
                   </div>
                 </div>
-
                 {formFields &&
                   formFields.map((form, index) => {
                     return (
