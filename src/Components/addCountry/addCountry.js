@@ -264,7 +264,6 @@ const AddCountry = () => {
                 >
                   {edit ? "Mise à jour" : "Ajouter Pays"}{" "}
                 </button>
-                <button onClick={(e)=>{e.preventDefault(); console.log(hotell)}}>zlegkeg</button>
               </form>
             </div>
           </div>{" "}
