@@ -48,6 +48,17 @@ const SideBar = () => {
           <li className="menu-item ">
             <NavLink
               className="menu-link"
+              to={{ pathname: `/countries` }}
+              activeStyle={{ color: "#ff0000" }}
+            >
+              {" "}
+              <i className="icon material-icons md-public " />
+              <span className="text">Pays</span>
+            </NavLink>
+          </li>
+          <li className="menu-item ">
+            <NavLink
+              className="menu-link"
               to={{ pathname: `/trips` }}
               activeStyle={{ color: "#ff0000" }}
             >
