@@ -3,18 +3,18 @@ import { Link } from "react-router-dom";
 import HeaderAuth from "../Header/HeaderAuth";
 import SideBar from "../SideBar/SideBar";
 import { useDispatch, useSelector } from "react-redux";
-import { getTrips } from "../../JS/actions/trip";
+import { getCountries } from "../../JS/actions/country";
 import { toggleFlase } from "../../JS/actions/Edit";
+import Country from './country.js'
 
-import Trip from "./Trip";
 const TripList = ({ history }) => {
   const [pageNumber, setPageNumber] = useState(0);
-  const numberOfpages = useSelector((state) => state.tripReducer.pages);
+  const numberOfpages = useSelector((state) => state.countryReducer.pages);
   const pages = new Array(numberOfpages).fill(null).map((v, i) => i);
   const [name, setName] = useState("");
   const dispatch = useDispatch();
-  const trips = useSelector((state) => state.tripReducer.trips);
-  const loadTrips = useSelector((state) => state.tripReducer.loadTrips);
+  const countries = useSelector((state) => state.countryReducer.countries);
+  const loadTrips = useSelector((state) => state.countryReducer.loadCountries);
   const gotoPrevious = () => {
     setPageNumber(Math.max(0, pageNumber - 1));
   };
@@ -22,7 +22,7 @@ const TripList = ({ history }) => {
     setPageNumber(Math.min(numberOfpages - 1, pageNumber + 1));
   };
   useEffect(() => {
-    dispatch(getTrips(name, pageNumber));
+    dispatch(getCountries(name, pageNumber));
   }, [name, dispatch, pageNumber]);
 
   return (
@@ -33,10 +33,10 @@ const TripList = ({ history }) => {
         <HeaderAuth />
         <section className="content-main">
           <div className="content-header">
-            <h2 className="content-title">Liste des voyages </h2>
+            <h2 className="content-title">Liste des pays </h2>
             <div>
               <Link
-                to={{ pathname: `/add_trip` }}
+                to={{ pathname: `/add_Country` }}
                 onClick={() => {
                   dispatch(toggleFlase());
                 }}
@@ -51,8 +51,7 @@ const TripList = ({ history }) => {
               <div className="row gx-3">
                 <div className="col-lg-4 col-md-6 me-auto">
                   <input
-                    type="text"
-                    Se
+                    type="text"Se
                     placeholder="chercher par destination.. "
                     className="form-control"
                     onChange={(e) => setName(e.target.value)}
@@ -63,29 +62,29 @@ const TripList = ({ history }) => {
             {/* card-header end// */}
             <div className="card-body">
               <div className="table-responsive">
-                {loadTrips && trips.length === 0 && <b>loading</b>}
+                {loadTrips && countries.length === 0 && <b>loading</b>}
                 <table className="table table-hover">
                   <thead>
                     <tr>
-                      <th>Destination</th>
+                      <th>Pays</th>
                       <th className="text-end"> Action </th>
                     </tr>
                   </thead>
 
                   <tbody>
-                    {trips.length !== 0 &&
-                      trips.map((el) => (
-                        <Trip
+                    {countries.length !== 0 &&
+                      countries.map((el) => (
+                        <Country
                           key={el._id}
                           trip={el}
                           name={name}
                           page={pageNumber}
-                          trips={trips.length}
+                          countries={countries.length}
                         />
                       ))}
                   </tbody>
                 </table>
-                {!loadTrips && trips.length === 0 && <b>There is No Trips </b>}
+                {!loadTrips && countries.length === 0 && <b>There is No countries </b>}
               </div>{" "}
               {/* table-responsive end // */}
               {numberOfpages > 1 && (
@@ -104,7 +103,7 @@ const TripList = ({ history }) => {
                       </li>
                     )}
 
-                    {trips.length !== 0 &&
+                    {countries.length !== 0 &&
                       pages.map((pageIndex) =>
                         pageNumber === pageIndex ? (
                           <li className="page-item active">

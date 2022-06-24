@@ -1,35 +1,33 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTrip } from "../../JS/actions/trip";
+import { deleteCountry } from "../../JS/actions/country";
 import { toast } from "react-toastify";
 
 import { toggleTrue } from "../../JS/actions/Edit";
-import { getTrip } from "../../JS/actions/trip";
+import { getCountry } from "../../JS/actions/country";
 
 import "react-toastify/dist/ReactToastify.min.css";
-const Trip = ({ trip, name, page, trips }) => {
+const Country = ({ trip, name, page, trips }) => {
   const dispatch = useDispatch();
   const error = useSelector((state) => state.hotelReducer.error);
   const clickDelete = (event) => {
     if (trips === 1) {
-      dispatch(deleteTrip(name, 0, trip._id));
+      dispatch(deleteCountry(name, 0, trip._id));
     } else {
-      dispatch(deleteTrip(name, page, trip._id));
+      dispatch(deleteCountry(name, page, trip._id));
     }
   };
   return (
     <tr>
-      <td>
-        <b>{trip.destination}</b>
-      </td>
+      <td>{trip.name}</td>
       <td className="text-end">
         <Link
           className="btn btn-light"
           to={{
-            pathname: `/trip_details`,
+            pathname: `/country_details`,
             state: {
-              id: trip._id,
+              id: trip.name,
               pictures: trip.pictures,
               best: trip.bestorg,
             },
@@ -46,12 +44,13 @@ const Trip = ({ trip, name, page, trips }) => {
             <Link
               className="dropdown-item"
               to={{
-                pathname: `/add_trip`,
-                state: { trip: trip },
+                pathname: `/add_country`,
+                state: { country: trip },
               }}
               onClick={() => {
                 dispatch(toggleTrue());
-                dispatch(getTrip(trip._id));
+                dispatch(getCountry(trip.name));
+                console.log(trip)
               }}
             >
               Modifier l'information
@@ -66,4 +65,4 @@ const Trip = ({ trip, name, page, trips }) => {
     </tr>
   );
 };
-export default Trip;
+export default Country;

@@ -22,6 +22,9 @@ import SuperAdminRoute from "./routes/SuperAdminRoute";
 import VoucherDeatils from "./Components/VoucherDetails/VoucherDeatils";
 import AddVocuher from "./Components/AddVoucher/AddVocuher";
 import VoucherByHotel from "./Components/VoucherList/VocuherByHotel";
+import CountriesList from './Components/countriesList/countriesList'
+import AddCountry from "./Components/addCountry/addCountry";
+import CountriesDetails from './Components/countriesDetails/countriesDetails.js';
 function App() {
   return (
     <div className="App">
@@ -41,6 +44,10 @@ function App() {
         <AdminRoute exact path="/trips" component={TripList} />
         <AdminRoute exact path="/add_trip" component={AddTrip} />
         <AdminRoute exact path="/trip_details" component={TripDetails} />
+
+        <AdminRoute exact path="/countries" component={CountriesList} />
+        <AdminRoute exact path="/add_country" component={AddCountry} />
+        <AdminRoute exact path="/country_details" component={CountriesDetails} />
 
         <SuperAdminRoute exact path="/admin_list" component={AdminList} />
         <SuperAdminRoute exact path="/admin_list/:id" component={AdminList} />
