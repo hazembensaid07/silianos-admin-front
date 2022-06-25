@@ -27,6 +27,7 @@ import AddCountry from "./Components/addCountry/addCountry";
 import CountriesDetails from './Components/countriesDetails/countriesDetails.js';
 import Reservationlist from "./Components/reservationList/reservationList";
 import Addreservation from "./Components/AddReservation/addReservation";
+import Reservationdetails from "./Components/reservationDetails/reservationDetails";
 function App() {
   return (
     <div className="App">
@@ -53,6 +54,8 @@ function App() {
 
         <AdminRoute exact path="/reservation_list" component={Reservationlist} />
         <AdminRoute exact path="/add_reservation" component={Addreservation} />
+        <AdminRoute exact path="/reservation_details" component={Reservationdetails} />
+
 
         
 

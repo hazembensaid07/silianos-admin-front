@@ -34,14 +34,40 @@ import {
       });
     }
   };
-  export const getVoucher = (id) => async (dispatch) => {
+  export const getVerified=(verif,pageNumber)=> async (dispatch)=>{
     dispatch({ type: GET_RESERVATIONS_LOAD });
     try {
       const token = getCookie("token");
       const options = {
         headers: { authorization: token },
       };
-      const response = await axios.get(`${apiUri()}/voucher/one/${id}`, options);
+      const result = await axios.get(
+        `${apiUri()}/reservation/filter/check?search=${verif}&page=${pageNumber}`,
+        options
+      );
+  
+      dispatch({
+        type: GET_RESERVATIONS_SUCCESS,
+        payload: {
+          reservations: result.data.response,
+          pages: result.data.totalPages,
+        },
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_RESERVATIONS_FAIL,
+        payload: error.response.data.error,
+      });
+    }
+  };
+  export const getReservation = (id) => async (dispatch) => {
+    dispatch({ type: GET_RESERVATIONS_LOAD });
+    try {
+      const token = getCookie("token");
+      const options = {
+        headers: { authorization: token },
+      };
+      const response = await axios.get(`${apiUri()}/reservation/${id}`, options);
   
       dispatch({ type: GET_RESERVATION, payload: response.data.result });
     } catch (error) {

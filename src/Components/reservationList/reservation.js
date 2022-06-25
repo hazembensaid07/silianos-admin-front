@@ -23,12 +23,12 @@ const Reservation = ({ voucher, cin, page, vouchers }) => {
       </td>
       <td>{voucher.cin}</td>
       <td>{voucher.telephone}</td>
-      {voucher.paidAgency && (
+      {voucher.checked==="true" && (
         <td>
           <span className="badge rounded-pill alert-success">oui</span>
         </td>
       )}
-      {!voucher.paidAgency && (
+      {voucher.checked==="false" && (
         <td>
           <span className="badge rounded-pill alert-danger">non</span>
         </td>
@@ -38,7 +38,7 @@ const Reservation = ({ voucher, cin, page, vouchers }) => {
         <Link
           className="btn btn-light"
           to={{
-            pathname: `/voucher_details`,
+            pathname: `/reservation_details`,
             state: {
               id: voucher._id,
               rooms: voucher.rooms,

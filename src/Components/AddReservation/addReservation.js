@@ -17,7 +17,7 @@ const Addreservation = () => {
     tel: "",
     date: "",
     name: "",
-    checked: false,
+    checked: "false",
     price: 0,
     disabled: false,
     message: "",
@@ -60,7 +60,7 @@ const Addreservation = () => {
             tel: "",
             date: "",
             name: "",
-            checked: true,
+            checked: "false",
             price: 0,
             disabled: false,
             message: "",
@@ -72,7 +72,6 @@ const Addreservation = () => {
       const updated1 = { ...voucher, disabled: false };
       setVoucher(updated1);
       toast.error(error.response.data.error);
-      console.log(error)
     }
   };
   return (
@@ -217,8 +216,8 @@ const Addreservation = () => {
                     onChange={handleChange}
                     id="checked"
                   >
-                    <option value={true}> true </option>
-                    <option value={false}> false </option>
+                    <option value="false"> false </option>
+                    <option value="true"> true </option>
                   </select>
                 </div>
                 <br />
