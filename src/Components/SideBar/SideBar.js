@@ -78,6 +78,17 @@ const SideBar = () => {
               <span className="text">Bons d'achat</span>
             </NavLink>
           </li>
+          <li className="menu-item ">
+            <NavLink
+              className="menu-link"
+              to={{ pathname: `/reservation_list` }}
+              activeStyle={{ color: "#ff0000" }}
+            >
+              {" "}
+              <i className="icon material-icons md-monetization_on" />
+              <span className="text">Réservation voyage</span>
+            </NavLink>
+          </li>
           {isAuth().email === "hazembensaid195@gmail.com" && (
             <li className="menu-item ">
               {" "}
