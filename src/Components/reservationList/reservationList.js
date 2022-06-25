@@ -61,30 +61,6 @@ const Reservationlist = ({ history }) => {
 
       <main className="main-wrap">
         <header className="main-header navbar">
-          <div className="col-search">
-            <form className="searchform">
-              <div className="input-group">
-                <input
-                  list="search_terms"
-                  type="text"
-                  className="form-control"
-                  placeholder="search vouchers by hotel "
-                  value={hotel}
-                  onChange={handleChange}
-                />
-                <Link
-                  className="btn btn-light bg"
-                  to={{
-                    pathname: `/vouchersbyhotel`,
-                    state: { hotel: hotel },
-                  }}
-                >
-                  {" "}
-                  <i className="material-icons md-search" />{" "}
-                </Link>
-              </div>
-            </form>
-          </div>
           <div className="col-brand"></div>
 
           <div className="col-nav">
