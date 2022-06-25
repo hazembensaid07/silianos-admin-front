@@ -5,7 +5,7 @@ import SideBar from "../SideBar/SideBar";
 import { useDispatch, useSelector } from "react-redux";
 import Reservation from "./reservation";
 import {
-  getReservations,
+  getReservations,getVerified
 } from "../../JS/actions/reservation";
 const Reservationlist = ({ history }) => {
   const [pageNumber, setPageNumber] = useState(0);
@@ -28,10 +28,15 @@ const Reservationlist = ({ history }) => {
   const gotoNext = () => {
     setPageNumber(Math.min(numberOfpages - 1, pageNumber + 1));
   };
-  const clickPaid = (event) => {
+  const clickVerified=(event)=>{
     setShow(1);
     setPageNumber(0);
-  };
+  }
+  const clickNotVerified=(event)=>{
+    setShow(2);
+    setPageNumber(0);
+  }
+
   const clickAll = (event) => {
     setCin("")
     setShow(0);
@@ -41,9 +46,12 @@ const Reservationlist = ({ history }) => {
     if (show === 0) {
       dispatch(getReservations(cin, pageNumber));
     }
-    // if (show === 1) {
-    //   dispatch(getPaidVouchers(cin, pageNumber));
-    // }
+    if (show === 1) {
+      dispatch(getVerified("true", pageNumber));
+    }
+    if(show===2){
+      dispatch(getVerified("false",pageNumber))
+    }
   }, [cin, dispatch, show, pageNumber]);
 
   return (
@@ -107,7 +115,7 @@ const Reservationlist = ({ history }) => {
         </header>
         <section className="content-main">
           <div className="content-header">
-            <h2 className="content-title">Liste des résercations voyages </h2>
+            <h2 className="content-title">Liste des réservations voyages </h2>
 
             <div>
               <Link
@@ -135,7 +143,7 @@ const Reservationlist = ({ history }) => {
                     <button
                       className="btn btn-success"
                       style={{ color: "white" }}
-                      onClick={clickPaid}
+                      onClick={clickVerified}
                     >
                       <i className="material-icons md-plus" /> Vérifié
                     </button>
@@ -143,8 +151,8 @@ const Reservationlist = ({ history }) => {
                 </div>
                 <div className="col-lg-2 col-6 col-md-3">
                   <div>
-                    <button className="btn btn-danger">
-                      <i className="material-icons md-plus" /> Non Vérifié
+                    <button onClick={clickNotVerified} className="btn btn-danger">
+                      <i  className="material-icons md-plus" /> Non Vérifié
                     </button>
                   </div>
                 </div>
@@ -190,7 +198,7 @@ const Reservationlist = ({ history }) => {
                   </tbody>
                 </table>
                 {!loadVouchers && vouchers.length === 0 && (
-                  <b>Il n'y a pas de bons d'achat </b>
+                  <b>Il n'y a pas de reservation</b>
                 )}
               </div>{" "}
               {/* table-responsive end // */}
