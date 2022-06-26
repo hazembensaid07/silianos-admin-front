@@ -32,6 +32,7 @@ const Trip = ({ trip, name, page, trips }) => {
               id: trip._id,
               pictures: trip.pictures,
               best: trip.bestorg,
+              tripp: trip,
             },
           }}
         >

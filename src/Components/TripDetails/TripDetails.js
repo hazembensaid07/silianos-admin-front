@@ -8,11 +8,12 @@ import { DefaultEditor } from "react-simple-wysiwyg";
 
 import { getTrip } from "../../JS/actions/trip";
 
-const TripDetails = ({ location }) => {
+const TripDetails = ({ location, tripp }) => {
   const id = location.state.id;
   const pics = location.state.pictures;
   const best = location.state.best;
-  console.log(best);
+  const trippp = location.state.tripp;
+
   const dispatch = useDispatch();
   const trip = useSelector((state) => state.tripReducer.trip);
   const loadTrips = useSelector((state) => state.tripReducer.loadTrips);
@@ -79,13 +80,8 @@ const TripDetails = ({ location }) => {
 
                     <DefaultEditor value={trip.programme} />
                   </div>
-                  <div className="mb-4">
-                    <label className="form-label">Dates</label>
-                    <p className="form-control" rows={4}>
-                      {trip.dates}
-                    </p>
-                  </div>
-                  {trip.price.map((el) => (
+
+                  {trippp.price.map((el) => (
                     <div className="row gx-2">
                       <div className="col-sm-6 mb-3">
                         <label className="form-label">Prix</label>
