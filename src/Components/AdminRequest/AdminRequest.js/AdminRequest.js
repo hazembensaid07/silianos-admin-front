@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Header from "../../Header/Header";
+import HeaderAuth from "../../Header/HeaderAuth";
 import { Redirect } from "react-router-dom";
 import { isAuth } from "../../../helpers/helper";
 import axios from "axios";
@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import apiUri from "../../apiUri";
 import { getCookie } from "../../../helpers/helper";
+import HeaderAuth from "../../Header/HeaderAuth";
 const AdminRequest = () => {
   const [email, setEmail] = useState("");
   const handleChange = (event) => {
@@ -36,14 +37,14 @@ const AdminRequest = () => {
       )}
       <ToastContainer />
       <b className="screen-overlay" />
-      <Header />
+      <HeaderAuth />
       <section className="content-main">
         <div
           className="card shadow mx-auto"
           style={{ maxWidth: "380px", marginTop: "100px" }}
         >
           <div className="card-body">
-            <h4 className="card-title mb-4">Devenir Admin Sylanos  </h4>
+            <h4 className="card-title mb-4">Devenir Admin Sylanos </h4>
             <form>
               <div className="mb-3">
                 <input
