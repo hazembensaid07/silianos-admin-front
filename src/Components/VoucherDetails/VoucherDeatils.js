@@ -45,9 +45,6 @@ const VoucherDeatils = ({ location }) => {
   const validateAgencyPaymenttAcoompte = (event, id, accompte) => {
     event.preventDefault();
     try {
-      if (voucher.accompte > 0) {
-        toast.error("déjà validé");
-      }
       if (voucher.paidAgency) {
         toast.error("déjà validé");
       } else {

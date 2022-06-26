@@ -73,11 +73,10 @@ const TripDetails = ({ location }) => {
                   <div className="mb-4">
                     <label className="form-label">Description</label>
                     <DefaultEditor value={trip.description} />
-
                   </div>
                   <div className="mb-4">
                     <label className="form-label">Programme</label>
-                  
+
                     <DefaultEditor value={trip.programme} />
                   </div>
                   <div className="mb-4">
@@ -86,20 +85,32 @@ const TripDetails = ({ location }) => {
                       {trip.dates}
                     </p>
                   </div>
+                  {trip.price.map((el) => (
+                    <div className="row gx-2">
+                      <div className="col-sm-6 mb-3">
+                        <label className="form-label">Prix</label>
+                        <p className="form-control" rows={4}>
+                          {el.price}
+                        </p>
+                      </div>
+                      <div className="col-sm-6 mb-3">
+                        <label className="form-label">date</label>
+                        <p className="form-control" rows={4}>
+                          {el.date}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
                   <div className="row gx-2">
                     <div className="col-sm-6 mb-3">
-                      <label className="form-label">Prix</label>
-                      <p className="form-control" rows={4}>
-                        {trip.price}
-                      </p>
-                    </div>
-                    <div className="col-sm-6 mb-3">
-                      <label className="form-label">Meilleure destination </label>
+                      <label className="form-label">
+                        Meilleure Destination{" "}
+                      </label>
                       <p className="form-control" rows={4}>
                         {trip.bestorg ? "vrai" : "faux"}
                       </p>
                     </div>
-                  </div>{" "}
+                  </div>
                   {/* row.// */}
                 </form>
               )}
