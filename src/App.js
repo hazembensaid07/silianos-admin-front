@@ -22,6 +22,12 @@ import SuperAdminRoute from "./routes/SuperAdminRoute";
 import VoucherDeatils from "./Components/VoucherDetails/VoucherDeatils";
 import AddVocuher from "./Components/AddVoucher/AddVocuher";
 import VoucherByHotel from "./Components/VoucherList/VocuherByHotel";
+import CountriesList from './Components/countriesList/countriesList'
+import AddCountry from "./Components/addCountry/addCountry";
+import CountriesDetails from './Components/countriesDetails/countriesDetails.js';
+import Reservationlist from "./Components/reservationList/reservationList";
+import Addreservation from "./Components/AddReservation/addReservation";
+import Reservationdetails from "./Components/reservationDetails/reservationDetails";
 function App() {
   return (
     <div className="App">
@@ -41,6 +47,17 @@ function App() {
         <AdminRoute exact path="/trips" component={TripList} />
         <AdminRoute exact path="/add_trip" component={AddTrip} />
         <AdminRoute exact path="/trip_details" component={TripDetails} />
+
+        <AdminRoute exact path="/countries" component={CountriesList} />
+        <AdminRoute exact path="/add_country" component={AddCountry} />
+        <AdminRoute exact path="/country_details" component={CountriesDetails} />
+
+        <AdminRoute exact path="/reservation_list" component={Reservationlist} />
+        <AdminRoute exact path="/add_reservation" component={Addreservation} />
+        <AdminRoute exact path="/reservation_details" component={Reservationdetails} />
+
+
+        
 
         <SuperAdminRoute exact path="/admin_list" component={AdminList} />
         <SuperAdminRoute exact path="/admin_list/:id" component={AdminList} />

@@ -25,6 +25,7 @@ export const getTrips = (name, pageNumber) => async (dispatch) => {
       payload: { trips: result.data.response, pages: result.data.totalPages },
     });
   } catch (error) {
+    console.log(error);
     dispatch({
       type: GET_TRIPS_FAIL,
       payload: error.response.data.error,

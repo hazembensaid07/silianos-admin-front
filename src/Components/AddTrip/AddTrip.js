@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import HeaderAuth from "../Header/HeaderAuth";
 import SideBar from "../SideBar/SideBar";
 import { DefaultEditor } from "react-simple-wysiwyg";
+import sanitizeHtml from "sanitize-html";
 
 import { deletePhoto, getTrip } from "../../JS/actions/trip";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +17,36 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
 const AddTrip = () => {
+  const [formFields, setFormFields] = useState([
+    {
+      date: "",
+      price: 0,
+    },
+  ]);
+
+  const addFields = (e) => {
+    e.preventDefault();
+    let object = {
+      date: "",
+      price: 0,
+    };
+
+    setFormFields([...formFields, object]);
+  };
+
+  const removeFields = (index, e) => {
+    e.preventDefault();
+    let data = [...formFields];
+    data.splice(index, 1);
+    setFormFields(data);
+  };
+
+  const handleFormChange = (event, index) => {
+    let data = [...formFields];
+    data[index][event.target.id] = event.target.value;
+    setFormFields(data);
+  };
+
   const dispatch = useDispatch();
   let counter = 0;
   let info = [];
@@ -23,11 +54,9 @@ const AddTrip = () => {
   const edit = useSelector((state) => state.editReducer.edit);
   const tripp = useSelector((state) => state.tripReducer.trip);
 
-
   const [trip, setTrip] = React.useState({
     destination: "",
     price: "",
-    dates: "",
     bestorg: true,
     metadescription: "",
     metakeywords: "",
@@ -36,22 +65,20 @@ const AddTrip = () => {
   });
 
   const [file, setFile] = useState([]);
-  const [description, setDescription] = React.useState('');
-  const [programme, setProgramme] = React.useState('');
+  const [description, setDescription] = React.useState("");
+  const [programme, setProgramme] = React.useState("");
 
-  
   function onChangeDescription(e) {
-    setDescription(e.target.value);
+    setDescription(sanitizeHtml(e.target.value));
   }
   function onChangeProgramme(e) {
-    setProgramme(e.target.value);
+    setProgramme(sanitizeHtml(e.target.value));
   }
   const handleChangeFile = (e) => {
     e.preventDefault();
     setFile(e.target.files);
   };
 
-  
   const handleChangeArray = (e) => {
     e.preventDefault();
     setTrip({ ...trip, [e.target.id]: e.target.value.split(",") });
@@ -70,126 +97,152 @@ const AddTrip = () => {
     let updatedItem = { ...trip, disabled: true };
     setTrip(updatedItem);
 
-    const {
-      destination,
-      price,
-      dates,
-      bestorg,
-      metadescription,
-      metakeywords,
-      metatitle,
-    } = trip;
-    trip.description=description;
-    trip.programme=programme;
-    console.log(trip)
     const token = getCookie("token");
-
     const data = new FormData();
     for (const key of Object.keys(file)) {
       data.append("image", file[key]);
     }
 
-    if (!edit) {
-      axios.defaults.headers.post["Content-Type"] =
-        "application/x-www-form-urlencoded";
-      axios({
-        method: "post",
-        url: `${apiUri()}/org/add`,
-        data: data,
-        headers: {
-          authorization: token,
-          ...trip,
-        },
+    axios({
+      method: "post",
+      url: `${apiUri()}/org/add/image`,
+      data: data,
+      headers: {
+        authorization: token,
+      },
+    })
+      .then((response) => {
+        const pictures = response.data.pictures;
+        const cloudinary_ids = response.data.cloudinary_ids;
+
+        const {
+          destination,
+          bestorg,
+          metadescription,
+          metakeywords,
+          metatitle,
+        } = trip;
+        trip.cloudinary_ids = cloudinary_ids;
+        trip.pictures = pictures;
+        trip.price = formFields;
+        trip.description = description;
+        trip.programme = programme;
+
+        if (!edit) {
+          axios.defaults.headers.post["Content-Type"] =
+            "application/x-www-form-urlencoded";
+          axios({
+            method: "post",
+            url: `${apiUri()}/org/add`,
+            data: trip,
+            headers: {
+              authorization: token,
+            },
+          })
+            .then((response) => {
+              toast.success("new Trip added");
+              setTrip({
+                destination: "",
+                description: "",
+                programme: "",
+                price: "",
+                bestorg: false,
+                metadescription: "",
+                metakeywords: "",
+                metatitle: "",
+                disabled: false,
+              });
+              setFile([]);
+              setFormFields([
+                {
+                  date: "",
+                  price: 0,
+                },
+              ]);
+              handleScroll(e);
+            })
+            .catch((error) => {
+              const updated1 = { ...trip, disabled: false };
+              setTrip(updated1);
+
+              if (error.response.data.error) {
+                toast.error(error.response.data.error);
+              } else {
+                toast("error");
+              }
+            });
+        } else {
+          let trippp = {};
+          trippp = {
+            destination,
+            bestorg,
+            metadescription,
+            metakeywords,
+            metatitle,
+          };
+          trippp.id = tripp._id;
+          trippp.description = description;
+          trippp.programme = programme;
+          trippp.price = formFields;
+          trippp.cloudinary_ids = cloudinary_ids;
+          trippp.pictures = pictures;
+
+          axios.defaults.headers.post["Content-Type"] =
+            "application/x-www-form-urlencoded";
+          axios({
+            method: "post",
+            url: `${apiUri()}/org/update`,
+            data: trippp,
+            headers: {
+              authorization: token,
+            },
+          })
+            .then((response) => {
+              toast.success("updated");
+              dispatch(getTrip(tripp._id));
+              handleScroll(e);
+            })
+            .catch((error) => {
+              const updated2 = { ...trip, disabled: false };
+              setTrip(updated2);
+
+              toast.error(error.response.data.error);
+            });
+        }
       })
-        .then((response) => {
-          toast.success("new Trip added");
-          setTrip({
-            destination: "",
-            description: "",
-            programme: "",
-            price: "",
-            dates: "",
-            bestorg: false,
-            metadescription: "",
-            metakeywords: "",
-            metatitle: "",
-            disabled: false,
-          });
-          setFile([]);
-          handleScroll(e);
-        })
-        .catch((error) => {
-          const updated1 = { ...trip, disabled: false };
-          setTrip(updated1);
-
-          if (error.response.data.error) {
-            toast.error(error.response.data.error);
-          } else {
-            toast("error");
-          }
-        });
-    } else {
-      let trippp = {};
-      trippp = {
-        destination,
-        price,
-        dates,
-        bestorg,
-        metadescription,
-        metakeywords,
-        metatitle,
-      };
-      trippp.id = tripp._id;
-      trippp.description=description;
-      trippp.programme=programme;
-      console.log(trippp)
-
-      axios.defaults.headers.post["Content-Type"] =
-        "application/x-www-form-urlencoded";
-      axios({
-        method: "post",
-        url: `${apiUri()}/org/update`,
-        data: data,
-        headers: {
-          authorization: token,
-          ...trippp,
-        },
-      })
-        .then((response) => {
-          toast.success("updated");
-          dispatch(getTrip(tripp._id));
-          handleScroll(e);
-        })
-        .catch((error) => {
-          const updated2 = { ...trip, disabled: false };
-          setTrip(updated2);
-
-          toast.error(error.response.data.error);
-        });
-    }
+      .catch((error) => {
+        const updated4 = { ...trip, disabled: false };
+        setTrip(updated4);
+      });
   };
 
-  useEffect(() => {if (edit){
-    setTrip(tripp);setDescription(tripp.description);setProgramme(tripp.programme);
-
-  }
-  else {
-    setTrip({
-      destination: "",
-      description: "",
-      programme: "",
-      price: "",
-      dates: "",
-      bestorg: false,
-      metadescription: "",
-      metakeywords: "",
-      metatitle: "",
-      disabled: false,
-    });
-    setProgramme("");
-    setDescription("");
-  }
-      
+  useEffect(() => {
+    if (edit) {
+      setTrip(tripp);
+      setDescription(tripp.description);
+      setProgramme(tripp.programme);
+      setFormFields(tripp.price);
+    } else {
+      setTrip({
+        destination: "",
+        description: "",
+        programme: "",
+        price: "",
+        bestorg: false,
+        metadescription: "",
+        metakeywords: "",
+        metatitle: "",
+        disabled: false,
+      });
+      setProgramme("");
+      setDescription("");
+      setFormFields([
+        {
+          date: "",
+          price: 0,
+        },
+      ]);
+    }
   }, [edit, tripp]);
   return (
     <div>
@@ -235,38 +288,11 @@ const AddTrip = () => {
                   </label>
 
                   <DefaultEditor
-              
-              value={programme}
+                    value={programme}
                     onChange={onChangeProgramme}
-                    
                   />
                 </div>
-                <div className="mb-4">
-                  <label htmlFor="localisation" className="form-label">
-                    prix
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Tapez ici"
-                    className="form-control"
-                    id="price"
-                    value={trip.price}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="localisation" className="form-label">
-                    dates
-                  </label>
-                  <input
-                    type="date"
-                    placeholder="Tapez ici"
-                    className="form-control"
-                    id="dates"
-                    value={trip.dates}
-                    onChange={handleChange}
-                  />
-                </div>
+
                 <div className="mb-4">
                   <label htmlFor="localisation" className="form-label">
                     meta_keywords
@@ -320,6 +346,65 @@ const AddTrip = () => {
                     </select>
                   </div>
                 </div>
+                {formFields &&
+                  formFields.map((form, index) => {
+                    return (
+                      <div key={index}>
+                        <div className="row gx-2">
+                          <div className="mb-4">
+                            <label
+                              htmlFor="localisation"
+                              className="form-label"
+                            >
+                              dates
+                            </label>
+                            <input
+                              type="date"
+                              placeholder="Tapez ici"
+                              className="form-control"
+                              id="date"
+                              value={form.date}
+                              onChange={(event) =>
+                                handleFormChange(event, index)
+                              }
+                            />
+                          </div>
+                          <div className="mb-4">
+                            <label
+                              htmlFor="localisation"
+                              className="form-label"
+                            >
+                              prix
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="Tapez ici"
+                              className="form-control"
+                              id="price"
+                              value={form.price}
+                              onChange={(event) =>
+                                handleFormChange(event, index)
+                              }
+                            />
+                          </div>
+                        </div>
+                        <button
+                          className="btn btn-primary"
+                          onClick={(e) => removeFields(index, e)}
+                        >
+                          supprimer
+                        </button>
+                        <br />
+                        <br />
+                      </div>
+                    );
+                  })}
+                <button className="btn btn-primary" onClick={addFields}>
+                  ajouter un autre date
+                </button>
+                <br />
+                <br />
+                <br />
                 <div className="mb-4">
                   <label className="form-label">Images</label>
                   <input
@@ -393,7 +478,8 @@ const AddTrip = () => {
                       );
                     }}
                   >
-Supprmier les images selectionés                  </button>
+                    Supprmier les images selectionés{" "}
+                  </button>
                 )}
                 <br />
                 <br />

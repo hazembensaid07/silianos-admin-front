@@ -48,6 +48,17 @@ const SideBar = () => {
           <li className="menu-item ">
             <NavLink
               className="menu-link"
+              to={{ pathname: `/countries` }}
+              activeStyle={{ color: "#ff0000" }}
+            >
+              {" "}
+              <i className="icon material-icons md-public " />
+              <span className="text">Pays</span>
+            </NavLink>
+          </li>
+          <li className="menu-item ">
+            <NavLink
+              className="menu-link"
               to={{ pathname: `/trips` }}
               activeStyle={{ color: "#ff0000" }}
             >
@@ -65,6 +76,17 @@ const SideBar = () => {
               {" "}
               <i className="icon material-icons md-monetization_on" />
               <span className="text">Bons d'achat</span>
+            </NavLink>
+          </li>
+          <li className="menu-item ">
+            <NavLink
+              className="menu-link"
+              to={{ pathname: `/reservation_list` }}
+              activeStyle={{ color: "#ff0000" }}
+            >
+              {" "}
+              <i className="icon material-icons md-monetization_on" />
+              <span className="text">Réservation voyage</span>
             </NavLink>
           </li>
           {isAuth().email === "hazembensaid195@gmail.com" && (
