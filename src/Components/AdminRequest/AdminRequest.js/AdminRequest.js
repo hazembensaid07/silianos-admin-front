@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import HeaderAuth from "../../Header/HeaderAuth";
+
 import { Redirect } from "react-router-dom";
 import { isAuth } from "../../../helpers/helper";
 import axios from "axios";
