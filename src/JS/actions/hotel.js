@@ -19,7 +19,7 @@ export const addHotel = (hotel, file) => async (dispatch) => {
       "application/x-www-form-urlencoded";
     axios({
       method: "post",
-      url: "https://sylanos.herokuapp.com/api/hotel/add",
+      url: `${apiUri()}/hotel/add`,
       data: data,
       headers: {
         authorization: token,
@@ -113,7 +113,7 @@ export const updateHotel = (hotel, file, id) => async (dispatch) => {
       "application/x-www-form-urlencoded";
     axios({
       method: "post",
-      url: "https://sylanos.herokuapp.com/api/hotel/update",
+      url: `${apiUri()}/hotel/update`,
       data: data,
       headers: {
         authorization: token,

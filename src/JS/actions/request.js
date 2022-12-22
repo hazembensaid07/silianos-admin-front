@@ -32,6 +32,7 @@ export const addRequest = (admin) => async (dispatch) => {
       headers: { authorization: token },
     };
     await axios.post(`${apiUri()}/user/add-admin`, { _id }, options);
+    //dispatch the get request to update the view always
     dispatch(getRequests());
   } catch (error) {
     dispatch({ payload: error.response.data.error });

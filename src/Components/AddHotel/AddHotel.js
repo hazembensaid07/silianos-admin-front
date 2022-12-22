@@ -19,7 +19,7 @@ const AddHotel = () => {
   let info = [];
 
   const [description, setDescription] = React.useState("");
-
+  //prices dynamic form state
   const [formFields, setFormFields] = useState([
     {
       datedebut: "",
@@ -39,49 +39,6 @@ const AddHotel = () => {
       discount: 0,
     },
   ]);
-
-  const addFields = (e) => {
-    e.preventDefault();
-    let object = {
-      pricelpdadulte: 0,
-      pricedpadulte: 0,
-      pricepcadulte: 0,
-      priceallinsoftadulte: 0,
-      priceallinadulte: 0,
-      datedebut: "",
-      datefin: "",
-      reductionenfant2ans: 0,
-      reductionenfant12ans: 0,
-      reductionenfantadulte: 0,
-      reductionenfantsingle: 0,
-      reduction3lit: 0,
-      reduction4lit: 0,
-      supsingle: 0,
-      discount: 0,
-    };
-
-    setFormFields([...formFields, object]);
-  };
-
-  const removeFields = (index, e) => {
-    e.preventDefault();
-    let data = [...formFields];
-    data.splice(index, 1);
-    setFormFields(data);
-  };
-
-  const handleFormChange = (event, index) => {
-    let data = [...formFields];
-    data[index][event.target.id] = event.target.value;
-    setFormFields(data);
-  };
-
-  function onChangeDescription(e) {
-    setDescription(sanitizeHtml(e.target.value));
-  }
-
-  const [deletei, setDeletei] = useState(1);
-  const dispatch = useDispatch();
   const edit = useSelector((state) => state.editReducer.edit);
   const hotell = useSelector((state) => state.hotelReducer.hotel);
   const [hotel, setHotel] = useState({
@@ -111,7 +68,50 @@ const AddHotel = () => {
     all_in_soft: false,
     all_in_hard: false,
   });
+  //image index state to delete
+  const [deletei, setDeletei] = useState(1);
+  const dispatch = useDispatch();
+  //add filed to prices dynamic form
+  const addFields = (e) => {
+    e.preventDefault();
+    let object = {
+      pricelpdadulte: 0,
+      pricedpadulte: 0,
+      pricepcadulte: 0,
+      priceallinsoftadulte: 0,
+      priceallinadulte: 0,
+      datedebut: "",
+      datefin: "",
+      reductionenfant2ans: 0,
+      reductionenfant12ans: 0,
+      reductionenfantadulte: 0,
+      reductionenfantsingle: 0,
+      reduction3lit: 0,
+      reduction4lit: 0,
+      supsingle: 0,
+      discount: 0,
+    };
 
+    setFormFields([...formFields, object]);
+  };
+  //remove fields from prices dynamic form
+  const removeFields = (index, e) => {
+    e.preventDefault();
+    let data = [...formFields];
+    data.splice(index, 1);
+    setFormFields(data);
+  };
+  //handle  prices input changes
+  const handleFormChange = (event, index) => {
+    let data = [...formFields];
+    data[index][event.target.id] = event.target.value;
+    setFormFields(data);
+  };
+  //handle description change
+  function onChangeDescription(e) {
+    setDescription(sanitizeHtml(e.target.value));
+  }
+  //handle files change
   const handleChangeFile = (e) => {
     e.preventDefault();
     setFile(e.target.files);
@@ -121,17 +121,19 @@ const AddHotel = () => {
     e.preventDefault();
     setHotel({ ...hotel, [e.target.id]: e.target.value.split(",") });
   };
-
+  //handle change hotel data
   const handleChange = (e) => {
     e.preventDefault();
     setHotel({ ...hotel, [e.target.id]: e.target.value });
   };
-  const handleChange3 = (e) => {
+  //handle change logement
+  const handleChangelogement = (e) => {
     e.preventDefault();
     if (e.target.value == "true") setLog({ ...logement2, [e.target.id]: true });
     else setLog({ ...logement2, [e.target.id]: false });
   };
-  const handleChange2 = (e) => {
+  //handle change Picture delete
+  const handleChangeDeltePicture = (e) => {
     e.preventDefault();
     setDeletei(e.target.value);
   };
@@ -145,7 +147,7 @@ const AddHotel = () => {
     for (const key of Object.keys(file)) {
       data.append("image", file[key]);
     }
-
+    //upload pictures
     axios({
       method: "post",
       url: `${apiUri()}/hotel/add-files`,
@@ -205,7 +207,7 @@ const AddHotel = () => {
         hotel.cloudinary_ids = cloudinary_ids;
 
         console.log(hotel);
-
+        //upload hotel data
         if (!edit) {
           axios.defaults.headers.post["Content-Type"] =
             "application/x-www-form-urlencoded";
@@ -335,6 +337,7 @@ const AddHotel = () => {
   };
 
   useEffect(() => {
+    //testing to display the add compoent or the update component
     if (edit) {
       setHotel(hotell);
 
@@ -592,7 +595,7 @@ const AddHotel = () => {
                     <select
                       className="form-select"
                       value={logement2.lpd}
-                      onChange={handleChange3}
+                      onChange={handleChangelogement}
                       id="lpd"
                     >
                       <option value={true}> vrai </option>
@@ -606,7 +609,7 @@ const AddHotel = () => {
                     <select
                       className="form-select"
                       value={logement2.dp}
-                      onChange={handleChange3}
+                      onChange={handleChangelogement}
                       id="dp"
                     >
                       <option value={true}> vrai </option>
@@ -620,7 +623,7 @@ const AddHotel = () => {
                     <select
                       className="form-select"
                       value={logement2.pc}
-                      onChange={handleChange3}
+                      onChange={handleChangelogement}
                       id="pc"
                     >
                       <option value={true}> vrai </option>
@@ -634,7 +637,7 @@ const AddHotel = () => {
                     <select
                       className="form-select"
                       value={logement2.all_in_soft}
-                      onChange={handleChange3}
+                      onChange={handleChangelogement}
                       id="all_in_soft"
                     >
                       <option value={true}> vrai </option>
@@ -648,7 +651,7 @@ const AddHotel = () => {
                     <select
                       className="form-select"
                       value={logement2.all_in_hard}
-                      onChange={handleChange3}
+                      onChange={handleChangelogement}
                       id="all_in_hard"
                     >
                       <option value={true}> vrai </option>
@@ -1054,7 +1057,7 @@ const AddHotel = () => {
                       <select
                         className="form-select"
                         value={deletei}
-                        onChange={handleChange2}
+                        onChange={handleChangeDeltePicture}
                         id="delete"
                       >
                         {info.map((value, index) => {

@@ -5,10 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getRequests } from "../../JS/actions/request";
 import Admin from "./Admin";
 const AdminList = () => {
+  //get global states from redux
   const requests = useSelector((state) => state.request.requests);
   const loadRequests = useSelector((state) => state.request.loadRequests);
   const dispatch = useDispatch();
   useEffect(() => {
+    //execute the getrequests method with dispatch
     dispatch(getRequests());
   }, [dispatch]);
 

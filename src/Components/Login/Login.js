@@ -12,6 +12,7 @@ const Login = ({ history }) => {
     password: "",
   });
   const handleChange = (name) => (event) => {
+    //name of the input
     setValues({ ...values, [name]: event.target.value });
   };
   const clickSubmit = (event) => {
@@ -29,7 +30,7 @@ const Login = ({ history }) => {
             email: "",
             password: "",
           });
-
+          //verify that the token and user saved successfully
           isAuth() && history.push("/");
         });
       })
@@ -79,7 +80,6 @@ const Login = ({ history }) => {
                   className="float-end"
                 >
                   Mot de passe oublié ?
-
                 </Link>
                 <label className="form-check">
                   <input
@@ -103,8 +103,7 @@ const Login = ({ history }) => {
               </div>
             </form>
             <p className="text-center mb-4">
-            Vous n'avez pas de compte ?
-
+              Vous n'avez pas de compte ?
               <Link
                 to={{
                   pathname: `/signup`,

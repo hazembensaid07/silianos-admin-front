@@ -14,6 +14,7 @@ const Activate = ({ match }) => {
     axios({
       method: "POST",
       url: `${apiUri()}/user/account-activation`,
+      //send token in req.body
       data: { token },
     })
       .then((response) => {
@@ -24,6 +25,7 @@ const Activate = ({ match }) => {
       });
   };
   useEffect(() => {
+    //get token from url params
     let token = match.params.token;
     setToken(token);
   }, []);

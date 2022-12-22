@@ -38,8 +38,7 @@ const ForgotPassword = ({ history }) => {
           style={{ maxWidth: "380px", marginTop: "100px" }}
         >
           <div className="card-body">
-            <h4 className="card-title mb-4">                  Réinitialiser le mot de passe
-</h4>
+            <h4 className="card-title mb-4"> Réinitialiser le mot de passe</h4>
             <form>
               <div className="mb-3">
                 <input
@@ -58,7 +57,6 @@ const ForgotPassword = ({ history }) => {
                 >
                   {" "}
                   Réinitialiser le mot de passe
-
                 </button>
               </div>{" "}
             </form>

@@ -17,6 +17,7 @@ const AdminRequest = () => {
     event.preventDefault();
     try {
       const token = getCookie("token");
+      //send auth token in headers
       const options = {
         headers: { authorization: token },
       };
